@@ -23,29 +23,19 @@ public class start {
 	private static void menu() throws SQLException, ClassNotFoundException
     {
         int eingabe=0;
-        System.out.println("Willkommen im Benutzer-Interface. Was moechten Sie machen?");
-        System.out.println("1 Vorhandene Bauleiter ansehen");
-        System.out.println("2 Daten zu existierenden Bauleiter Ã¤ndern");
-        System.out.println("3 Neuen Bauleiter eingeben");
-        System.out.println("4 Vorhandene Gutachter ansehen");
-        System.out.println("5 Daten zu existierenden Gutachter Ã¤ndern");
-        System.out.println("6 Neuen Gutachter eingeben");
-        System.out.println("7 Programm verlassen");
+        System.out.println("Willkommen im Benutzer-Interface. Was möchten Sie machen?");
+        System.out.println("1 Vorhandene Dienstleister ansehen");
+        System.out.println("2 Vorhandene Dezernatmitarbeiter ansehen");
         
-        List<Fachrolle> dienstleister = DBManager.getUser("Dienstleister"); 
-        datenAusgabe(dienstleister);
         
-        /*
         try{
             eingabe = Integer.parseInt(sc.nextLine());
         }catch(Exception e)
         {
             System.out.println("Ungueltige Eingabe. Bitte erneut eingeben.");
             menu();
-        }*/
+        }
         
-        
-        /*
         switch(eingabe){
             default:
                 System.out.println("Ungültige Eingabe. Bitte erneut eingeben.");
@@ -53,18 +43,18 @@ public class start {
                 break;
                 
             case 1:
-                List<Fachrolle> dienstleister = DBManager.getUser("gebaeudemanagement.dienstleister"); 
+                List<Fachrolle> dienstleister = DBManager.getUser("Dienstleister"); 
                 datenAusgabe(dienstleister);
                 break;
                 
-            case 4:
-            	List<Fachrolle> dezernatmitarbeiter = DBManager.getUser("gebaeudemanagement.dezernatmitarbeiter"); 
+            case 2:
+            	List<Fachrolle> dezernatmitarbeiter = DBManager.getUser("Dezernatmitarbeiter"); 
             	datenAusgabe(dezernatmitarbeiter);
                 break;
                              
             case 7:
                 break;
-        }   */
+        }   
     }
 	
     public static void datenAusgabe(List<Fachrolle> fachrolle) throws ClassNotFoundException, SQLException {
