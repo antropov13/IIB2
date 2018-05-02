@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h1 style="color: #FF0000">${warning}</h1>
-	<h1>Herzlich Willkommen beim Gebaeudemenegement !</h1>
+	<h1>Herzlich Willkommen beim Gebaeudemenegement</h1>
 	Bitte geben Sie ihre Nutzerdaten ein:
 
 	<div id="wrap">

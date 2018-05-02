@@ -28,7 +28,7 @@ function startTime() {
 
 </script>
 
-<title>Gebaeudemenegement - Dienstleister</title>
+<title>Gebaeudemenegement - Dezernatmitarbeiter</title>
 </head>
 <body onload="startTime()">
 
