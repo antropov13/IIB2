@@ -53,14 +53,14 @@ public class Fachrolle {
     /**
      * @return the passwort
      */
-    public String getPasswort() {
+    public String getPass() {
         return passwort;
     }
 
     /**
      * @param passwort the passwort to set
      */
-    public void setPasswort(String passwort) {
+    public void setPass(String passwort) {
         this.passwort = passwort;
     }
 

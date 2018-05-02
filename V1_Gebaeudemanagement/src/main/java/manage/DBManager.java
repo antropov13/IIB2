@@ -25,12 +25,10 @@ public class DBManager {
 
 	private static java.sql.Connection getDBConnection(String dbName) throws ClassNotFoundException, SQLException {
 	    	
-		//Class.forName("org.gjt.mm.mysql.Driver");
-	    //return DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName, "root", "root"); // name, password
 	    Connection conn = null;
-	    String p = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	    String p = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //das ist notwendig wegen Fehler "time zone"
 		try {
-	
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "0000");    		
 		    		
 		} 
@@ -59,6 +57,24 @@ public class DBManager {
             frList.add(fr);
         }
         return frList;    
+	}
+	
+	public Fachrolle getUser(String sql, String tabelle) throws ClassNotFoundException, SQLException {
+
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Fachrolle fr = null ;
+		if (r.next()) {
+			fr = new Fachrolle();
+			fr.setId(r.getInt(1));
+			fr.setNachname(r.getString(2));
+			fr.setVorname(r.getString(3));
+			fr.setUsername(r.getString(4));
+			fr.setFachrolle(tabelle);
+		}
+		con.close(); // Very important!
+		return fr;
 	}
 	    
 	public static ResultSet query(String sql) throws ClassNotFoundException, SQLException {

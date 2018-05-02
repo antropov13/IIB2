@@ -23,7 +23,7 @@ public class start {
 	private static void menu() throws SQLException, ClassNotFoundException
     {
         int eingabe=0;
-        System.out.println("Willkommen im Benutzer-Interface. Was möchten Sie machen?");
+        System.out.println("Willkommen im Benutzer-Interface. Was moechten Sie machen?");
         System.out.println("1 Vorhandene Dienstleister ansehen");
         System.out.println("2 Vorhandene Dezernatmitarbeiter ansehen");
         
@@ -61,7 +61,7 @@ public class start {
 		String result;
 	    for (Fachrolle f : fachrolle) {
 	        	result = MessageFormat.format("ID = {0}, Name = {1}, Vorname = {2}, Username = {3}, Passwort = {4}", 
-	        			f.getId(), f.getNachname(), f.getVorname(), f.getUsername(), f.getPasswort());
+	        			f.getId(), f.getNachname(), f.getVorname(), f.getUsername(), f.getPass());
 	        	System.out.println(result);
 			
 		}

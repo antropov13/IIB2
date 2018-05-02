@@ -17,7 +17,8 @@ INSERT INTO `dienstleister` (`dlt_id`, `dlt_name`, `dlt_vorname`, `dlt_username`
 	(1, 'Burch', 'Timmy', 'Timmy!', _binary 0x54696D6D7921),
 	(2, 'Fritz', 'Jörg', 'jf', _binary 0x0DC3C11CD09782F5404591EFE5631994065A774D),
 	(3, 'Rieger', 'Bastian', NULL, NULL),
-	(4, 'Friedrich', 'Friedl', 'Frieden', _binary 0x7065616365);
+	(4, 'Friedrich', 'Friedl', 'Frieden', _binary 0x7065616365),
+    (5, 'Tom', 'Mot', 'q', 1234);
 /*!40000 ALTER TABLE `dienstleister` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~4 rows (ungefähr)
