@@ -39,3 +39,26 @@ CREATE TABLE IF NOT EXISTS `dezernatmitarbeiter` (
   `dma_passwort` blob,
   PRIMARY KEY (`dma_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `auftraege`;
+CREATE TABLE IF NOT EXISTS `auftraege` (
+  `auft_id` int(11) NOT NULL AUTO_INCREMENT,
+  `auft_dleistungen` varchar(50) DEFAULT NULL,
+  `auft_ersteller` varchar(50) DEFAULT NULL,
+  `auft_dleister` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`auft_id`),
+  FOREIGN KEY (`auft_dleistungen`)
+  REFERENCES dienstleistungen(`dlstng_name`),
+  FOREIGN KEY (`auft_ersteller`)
+  REFERENCES dezernatmitarbeiter(`dma_id`),
+  FOREIGN KEY (`auft_dleister`)
+  REFERENCES dienstleister(`dlt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `dienstleistungen`;
+CREATE TABLE IF NOT EXISTS `auftraege` (
+  `dleistung_name` int(11) NOT NULL AUTO_INCREMENT,
+  `dleistung_bes` varchar(50) DEFAULT NULL,
+  `dleistung_haeufigkeit` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`dleistung_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
