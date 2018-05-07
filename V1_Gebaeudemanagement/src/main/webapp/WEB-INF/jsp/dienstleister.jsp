@@ -34,8 +34,7 @@ function startTime() {
 
 	<div id="txt"></div>
 
-	<p>Guten Tag ${sessionScope.user.getVorname()}
-		${sessionScope.user.getNachname()}</p>
+	<p>Guten Tag ${sessionScope.user.getFirmaname()}</p>
 	<div id="wrap">
 		<p>${feedback}</p>
 	</div>

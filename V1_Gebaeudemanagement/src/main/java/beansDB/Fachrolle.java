@@ -3,6 +3,7 @@ package beansDB;
 public class Fachrolle {
 	private String vorname;
     private String nachname;
+    private String firmaname;
     private String username;
     private String passwort;
     private String fachrolle;
@@ -34,6 +35,20 @@ public class Fachrolle {
      */
     public void setNachname(String nachname) {
         this.nachname = nachname;
+    }
+    
+    /**
+     * @return the Firmaname
+     */
+    public String getFirmaname() {
+        return firmaname;
+    }
+
+    /**
+     * @param vorname the Firmaname to set
+     */
+    public void setFirmaname(String firmaname) {
+        this.firmaname = firmaname;
     }
 
     /**

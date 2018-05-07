@@ -27,6 +27,7 @@ public class LoginController {
 	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
+	
 		Fachrolle fr = new Fachrolle();
 		fr.setFachrolle(req.getParameter("fachrolle"));
 		fr.setUsername(req.getParameter("username"));
@@ -40,7 +41,7 @@ public class LoginController {
 			DBManager dbm = new DBManager();
 			String kuerzel = "dma_";
 			if (fr.getFachrolle().equals("Dienstleister")) {
-				kuerzel = "dlt_";
+				kuerzel = "dlr_";
 			}
 			String sql = "SELECT * FROM " + fr.getFachrolle() + " WHERE " + kuerzel + "username = '" + fr.getUsername()
 					+ "' AND " + kuerzel + "passwort = '" + fr.getPass() + "';";

@@ -45,16 +45,28 @@ public class DBManager {
     	ResultSet r = query(sql);	        
        
         List<Fachrolle> frList = new ArrayList<Fachrolle>();
-        
-        while (r.next()) {
-        	Fachrolle fr = new Fachrolle();
-            fr.setId(r.getInt(1));
-            fr.setNachname(r.getString(2));
-            fr.setVorname(r.getString(3));
-            fr.setUsername(r.getString(4));
-          
-            fr.setFachrolle(tabelle);
-            frList.add(fr);
+        if (tabelle.equals("Dezernatmitarbeiter")) {
+	        while (r.next()) {
+	        	Fachrolle fr = new Fachrolle();
+	            fr.setId(r.getInt(1));
+	            fr.setNachname(r.getString(2));
+	            fr.setVorname(r.getString(3));
+	            fr.setUsername(r.getString(4));
+	          
+	            fr.setFachrolle(tabelle);
+	            frList.add(fr);
+	        }
+        }
+        else {
+	        while (r.next()) {
+	        	Fachrolle fr = new Fachrolle();
+	            fr.setId(r.getInt(1));
+	            fr.setFirmaname(r.getString(2));
+	            fr.setUsername(r.getString(3));
+	          
+	            fr.setFachrolle(tabelle);
+	            frList.add(fr);
+	        }
         }
         return frList;    
 	}
@@ -65,6 +77,26 @@ public class DBManager {
 		Statement stmt = con.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
 		Fachrolle fr = null ;
+		if (tabelle.equals("Dezernatmitarbeiter")) {
+	        while (r.next()) {
+	        	fr = new Fachrolle();
+	            fr.setId(r.getInt(1));
+	            fr.setNachname(r.getString(2));
+	            fr.setVorname(r.getString(3));
+	            fr.setUsername(r.getString(4));
+	            fr.setFachrolle(tabelle);
+	        }
+        }
+        else {
+	        while (r.next()) {
+	        	fr = new Fachrolle();
+	            fr.setId(r.getInt(1));
+	            fr.setFirmaname(r.getString(2));
+	            fr.setUsername(r.getString(3));
+	            fr.setFachrolle(tabelle);
+	        }
+        }
+		/*
 		if (r.next()) {
 			fr = new Fachrolle();
 			fr.setId(r.getInt(1));
@@ -72,7 +104,7 @@ public class DBManager {
 			fr.setVorname(r.getString(3));
 			fr.setUsername(r.getString(4));
 			fr.setFachrolle(tabelle);
-		}
+		}*/
 		con.close(); // Very important!
 		return fr;
 	}

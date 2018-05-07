@@ -60,8 +60,11 @@ public class start {
     public static void datenAusgabe(List<Fachrolle> fachrolle) throws ClassNotFoundException, SQLException {
 		String result;
 	    for (Fachrolle f : fachrolle) {
+	    		if (f.getFachrolle().equals("Dezernatmitarbeiter"))
 	        	result = MessageFormat.format("ID = {0}, Name = {1}, Vorname = {2}, Username = {3}, Passwort = {4}", 
 	        			f.getId(), f.getNachname(), f.getVorname(), f.getUsername(), f.getPass());
+	    		else result = MessageFormat.format("ID = {0}, Firmaname = {1}, Username = {2}, Passwort = {3}", 
+	        			f.getId(), f.getFirmaname(), f.getUsername(), f.getPass());
 	        	System.out.println(result);
 			
 		}

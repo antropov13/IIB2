@@ -20,14 +20,38 @@ USE `gebaeudemanagement`;
 -- Exportiere Struktur von Tabelle gebaeudemanagement.dienstleister
 DROP TABLE IF EXISTS `dienstleister`;
 CREATE TABLE IF NOT EXISTS `dienstleister` (
-  `dlt_id` int(11) NOT NULL AUTO_INCREMENT,
-  `dlt_name` varchar(50) DEFAULT NULL,
-  `dlt_vorname` varchar(50) DEFAULT NULL,
-  `dlt_username` varchar(50) DEFAULT NULL,
-  `dlt_passwort` blob,
-  PRIMARY KEY (`dlt_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `dlr_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dlr_firmaname` varchar(50) DEFAULT NULL,
+  `dlr_username` varchar(50) DEFAULT NULL,
+  `dlr_passwort` blob,
+  PRIMARY KEY (`dlr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
+-- Exportiere Struktur von Tabelle gebaeudemanagement.dienstleister
+DROP TABLE IF EXISTS `dienstleistungen`;
+CREATE TABLE IF NOT EXISTS `dienstleistungen` (
+  `dln_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dln_name` varchar(50) DEFAULT NULL,
+  `dln_beschreibung` varchar(50) DEFAULT NULL,
+  `dln_haefigkeit` int(11) DEFAULT NULL,
+  `dln_dma_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`dln_id`),
+  KEY `dln_d_id` (`dln_dma_id`),
+  CONSTRAINT `dln_d_id` FOREIGN KEY (`dln_dma_id`) REFERENCES `dezernatmitarbeiter` (`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+
+-- Exportiere Struktur von Tabelle gebaeudemanagement.leistungsspektren
+DROP TABLE IF EXISTS `leistungsspektren`;
+CREATE TABLE IF NOT EXISTS `leistungsspektren` (
+  `ls_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ls_dln_id` int(11) DEFAULT NULL,
+  `ls_dma_id` int(11) DEFAULT NULL,
+  `ls_preis` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ls_id`),
+  KEY `ls_d_id` (`ls_dma_id`),
+  CONSTRAINT `ls_d_id` FOREIGN KEY (`ls_dma_id`) REFERENCES `dezernatmitarbeiter` (`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.dezernatmitarbeiter
 DROP TABLE IF EXISTS `dezernatmitarbeiter`;
@@ -38,4 +62,4 @@ CREATE TABLE IF NOT EXISTS `dezernatmitarbeiter` (
   `dma_username` varchar(50) DEFAULT NULL,
   `dma_passwort` blob,
   PRIMARY KEY (`dma_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
