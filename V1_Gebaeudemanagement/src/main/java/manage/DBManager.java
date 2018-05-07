@@ -14,7 +14,7 @@ import com.mysql.jdbc.*;
 
 import beansDB.Fachrolle;
 import beansDB.Gebaeude;
-
+import beansDB.Leistungsspektren;
 import manage.start;
 
 // CRUD = Create, Retrieve, Update, Delete
@@ -96,17 +96,27 @@ public class DBManager {
 	            fr.setFachrolle(tabelle);
 	        }
         }
-		/*
-		if (r.next()) {
-			fr = new Fachrolle();
-			fr.setId(r.getInt(1));
-			fr.setNachname(r.getString(2));
-			fr.setVorname(r.getString(3));
-			fr.setUsername(r.getString(4));
-			fr.setFachrolle(tabelle);
-		}*/
 		con.close(); // Very important!
 		return fr;
+	}
+	
+	public List<Leistungsspektren> getLeistungen(String sql) throws ClassNotFoundException, SQLException {
+		List<Leistungsspektren> lsList = new ArrayList<Leistungsspektren>();
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Leistungsspektren ls = null ;
+	    while (r.next()) {
+	    	ls = new Leistungsspektren();
+	        ls.setId(r.getInt(1));
+	        ls.setName(r.getString(2));
+	        ls.setBescheibung(r.getString(3));
+	        ls.setPreis(r.getInt(4));
+	        lsList.add(ls);
+	        
+	    }
+		con.close(); // Very important!
+		return lsList;
 	}
 	    
 	public static ResultSet query(String sql) throws ClassNotFoundException, SQLException {

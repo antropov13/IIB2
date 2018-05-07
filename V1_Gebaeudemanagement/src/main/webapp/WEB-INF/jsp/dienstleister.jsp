@@ -39,7 +39,16 @@ function startTime() {
 		<p>${feedback}</p>
 	</div>
 	
-		<p id="demo"></p>
+	<div>
+	<table>
+			<tr>
+				<td><a href="<%=request.getContextPath() %>/leistungsAusgeben">Leistungsspektren einsehen</a></td>
+			</tr>
+			
+	</table>
+			
+		</table>
+	</div>
 	<div>
 		<form action="logout">
 			<input type="submit" value="Logout"; margin-top: 10px;">

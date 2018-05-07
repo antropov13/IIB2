@@ -32,12 +32,12 @@ DROP TABLE IF EXISTS `dienstleistungen`;
 CREATE TABLE IF NOT EXISTS `dienstleistungen` (
   `dln_id` int(11) NOT NULL AUTO_INCREMENT,
   `dln_name` varchar(50) DEFAULT NULL,
-  `dln_beschreibung` varchar(50) DEFAULT NULL,
+  `dln_beschreibung` text(255) DEFAULT NULL,
   `dln_haefigkeit` int(11) DEFAULT NULL,
   `dln_dma_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`dln_id`),
   KEY `dln_d_id` (`dln_dma_id`),
-  CONSTRAINT `dln_d_id` FOREIGN KEY (`dln_dma_id`) REFERENCES `dezernatmitarbeiter` (`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `dln_d_id` FOREIGN KEY (`dln_dma_id`) REFERENCES `dezernatmitarbeiter` (`dlr_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 
@@ -46,11 +46,13 @@ DROP TABLE IF EXISTS `leistungsspektren`;
 CREATE TABLE IF NOT EXISTS `leistungsspektren` (
   `ls_id` int(11) NOT NULL AUTO_INCREMENT,
   `ls_dln_id` int(11) DEFAULT NULL,
-  `ls_dma_id` int(11) DEFAULT NULL,
+  `ls_dlr_id` int(11) DEFAULT NULL,
   `ls_preis` int(11) DEFAULT NULL,
   PRIMARY KEY (`ls_id`),
-  KEY `ls_d_id` (`ls_dma_id`),
-  CONSTRAINT `ls_d_id` FOREIGN KEY (`ls_dma_id`) REFERENCES `dezernatmitarbeiter` (`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  KEY `ls_d_id` (`ls_dlr_id`),
+  KEY `ls_l_id` (`ls_dln_id`),
+  CONSTRAINT `ls_d_id` FOREIGN KEY (`ls_dlr_id`) REFERENCES `dezernatmitarbeiter` (`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `ls_l_id` FOREIGN KEY (`ls_dln_id`) REFERENCES `dienstleistungen` (`dln_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.dezernatmitarbeiter

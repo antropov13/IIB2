@@ -46,7 +46,7 @@ INSERT INTO `dienstleistungen` (`dln_id`, `dln_name`, `dln_beschreibung`, `dln_h
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `leistungsspektren` DISABLE KEYS */;
-INSERT INTO `leistungsspektren` (`ls_id`, `ls_dln_id`, `ls_dma_id`, `ls_preis`) VALUES
+INSERT INTO `leistungsspektren` (`ls_id`, `ls_dln_id`, `ls_dlr_id`, `ls_preis`) VALUES
 	(1, 1, 1, 200),
 	(2, 2, 1, 300),
     (3, 3, 1, 250),
@@ -55,7 +55,7 @@ INSERT INTO `leistungsspektren` (`ls_id`, `ls_dln_id`, `ls_dma_id`, `ls_preis`) 
     (6, 1, 3, 300),
     (7, 2, 3, 100),
     (8, 3, 3, 150),
-    (9, 4, 3, 350);
+    (9, 4, 6, 350);
 /*!40000 ALTER TABLE `leistungsspektren` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~4 rows (ungefähr)
