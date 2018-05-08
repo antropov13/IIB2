@@ -111,12 +111,45 @@ public class DBManager {
 	        ls.setId(r.getInt(1));
 	        ls.setName(r.getString(2));
 	        ls.setBescheibung(r.getString(3));
-	        ls.setPreis(r.getInt(4) + "ˆ");
+	        ls.setPreis(r.getInt(4));
 	        lsList.add(ls);
 	        
 	    }
 		con.close(); // Very important!
 		return lsList;
+	}
+	
+	public int setLeistungen(String sql) throws ClassNotFoundException, SQLException {
+		Integer id=-1;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		
+		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.next()){
+		    id=rs.getInt(1);
+		}
+		System.out.println("id " + id);
+
+		con.close(); // Very important!
+		return id;
+	}
+	
+	public void updateLeistungSpektren(String sql) throws ClassNotFoundException, SQLException {
+		//Integer id=-1;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		stmt.executeUpdate(sql);
+		/*
+		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.next()){
+		    id=rs.getInt(1);
+		}
+		System.out.println("id " + id);
+		*/
+		con.close(); // Very important!
+		//return id;
 	}
 	    
 	public static ResultSet query(String sql) throws ClassNotFoundException, SQLException {

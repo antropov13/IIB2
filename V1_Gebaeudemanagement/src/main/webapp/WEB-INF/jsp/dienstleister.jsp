@@ -88,13 +88,14 @@ win = window.open("window.htm","win","height=300,width=300");
 						<tr class="w3-light-grey">
 							<td>${ln.getName()}</td>
 							<td rowspan="2">${ln.getBeschreibung()}</td>
-							<td rowspan="2">${ln.getPreis()}</td>
+							<td rowspan="2" style="width:70px">${ln.getPreis()} €</td>
 						</tr>
 						<tr>
 							<td>
-							<button id="${ln.getId()}" class="w3-button w3-yellow">
-							<a href="<%=request.getContextPath() %>/aenderungLeistung">&#9998;</a>
+							 <button id="${ln.getId()}" class="w3-button w3-yellow">
+							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=${ln.getId()}">&#9998;</a> 
 							</button>
+							
 							<button id="${ln.getId()}" class="w3-button w3-red" style="color: #000!important;">&#10005;</button>
 							</td>
 						</tr>
