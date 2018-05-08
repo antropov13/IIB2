@@ -55,7 +55,15 @@ INSERT INTO `leistungsspektren` (`ls_id`, `ls_dln_id`, `ls_dlr_id`, `ls_preis`) 
     (6, 1, 3, 300),
     (7, 2, 3, 100),
     (8, 3, 3, 150),
-    (9, 4, 6, 350);
+    (9, 4, 6, 350),
+    (10, 4, 1, 350),
+    (11, 4, 1, 350),
+    (12, 4, 1, 350),
+    (13, 4, 1, 350),
+    (14, 4, 1, 350),
+    (15, 4, 1, 350),
+    (16, 4, 1, 350),
+    (17, 4, 1, 350);
 /*!40000 ALTER TABLE `leistungsspektren` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~4 rows (ungefähr)

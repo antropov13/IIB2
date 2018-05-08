@@ -62,7 +62,10 @@ function start(){
 	</div>
 </div>
 
-<div style="margin:0 auto; width:890px;">
+<div class="w3-light-grey" style="margin:0 auto; width:890px; min-height:730px; position:absolute!important;     margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
@@ -70,11 +73,9 @@ function start(){
   <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
 </div>
 
-<div style="margin-left:130px">
-  <!--  <div class="w3-padding">Vertical Tab Example (sidebar)</div>-->
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:600px; float: left;">
+  	<div style="width:600px; float: left; height: 100%; margin-left:125px">
 			<table class="w3-table w3-bordered">
 				<tr class="w3-green">
 						<th>Name</th>
@@ -83,7 +84,7 @@ function start(){
 				</tr>
 		
 				<c:forEach items="${leistungen}" var="ln">
-						<tr>
+						<tr class="w3-light-grey">
 							<td>${ln.getName()}</td>
 							<td>${ln.getBeschreibung()}</td>
 							<td>${ln.getPreis()}</td>
@@ -92,7 +93,7 @@ function start(){
 			</table>
 	</div>
 	
-	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: left; margin-left:615px">
+	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 737px;">
 	<h5 class="w3-bar-item"></h5>
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Veraendern')">Verändern</button>
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Loeschen')">Löschen</button>
@@ -104,7 +105,6 @@ function start(){
     <h2>Auftraege</h2>
 </div>
 
-</div>
 </div>
 </body>
 </html>
