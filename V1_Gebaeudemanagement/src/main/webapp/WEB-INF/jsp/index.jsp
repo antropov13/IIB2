@@ -22,7 +22,7 @@
 <div>
 	<div class="headerstyle">
 	<!-- <h1 style="color: #FF0000">${warning}</h1> -->
-	<h1>Herzlich Willkommen beim Gebaeudemenegement</h1>
+	<h1>Herzlich Willkommen beim Gebäudemenegement</h1>
 	</div>
 </div>
 

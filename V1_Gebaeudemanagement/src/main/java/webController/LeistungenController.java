@@ -19,17 +19,20 @@ import manage.DBManager;
 @Controller
 public class LeistungenController {
 
-	@RequestMapping(value = "/leistungsAusgeben", method = RequestMethod.GET)
-	public String leistungsausgaben(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/aenderungLeistung", method = RequestMethod.GET)
+	public String aenderungLeistung(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
+		System.out.println("1");
 		String view;
 		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
 		
 		if (user == null || user.getFachrolle().equals("Dezernatmitarbeiter")) {
 			model.addAttribute("error", "Bitte loggen Sie sich als Dienstleiter ein, um auf diese Seite zu kommen.");
 			view = "error";
+			System.out.println("2");
 		} else {
+			System.out.println("3");
 			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
 
 			DBManager dbm = new DBManager();
@@ -39,7 +42,7 @@ public class LeistungenController {
 					+ "WHERE ls_dlr_id = " + user.getId() + " AND ls_dln_id = dln_id;";
 			leistungen = dbm.getLeistungen(sql);
 			model.addAttribute("leistungen", leistungen);
-			view = "leistungsAusgeben";
+			view = "aenderungLeistung";
 		}
 		return view;
 

@@ -66,8 +66,6 @@ public class LoginController {
 				if(fr.getFachrolle().equals("Dienstleister")) {
 					
 					List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
-
-					//DBManager dbm = new DBManager();
 					
 					sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
 							+ "FROM leistungsspektren, dienstleistungen "
@@ -77,12 +75,6 @@ public class LoginController {
 					req.getSession().setAttribute("leistungen", leistungen); // set session attribute
 					model.addAttribute("leistungen", leistungen);
 					
-					for(Leistungsspektren l : leistungen){
-						System.out.println(l.getName());	
-						
-						
-					}
-					//view = "leistungsAusgeben";
 				}
 		
 			} else {
