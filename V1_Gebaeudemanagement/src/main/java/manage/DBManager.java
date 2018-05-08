@@ -136,20 +136,11 @@ public class DBManager {
 		return id;
 	}
 	
-	public void updateLeistungSpektren(String sql) throws ClassNotFoundException, SQLException {
-		//Integer id=-1;
+	public void update(String sql) throws ClassNotFoundException, SQLException {
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
 		stmt.executeUpdate(sql);
-		/*
-		ResultSet rs = stmt.getGeneratedKeys();
-		if (rs.next()){
-		    id=rs.getInt(1);
-		}
-		System.out.println("id " + id);
-		*/
 		con.close(); // Very important!
-		//return id;
 	}
 	    
 	public static ResultSet query(String sql) throws ClassNotFoundException, SQLException {

@@ -92,11 +92,13 @@ win = window.open("window.htm","win","height=300,width=300");
 						</tr>
 						<tr>
 							<td>
-							 <button id="${ln.getId()}" class="w3-button w3-yellow">
+							 <button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
 							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=${ln.getId()}">&#9998;</a> 
 							</button>
 							
-							<button id="${ln.getId()}" class="w3-button w3-red" style="color: #000!important;">&#10005;</button>
+							<button id="${ln.getId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">
+							<a href="<%=request.getContextPath() %>/loeschenLeistung?LeistungID=${ln.getId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
+							</button>
 							</td>
 						</tr>
 				</c:forEach>
@@ -104,9 +106,10 @@ win = window.open("window.htm","win","height=300,width=300");
 	</div>
 	
 	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 743px;">
-	<h5 class="w3-bar-item"></h5>
-  	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Veraendern')">Verändern</button>
-  	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Loeschen')">Löschen</button>
+	<h5 class="w3-bar-item"><p></p></h5>
+  	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Loeschen')">
+  	<a href="<%=request.getContextPath() %>/loeschenLeistung?LeistungID=-1" onclick="return confirm('Möchten Sie alle Leistung löschen?')">Löschen alle</a>
+  	</button>
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">Hinzufügen</button>
 	</div>
   </div>

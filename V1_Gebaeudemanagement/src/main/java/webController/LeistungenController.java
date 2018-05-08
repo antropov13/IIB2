@@ -75,7 +75,7 @@ public class LeistungenController {
 			int id_new = dbm.setLeistungen(sql);
 			
 			sql = "UPDATE leistungsspektren SET ls_dln_id = " + id_new + ", ls_preis = " + preis + " where ls_id = " + this.leistungID + " ;";
-			dbm.updateLeistungSpektren(sql);
+			dbm.update(sql);
 			System.out.println(this.leistungID + " " + preis +  " " + id_new);
 			
 			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
@@ -89,35 +89,41 @@ public class LeistungenController {
 			model.addAttribute("leistungen", leistungen);
 			
 		}
-		
-		/*
-		System.out.println("id " + req.getParameter("LeistungID"));
-		int leistungID = Integer.parseInt(req.getParameter("LeistungID"));
-		
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
-		
-		if (user == null || user.getFachrolle().equals("Dezernatmitarbeiter")) {
-			model.addAttribute("error", "Bitte loggen Sie sich als Dienstleiter ein, um auf diese Seite zu kommen.");
-			view = "error";
-		} else {
-			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
-
-			DBManager dbm = new DBManager();
-			
-			String sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
-					+ "FROM leistungsspektren, dienstleistungen "
-					+ "WHERE ls_dlr_id = " + user.getId() + " AND ls_dln_id = dln_id AND ls_id = " + leistungID + ";";
-			leistungen = dbm.getLeistungen(sql);
-			model.addAttribute("leistungen", leistungen);
-			view = "aenderungLeistung";
-			
-			for (Leistungsspektren l : leistungen) {
-				System.out.println(l.getName());
-			}
-		}
-		*/
 		return "redirect:/" + user.getFachrolle().toLowerCase() + ".jsp";
 
+	}
+	
+	@RequestMapping(value = "/loeschenLeistung", method = RequestMethod.GET)
+	public String loeschenLeistung(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		
+		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
+		DBManager dbm = new DBManager();
+		
+		this.leistungID = Integer.parseInt(req.getParameter("LeistungID"));
+		String sql = "";
+		if(leistungID==-1) {
+			sql = "DELETE FROM leistungsspektren WHERE ls_dlr_id = " + user.getId() + ";";
+		}
+		
+		else {
+			sql = "DELETE FROM leistungsspektren WHERE ls_id = " + leistungID + " AND ls_dlr_id = " + user.getId() + ";";
+		}
+		
+		dbm.update(sql);
+		
+		List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
+		
+		sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
+				+ "FROM leistungsspektren, dienstleistungen "
+				+ "WHERE ls_dlr_id = " + user.getId() + " AND ls_dln_id = dln_id;";
+		
+		leistungen = dbm.getLeistungen(sql);
+		req.getSession().setAttribute("leistungen", leistungen); // set session attribute
+		model.addAttribute("leistungen", leistungen);
+		
+		return "redirect:/" + user.getFachrolle().toLowerCase() + ".jsp";
+		
 	}
 /*
 	@RequestMapping(value = "/gebaeudeEingeben", method = RequestMethod.GET)
