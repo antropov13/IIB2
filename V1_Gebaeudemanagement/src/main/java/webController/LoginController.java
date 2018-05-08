@@ -1,6 +1,9 @@
 package webController;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,7 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 
 import beansDB.Fachrolle;
-
+import beansDB.Leistungsspektren;
 import manage.DBManager;
 
 @Controller
@@ -29,12 +32,21 @@ public class LoginController {
 
 	
 		Fachrolle fr = new Fachrolle();
-		fr.setFachrolle(req.getParameter("fachrolle"));
+		//String fachrolle = "";
+		if (req.getParameter("fachrolle")==null) {
+			fr.setFachrolle("Dienstleister");
+		}
+		else {
+			fr.setFachrolle("Dezernatmitarbeiter");
+		}
+		//System.out.println(req.getParameter("fachrolle"));
+		
+		//fr.setFachrolle(req.getParameter("fachrolle"));
 		fr.setUsername(req.getParameter("username"));
 		fr.setPass(req.getParameter("password"));
 
 		if (fr.getUsername() == "" || fr.getPass() == "" || fr.getFachrolle() == "") {
-			model.addAttribute("warning", "Geben Sie bitte alle Daten ein!");
+			model.addAttribute("warning", "Geben Sie bitte alle Daten ein");
 			return "index";
 		} else {
 
@@ -50,6 +62,28 @@ public class LoginController {
 			if (fr != null) {
 				req.getSession().setAttribute("user", fr); // set session attribute
 				model.addAttribute("user", fr);
+				
+				if(fr.getFachrolle().equals("Dienstleister")) {
+					
+					List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
+
+					//DBManager dbm = new DBManager();
+					
+					sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
+							+ "FROM leistungsspektren, dienstleistungen "
+							+ "WHERE ls_dlr_id = " + fr.getId() + " AND ls_dln_id = dln_id;";
+					
+					leistungen = dbm.getLeistungen(sql);
+					req.getSession().setAttribute("leistungen", leistungen); // set session attribute
+					model.addAttribute("leistungen", leistungen);
+					
+					for(Leistungsspektren l : leistungen){
+						System.out.println(l.getName());	
+						
+						
+					}
+					//view = "leistungsAusgeben";
+				}
 		
 			} else {
 				model.addAttribute("warning", "Passwort oder Nutzerkonto ist falsch!");

@@ -3,7 +3,7 @@ package beansDB;
 public class Leistungsspektren {
 	private String name;
     private String beschreibung;
-    private int preis;
+    private String preis;
     private int id;
     
     /**
@@ -37,14 +37,14 @@ public class Leistungsspektren {
     /**
      * @return the Firmaname
      */
-    public int getPreis() {
+    public String getPreis() {
         return preis;
     }
 
     /**
      * @param vorname the Firmaname to set
      */
-    public void setPreis(int preis) {
+    public void setPreis(String preis) {
         this.preis = preis;
     }
 

@@ -17,7 +17,7 @@ import beansDB.Leistungsspektren;
 import manage.DBManager;
 
 @Controller
-public class LeistungsController {
+public class LeistungenController {
 
 	@RequestMapping(value = "/leistungsAusgeben", method = RequestMethod.GET)
 	public String leistungsausgaben(HttpServletRequest req, HttpServletResponse res, Model model)
@@ -25,30 +25,18 @@ public class LeistungsController {
 
 		String view;
 		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
-		if (user == null) {
+		
+		if (user == null || user.getFachrolle().equals("Dezernatmitarbeiter")) {
 			model.addAttribute("error", "Bitte loggen Sie sich als Dienstleiter ein, um auf diese Seite zu kommen.");
 			view = "error";
 		} else {
-
-			
 			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
 
 			DBManager dbm = new DBManager();
 			
-			//String sql = "SELECT * "
-			//		+ "FROM leistungsspektren, dienstleistungen  "
-			//		+ "WHERE ls_dlr_id = " + user.getId() + ""
-			//		+ "AND ls_dln_id = dln_id;";
-			
 			String sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
 					+ "FROM leistungsspektren, dienstleistungen "
 					+ "WHERE ls_dlr_id = " + user.getId() + " AND ls_dln_id = dln_id;";
-			if(user.getFachrolle() == "Gurachter")
-			{
-				// sql = ...
-				// hier SQL selber schreiben!
-				
-			}
 			leistungen = dbm.getLeistungen(sql);
 			model.addAttribute("leistungen", leistungen);
 			view = "leistungsAusgeben";

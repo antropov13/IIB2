@@ -111,7 +111,7 @@ public class DBManager {
 	        ls.setId(r.getInt(1));
 	        ls.setName(r.getString(2));
 	        ls.setBescheibung(r.getString(3));
-	        ls.setPreis(r.getInt(4));
+	        ls.setPreis(r.getInt(4) + "ˆ");
 	        lsList.add(ls);
 	        
 	    }

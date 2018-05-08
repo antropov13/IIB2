@@ -2,49 +2,54 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<link href="<c:url value="/resources/gebaeudemenegementCSS.css" />"
-	rel="stylesheet">
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gebaeudemenegement - Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="styles/gmCSS.css">	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	 <link rel="stylesheet" href="styles/style.css">
+	 
+	<title>Gebaeudemenegement - Login</title>
+	
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	
 </head>
+
+
 <body>
-	<h1 style="color: #FF0000">${warning}</h1>
+
+<div>
+	<div class="headerstyle">
+	<!-- <h1 style="color: #FF0000">${warning}</h1> -->
 	<h1>Herzlich Willkommen beim Gebaeudemenegement</h1>
-	Bitte geben Sie ihre Nutzerdaten ein:
+	</div>
+</div>
 
-	<div id="wrap">
-		<form method="POST" action="verify">
 
-			<table>
-				<tr>
-					<td style="color: #000000;">Fachrolle</td>
-					<td><select name="fachrolle">
-							<option>Dienstleister</option>
-							<option>Dezernatmitarbeiter</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td style="color: #000000;">Username</td>
-					<td><input type="text" name="username"></td>
-				</tr>
-
-				<tr>
-					<td style="color: #000000;">Password</td>
-					<td><input type="password" name="password"></td>
-				</tr>
-
-				<tr>
-					<td></td>
-					<td><input type="submit" name="login" value="Einloggen"></td>
-				</tr>
-			</table>
-
+	<div class="divloggin">
+		<form class="w3-container w3-card-1 w3-white" method="POST" action="verify">
+		
+			<div class="wrapper">
+  				<input type="checkbox" id="checkbox" name="fachrolle"/>
+  				<label class="labelbox" for="checkbox"></label>
+			</div>
+			
+			<div style="margin-top: 25px;">
+			<label class="w3-text-blue"><b>Username</b></label>
+			<input class="w3-input w3-border" name="username" type="text">
+			  <p> 
+			  <label class="w3-text-blue"><b>Password</b></label>     
+			  <input class="w3-input w3-border" name="password" type="password"></p>
+			  <p>      
+			  <button class="w3-btn w3-blue" name="login">Einloggen</button></p>
+			</div>
 		</form>
 	</div>
+	<p></p>
+	<div class="w3-container w3-center w3-animate-zoom">
+  		<h2 style="background: #fff;">${warning}</h2>
+  	</div>
 </body>
 
 </html>

@@ -38,6 +38,8 @@ table, th, td {
 			</c:forEach>
 			
 		</table>
+		
+
 
 
 </body>
