@@ -64,4 +64,137 @@ CREATE TABLE IF NOT EXISTS `dezernatmitarbeiter` (
   `dma_username` varchar(50) DEFAULT NULL,
   `dma_passwort` blob,
   PRIMARY KEY (`dma_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `auftraege`;
+CREATE TABLE IF NOT EXISTS `auftraege` (
+  `aft_id` int(11) NOT NULL AUTO_INCREMENT,
+  `aft_dleistungen` varchar(50) DEFAULT NULL,
+  `aft_ersteller` varchar(50) DEFAULT NULL,
+  `aft_dleister` varchar(50) DEFAULT NULL,
+  `aft_datum` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `aft_status` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`auft_id`),
+  FOREIGN KEY (`auft_dleistungen`)
+  REFERENCES dienstleistungen(`dlstng_name`),
+  FOREIGN KEY (`auft_ersteller`)
+  REFERENCES dezernatmitarbeiter(`dma_id`),
+  FOREIGN KEY (`auft_dleister`)
+  REFERENCES dienstleister(`dlt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `gebaude`;
+CREATE TABLE IF NOT EXISTS `gebaeude` (
+  `geb_id` int(11) NOT NULL AUTO_INCREMENT,
+  `geb_strasse` varchar(50) DEFAULT NULL,
+  `geb_hausnr` varchar(4) DEFAULT NULL,
+  `geb_ort` varchar(50) DEFAULT NULL,
+  `geb_plz`int(6) unsigned DEFAULT NULL,
+  `geb_dma` int(11) DEFAULT NULL,
+   PRIMARY KEY (`geb_id`),
+  KEY `geb_d_id` (`geb_dma_id`),
+  CONSTRAINT `geb_d_id`
+  FOREIGN KEY (`geb_dma_id`) 
+  REFERENCES `dezernatmitarbeiter` (`dma_id`) 
+  ON DELETE SET NULL 
+  ON UPDATE CASCADE
+
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- Daten Export vom Benutzer nicht ausgewählt
+-- Exportiere Struktur von Tabelle demonstrator.raum
+DROP TABLE IF EXISTS `raum`;
+CREATE TABLE IF NOT EXISTS `raum` (
+  `rau_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rau_nummer` varchar(5) DEFAULT NULL,
+  `rau_bezeichnung` varchar(50) DEFAULT NULL,
+  `rau_guid` varchar(50) DEFAULT NULL,
+  `rau_stw_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`rau_id`),
+  KEY `r_s_id` (`rau_stw_id`),
+  CONSTRAINT `r_s_id` FOREIGN KEY (`rau_stw_id`) REFERENCES `stockwerk` (`stw_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- Daten Export vom Benutzer nicht ausgewählt
+-- Exportiere Struktur von Tabelle demonstrator.stockwerk
+DROP TABLE IF EXISTS `stockwerk`;
+CREATE TABLE IF NOT EXISTS `stockwerk` (
+  `stw_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stw_bezeichnung` varchar(50) DEFAULT NULL,
+  `stw_guid` varchar(50) DEFAULT NULL,
+  `stw_geb_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`stw_id`),
+  KEY `s_geb_id` (`stw_geb_id`),
+  CONSTRAINT `s_geb_id` FOREIGN KEY (`stw_geb_id`) REFERENCES `gebaeude` (`geb_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
+
+-- Daten Export vom Benutzer nicht ausgewählt
+-- Exportiere Struktur von Tabelle demonstrator.wand
+DROP TABLE IF EXISTS `wand`;
+CREATE TABLE IF NOT EXISTS `wand` (
+  `wan_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`wan_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+- Daten Export vom Benutzer nicht ausgewählt
+-- Exportiere Struktur von Tabelle demonstrator.lnraumwand
+DROP TABLE IF EXISTS `lnraumwand`;
+CREATE TABLE IF NOT EXISTS `lnraumwand` (
+  `lrw_id` int(11) NOT NULL AUTO_INCREMENT,
+  `lrw_rau_id` int(11) DEFAULT NULL,
+  `lrw_wan_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`lrw_id`),
+  KEY `r_id` (`lrw_rau_id`),
+  KEY `w_id` (`lrw_wan_id`),
+  CONSTRAINT `r_id` FOREIGN KEY (`lrw_rau_id`) REFERENCES `raum` (`rau_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `w_id` FOREIGN KEY (`lrw_wan_id`) REFERENCES `wand` (`wan_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+-- Daten Export vom Benutzer nicht ausgewählt
+-- Exportiere Struktur von Tabelle demonstrator.wand
+DROP TABLE IF EXISTS `maengel`;
+CREATE TABLE IF NOT EXISTS `maengel` (
+  `mgl_id` int(11) NOT NULL AUTO_INCREMENT,
+  `mgl_dln_id` int(11) DEFAULT NULL,
+  `mgl_dlr_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`mgl_id`) KEY `r_id` (`lrw_rau_id`),
+   KEY `dn_id` (`mgl_dln_id`),
+  KEY `dr_id` (`mgl_dlr_id`),
+  CONSTRAINT `dn_id` 
+  FOREIGN KEY (`mgl_dln_id`) 
+  REFERENCES `dienstleistungen` (`dln_id`)
+  ON DELETE SET NULL 
+  ON UPDATE CASCADE,
+  CONSTRAINT `dr_id` 
+  FOREIGN KEY (`mgl_dlr_id`) 
+  REFERENCES `dienstleister` (`dlr_id`)
+   ON DELETE SET NULL 
+   ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+
+-- Daten Export vom Benutzer nicht ausgewählt
+-- Exportiere Struktur von Tabelle demonstrator.wand
+DROP TABLE IF EXISTS `lndokumentiert`;
+CREATE TABLE IF NOT EXISTS `lndokumentiert` (
+  `ldo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ldo_dma_id` int(11) DEFAULT NULL,
+  `ldo_mgl_id` int(11) DEFAULT NULL,
+  `ldo_date` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `ldo_titel` varchar(50) DEFAULT NULL,
+  `ldo_bes`  varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ldo_id`)
+   KEY `dm_id` (`ldo_dma_id`),
+   KEY `m_id` (`ldo_mgl_id`),
+  CONSTRAINT `dm_id` 
+  FOREIGN KEY (`ldo_dma_id`) 
+  REFERENCES `dezernatmitarbeiter` (`dma_id`)
+  ON DELETE SET NULL 
+  ON UPDATE CASCADE,
+  CONSTRAINT `m_id` 
+  FOREIGN KEY (`ldo_mgl_id`) 
+  REFERENCES `maengel` (`mlg_id`)
+   ON DELETE SET NULL 
+   ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
