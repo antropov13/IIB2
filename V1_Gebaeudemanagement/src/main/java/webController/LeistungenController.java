@@ -35,7 +35,7 @@ public class LeistungenController {
 		} else {
 			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
 			DBManager dbm = new DBManager();
-			
+			/*
 			if (this.leistungID==-1) {
 				Leistungsspektren ls = null ;
 				ls = new Leistungsspektren();
@@ -46,6 +46,7 @@ public class LeistungenController {
 				view = "aenderungLeistung";
 			}
 			
+			
 			else {
 			String sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
 					+ "FROM leistungsspektren, dienstleistungen "
@@ -54,8 +55,8 @@ public class LeistungenController {
 			view = "aenderungLeistung";
 			}
 			model.addAttribute("leistungen", leistungen);
-			
-			
+			*/
+			view = "aenderungLeistung";
 			for (Leistungsspektren l : leistungen) {
 				System.out.println(l.getName());
 			}

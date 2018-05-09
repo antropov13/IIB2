@@ -1,11 +1,12 @@
 package beansDB;
 
+import java.util.List;
+
 public class Leistungsspektren {
 	private String name;
-    private String beschreibung;
-    private int preis;
-    private int id;
-    
+	private List<Dienstleistung> dienstleistungen;
+	private int id;
+  
     /**
      * @return the vorname
      */
@@ -19,33 +20,13 @@ public class Leistungsspektren {
     public void setName(String name) {
         this.name = name;
     }
-
-    /**
-     * @return the nachname
-     */
-    public String getBeschreibung() {
-        return beschreibung;
-    }
-
-    /**
-     * @param nachname the nachname to set
-     */
-    public void setBescheibung(String beschreibung) {
-        this.beschreibung = beschreibung;
-    }
     
-    /**
-     * @return the Firmaname
-     */
-    public int getPreis() {
-        return preis;
+    public List<Dienstleistung> getDienstleistungen() {
+        return dienstleistungen;
     }
 
-    /**
-     * @param vorname the Firmaname to set
-     */
-    public void setPreis(int preis) {
-        this.preis = preis;
+    public void setDienstleistungen(List<Dienstleistung> dienstleistungen) {
+        this.dienstleistungen = dienstleistungen;
     }
 
     /**

@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.mysql.jdbc.*;
 
-
+import beansDB.Dienstleistung;
 import beansDB.Fachrolle;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektren;
@@ -102,19 +102,39 @@ public class DBManager {
 	
 	public List<Leistungsspektren> getLeistungen(String sql) throws ClassNotFoundException, SQLException {
 		List<Leistungsspektren> lsList = new ArrayList<Leistungsspektren>();
+		List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
 		Leistungsspektren ls = null ;
+		Dienstleistung dln = null ;
+		int id_spektren = 0;
+		int id_spektren_new = 0;
+		
 	    while (r.next()) {
-	    	ls = new Leistungsspektren();
-	        ls.setId(r.getInt(1));
-	        ls.setName(r.getString(2));
-	        ls.setBescheibung(r.getString(3));
-	        ls.setPreis(r.getInt(4));
-	        lsList.add(ls);
-	        
+	    	id_spektren_new = r.getInt(1);
+	    	if (id_spektren_new!=id_spektren)
+	    	{
+	    		if (id_spektren!=0) {
+	    			ls.setDienstleistungen(dlnList);
+	    			lsList.add(ls);
+	    			dlnList = new ArrayList<Dienstleistung>();
+	    		}
+	    		ls = new Leistungsspektren();
+	    		ls.setName("Leistungsspekter " + id_spektren_new);
+	    		ls.setId(id_spektren_new);
+	    	}
+	    	dln = new Dienstleistung();
+	    	dln.setId(r.getInt(2));
+	    	dln.setName(r.getString(3));
+	    	dln.setBescheibung(r.getString(4));
+	    	dln.setPreis(r.getInt(5));
+	    	dlnList.add(dln);
+	    	id_spektren = id_spektren_new;
+	    	
 	    }
+	    ls.setDienstleistungen(dlnList);
+		lsList.add(ls);
 		con.close(); // Very important!
 		return lsList;
 	}

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
-
+import beansDB.Dienstleistung;
 import beansDB.Fachrolle;
 import beansDB.Leistungsspektren;
 import manage.DBManager;
@@ -63,21 +63,34 @@ public class LoginController {
 				req.getSession().setAttribute("user", fr); // set session attribute
 				model.addAttribute("user", fr);
 				
-				/*
+				
 				
 				if(fr.getFachrolle().equals("Dienstleister")) {
 					
-					List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
+					List<Leistungsspektren> spektren = new ArrayList<Leistungsspektren>();
 					
-					sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
-							+ "FROM leistungsspektren, dienstleistungen "
-							+ "WHERE ls_dlr_id = " + fr.getId() + " AND ls_dln_id = dln_id;";
+					//sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
+					//		+ "FROM leistungsspektren, dienstleistungen "
+					//		+ "WHERE ls_dlr_id = " + fr.getId() + " AND ls_dln_id = dln_id;";
 					
-					leistungen = dbm.getLeistungen(sql);
-					req.getSession().setAttribute("leistungen", leistungen); // set session attribute
-					model.addAttribute("leistungen", leistungen);
+					sql = "SELECT lsp_id, dln_id, dln_name, dln_beschreibung, lld_preis "
+							+ "from leistungsspektren, dienstleistungen, lnlspdln where lsp_dlr_id = " + fr.getId() + " "
+							+ "AND lsp_id = lld_lsp_id AND lld_dln_id = dln_id";
 					
-				}*/
+					spektren = dbm.getLeistungen(sql);
+					req.getSession().setAttribute("leistungen", spektren); // set session attribute
+					model.addAttribute("leistungen", spektren);
+					
+					/*
+					for (Leistungsspektren l : spektren) {
+						System.out.println(l.getName());
+						for (Dienstleistung d : l.getDienstleistungen())
+						{
+							System.out.println(d.getName());
+						}
+					}*/
+					
+				}
 		
 			} else {
 				model.addAttribute("warning", "Passwort oder Nutzerkonto ist falsch!");

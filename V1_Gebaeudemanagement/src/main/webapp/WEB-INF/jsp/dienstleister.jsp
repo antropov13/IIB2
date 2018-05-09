@@ -87,8 +87,13 @@ win = window.open("window.htm","win","height=300,width=300");
 				<c:forEach items="${leistungen}" var="ln">
 						<tr class="w3-light-grey">
 							<td>${ln.getName()}</td>
-							<td rowspan="2">${ln.getBeschreibung()}</td>
-							<td rowspan="2" style="width:70px">${ln.getPreis()} €</td>
+							<c:forEach items="${ln.getDienstleistungen()}" var="dln">
+							<tr>
+							<td>${dln.getName()}</td>
+							<td>${dln.getBeschreibung()}</td>
+							<td>${dln.getPreis()}</td>
+							</tr>
+							</c:forEach>
 						</tr>
 						<tr>
 							<td>
