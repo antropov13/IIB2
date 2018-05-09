@@ -57,7 +57,7 @@ INSERT INTO `dienstleistungen` (`dln_id`, `dln_name`, `dln_beschreibung`, `dln_h
      'halbjährlich', 7),
      (11, 'Instandhaltung', 'Die Instandhaltung von technischen Systemen, Bauelementen, Geräten und Betriebsmitteln soll sicherstellen,
       dass der funktionsfähige Zustand erhalten bleibt oder bei Ausfall wiederhergestellt wird.', 'Täglich', 8)
-      
+      (12,'Catering für 30 Personen', NULL, '3 mal am Tag', 4)
 /*!40000 ALTER TABLE `dienstleistungen` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~4 rows (ungefähr)
@@ -97,5 +97,46 @@ INSERT INTO `dezernatmitarbeiter` (`dma_vorname`, `dma_name`, `dma_username`, `d
     (10, 'John', 'Hofmann', 'hofmann', 45782);
 /*!40000 ALTER TABLE `dezernatmitarbeiter` ENABLE KEYS */;
 
+INSERT INTO `leistungsspektren1` (`lsp_dlr_id`) VALUES
+    (1), (2), (3), (4), (4), (5), (6), (1), 
+    (6), (7), (8), (8), (9), (10), (8);
 
-INSERT INTO `auftraege`()
+INSERT INTO `lnLspDln` (`lld_lsp_id`, `lld_dln_id`, `lld_preis`) VALUES
+    (1, 1, 200), (1, 2, 20000), (1, 3, 50),
+    (2, 4, 200), (2, 7, 550), (2, 8, 500),
+    (3, 5, 80), (3, 6, 120), (3, 9, 1350),
+    (4, 1, 270), (4, 2, 18500), (4, 3, 50), (4, 4, 200), (4, 5, 100), (4, 6, 132),
+    (5, 7, 530), (5, 8, 525), (5, 9, 1250), (5, 12, 1360),
+    (10, 3, 50), (10, 4, 200) ,(10, 5, 85), (10, 6, 133), (10, 7, 525),
+    (8, 3, 50), (8, 4, 199), (8, 5, 75), (8, 6, 145),
+    (15, 12, 1500);  
+
+
+INSERT INTO `auftraege`(`aft_dma_id`, `aft_dlr_id`, `aft_status`) VALUES
+    (1,1,'Ausführung'),
+    (1,1,'Erledigt'),
+    (1,4,'Warte auf eine Antwort'),
+    (3,4,'Erledigt')
+    ;
+
+INSERT INTO `auftraege` (`aft_dma_id`, `aft_dlr_id`, `aft_datum`, `aft_status`) VALUES
+    (4,7, '2018-01-01 20:00:00', 'Abgelehnt'),
+    (2,8, '2018-05-01 11:30:05', 'Abgelehnt'),
+    (7,2, '2018-05-07 10:00:00', 'Warte auf eine Antwort');
+
+INSERT INTO `lnAftDln` (`lad_aft_id`,`lad_dln_id`) VALUES
+    (1,1), (1,2), (1,3),
+    (2,4), (2,5),
+    (3,6), (4,7), (4,8),
+    (5,3), (5,4), 
+    (6,12),
+    (7, 4), (7,7);
+
+INSERT INTO `maengel`(`mgl_dln_id`, `mgl_dlr_id`) VALUES
+    (2,1), (4,4);
+
+INSERT INTO `lndokumentiert`(`ldo_dma_id`,`ldo_mgl_id`, `ldo_titel`, `ldo_bes`) VALUES
+    (2,1, 'Gebäudereinigung wurde nicht richtig durchgeführt', 'Zwei Räume wurden nicht sauber gemacht'),
+    (3,2, 'Graffiti im Ausgang wurde nicht entfernt', 'Siehe Titel');
+
+    
