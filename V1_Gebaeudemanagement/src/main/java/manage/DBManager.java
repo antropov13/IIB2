@@ -11,6 +11,8 @@ import java.util.List;
 
 import com.mysql.jdbc.*;
 
+import beansDB.Dezernatmitarbeiter;
+import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
 import beansDB.Fachrolle;
 import beansDB.Gebaeude;
@@ -71,33 +73,39 @@ public class DBManager {
         return frList;    
 	}
 	
-	public Fachrolle getUser(String sql, String tabelle) throws ClassNotFoundException, SQLException {
+	public Dienstleister getUserDLR(String sql) throws ClassNotFoundException, SQLException {
 
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
-		Fachrolle fr = null ;
-		if (tabelle.equals("Dezernatmitarbeiter")) {
-	        while (r.next()) {
-	        	fr = new Fachrolle();
-	            fr.setId(r.getInt(1));
-	            fr.setNachname(r.getString(2));
-	            fr.setVorname(r.getString(3));
-	            fr.setUsername(r.getString(4));
-	            fr.setFachrolle(tabelle);
-	        }
-        }
-        else {
-	        while (r.next()) {
-	        	fr = new Fachrolle();
-	            fr.setId(r.getInt(1));
-	            fr.setFirmaname(r.getString(2));
-	            fr.setUsername(r.getString(3));
-	            fr.setFachrolle(tabelle);
-	        }
-        }
+		
+		Dienstleister dlr = null ;
+	    while (r.next()) {
+	    	dlr = new Dienstleister();
+	    	dlr.setId(r.getInt(1));
+	    	dlr.setFirmaname(r.getString(2));
+	    	dlr.setUsername(r.getString(3));
+	    }
 		con.close(); // Very important!
-		return fr;
+		return dlr;
+	}
+	
+	public Dezernatmitarbeiter getUserDMA(String sql) throws ClassNotFoundException, SQLException {
+
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		
+		Dezernatmitarbeiter dma = null ;
+	    while (r.next()) {
+	    	dma = new Dezernatmitarbeiter();
+	    	dma.setId(r.getInt(1));
+	    	dma.setNachname(r.getString(2));
+	    	dma.setVorname(r.getString(3));
+	    	dma.setUsername(r.getString(4));
+	    }
+		con.close(); // Very important!
+		return dma;
 	}
 	
 	public List<Leistungsspektren> getLeistungen(String sql) throws ClassNotFoundException, SQLException {

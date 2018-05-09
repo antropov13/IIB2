@@ -35,6 +35,7 @@ public class LeistungenController {
 		} else {
 			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
 			DBManager dbm = new DBManager();
+			
 			/*
 			if (this.leistungID==-1) {
 				Leistungsspektren ls = null ;

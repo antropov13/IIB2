@@ -97,40 +97,38 @@ function start(){
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
   	<div style="width:600px; float: left; height: 100%; margin-left:128px">
-			<table class="w3-table w3-bordered">
+		<div class="w3-container">
 			<c:forEach items="${leistungen}" var="ln">
-				<tr class="w3-green">
+			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">${ln.getName()}</button>
+			<div id="${ln.getName()}" class="w3-container w3-hide">
+				<table class="w3-table w3-bordered">
+					<tr>
+						<th>Name</th>
+						<th>Beschreibung</th>
+						<th>Preis</th>
+						<th>
+							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
+								<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=${ln.getId()}">&#9998;</a> 
+							</button>
+						</th>
+					</tr>
+					<c:forEach items="${ln.getDienstleistungen()}" var="dln">
 						<tr>
-						<td name="sel">Auswählen</td>
-						<td>
-							<select name="sel">
-								<option>1</option>
-								<option>2</option>
-							</select>
-						<td>
-						</tr>
-						<tr>
-							<td>Name</td>
-							<td>
-								<input name="Name" type="text" required  value="${ln.getName()}" style="width:200px"></input>
-							</td>
-						</tr>
-						<tr>
-							<td>Beschreibung</td>
-							<td><textarea name="Beschreibung" required  value="${ln.getBeschreibung()}" style="width:470px; height:300px; max-width:470px; min-width:470px">${ln.getBeschreibung()}</textarea></td>
-						</tr>
-						<tr>
-						<td>Preis</td>
-						<td><input name="Preis" type="number" required  value="${ln.getPreis()}" style="width:70px"></input> &#8364;</td>
-						</tr>
-				</tr>
-				</c:forEach>
-			</table>
+							<td>${dln.getName()}</td>
+	  						<td>${dln.getBeschreibung()}</td>
+	  						<td style="width: 70px;">${dln.getPreis()} &#8364;</td>
+	  					</tr>
+					</c:forEach>
+ 				</table>
+			</div>
+			</c:forEach>
+		</div>
 	</div>
 	
 	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 743px;">
 	</div>
-  </div>
+	
+   </div>
   
 </form>
 

@@ -85,62 +85,30 @@ win = window.open("window.htm","win","height=300,width=300");
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
   	<div style="width:600px; float: left; height: 100%; margin-left:128px">
-			<!-- <table class="w3-table w3-bordered">  -->
-				<!-- <tr class="w3-green">
+		<div class="w3-container">
+			<c:forEach items="${leistungen}" var="ln">
+			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">${ln.getName()}</button>
+			<div id="${ln.getName()}" class="w3-container w3-hide">
+				<table class="w3-table w3-bordered">
+					<tr>
 						<th>Name</th>
 						<th>Beschreibung</th>
 						<th>Preis</th>
-				</tr>
-				 -->
-				<div class="w3-container">
-				<c:forEach items="${leistungen}" var="ln">
-						<!-- <tr class="w3-light-grey">
-							<td>
-							 -->
-							
-							<!--  </td>-->
-							
-							<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">${ln.getName()}</button>
-							
-							
-							<div id="${ln.getName()}" class="w3-container w3-hide">
-							
-							<table class="w3-table w3-bordered">
-							<tr>
-							<th>Name</th>
-							<th>Beschreibung</th>
-							<th>Preis</th>
-							</tr>
-							
-							<c:forEach items="${ln.getDienstleistungen()}" var="dln">
-							
-							
-							<!-- <tr>  -->
-							
-							
-							
-							<tr>
-							  <td>${dln.getName()}</td>
-  							  <td>${dln.getBeschreibung()}</td>
-  							  <td style="width: 70px;">${dln.getPreis()} &#8364;</td>
-  							 </tr>
-  							 
-  							 </c:forEach>
-  							 
-  							</table>
-  							
-  							
-  							</div>
-							<!-- 
+						<th>
+							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
+								<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=${ln.getId()}">&#9998;</a> 
+							</button>
+						</th>
+					</tr>
+					<c:forEach items="${ln.getDienstleistungen()}" var="dln">
+						<tr>
 							<td>${dln.getName()}</td>
-							<td></td>
-							<td>${dln.getPreis()}</td>
-							 -->
-							
-							
-							<!-- </tr>  -->
-							
-						<!-- </tr>  -->
+	  						<td>${dln.getBeschreibung()}</td>
+	  						<td style="width: 70px;">${dln.getPreis()} &#8364;</td>
+	  					</tr>
+					</c:forEach>
+ 				</table>
+			</div>
 						<!-- 
 						<tr>
 							<td>
@@ -154,9 +122,8 @@ win = window.open("window.htm","win","height=300,width=300");
 							</td>
 						</tr>
 						 -->
-				</c:forEach>
-				</div>
-			<!-- </table>  -->
+			</c:forEach>
+		</div>
 	</div>
 	
 	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 743px;">
