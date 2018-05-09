@@ -14,7 +14,6 @@ import com.mysql.jdbc.*;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
-import beansDB.Fachrolle;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektren;
 import manage.start;
@@ -40,7 +39,7 @@ public class DBManager {
 		    	
 		return conn;
 	}
-	    
+	    /*
 	public static List<Fachrolle> getUser(String tabelle) throws ClassNotFoundException, SQLException {
 	    	
 		String sql = "SELECT * FROM " +tabelle +" ;";
@@ -71,7 +70,7 @@ public class DBManager {
 	        }
         }
         return frList;    
-	}
+	}*/
 	
 	public Dienstleister getUserDLR(String sql) throws ClassNotFoundException, SQLException {
 

@@ -16,7 +16,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
-import beansDB.Fachrolle;
 import beansDB.Leistungsspektren;
 import manage.DBManager;
 

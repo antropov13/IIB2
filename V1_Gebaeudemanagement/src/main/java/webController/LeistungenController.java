@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import beansDB.Fachrolle;
+import beansDB.Dienstleister;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektren;
 import manage.DBManager;
@@ -27,7 +27,7 @@ public class LeistungenController {
 
 		this.leistungID = Integer.parseInt(req.getParameter("LeistungID"));
 		String view;
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
 		
 		if (user == null || user.getFachrolle().equals("Dezernatmitarbeiter")) {
 			model.addAttribute("error", "Bitte loggen Sie sich als Dienstleiter ein, um auf diese Seite zu kommen.");
@@ -75,7 +75,7 @@ public class LeistungenController {
 		String beschreibung = req.getParameter("Beschreibung");
 		String preis = req.getParameter("Preis");
 
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
 		
 		if (user == null || user.getFachrolle().equals("Dezernatmitarbeiter")) {
 			model.addAttribute("error", "Bitte loggen Sie sich als Dienstleiter ein, um auf diese Seite zu kommen.");
@@ -117,7 +117,7 @@ public class LeistungenController {
 	public String loeschenLeistung(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
 		DBManager dbm = new DBManager();
 		
 		this.leistungID = Integer.parseInt(req.getParameter("LeistungID"));

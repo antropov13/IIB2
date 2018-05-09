@@ -6,8 +6,6 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Scanner;
 
-import beansDB.Fachrolle;
-
 public class start {
 	private static Scanner sc;
 	private static java.sql.Connection con;
@@ -42,21 +40,21 @@ public class start {
                 menu();
                 break;
                 
-            case 1:
-                List<Fachrolle> dienstleister = DBManager.getUser("Dienstleister"); 
-                datenAusgabe(dienstleister);
-                break;
+            //case 1:
+                //List<Dienstleister> dienstleister = DBManager.getUserDLR("Dienstleister"); 
+                //datenAusgabe(dienstleister);
+                //break;
                 
-            case 2:
-            	List<Fachrolle> dezernatmitarbeiter = DBManager.getUser("Dezernatmitarbeiter"); 
-            	datenAusgabe(dezernatmitarbeiter);
-                break;
+           // case 2:
+            	//List<Fachrolle> dezernatmitarbeiter = DBManager.getUser("Dezernatmitarbeiter"); 
+            	//datenAusgabe(dezernatmitarbeiter);
+                //break;
                              
             case 7:
                 break;
         }   
     }
-	
+	/*
     public static void datenAusgabe(List<Fachrolle> fachrolle) throws ClassNotFoundException, SQLException {
 		String result;
 	    for (Fachrolle f : fachrolle) {
@@ -70,7 +68,7 @@ public class start {
 		}
 		weitermachen();
 		
-	}
+	}*/
     
   	private static void weitermachen() throws SQLException, ClassNotFoundException
     {
