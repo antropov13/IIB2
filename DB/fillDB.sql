@@ -45,8 +45,9 @@ INSERT INTO `dienstleistungen` (`dln_id`, `dln_name`, `dln_beschreibung`, `dln_h
 /*!40000 ALTER TABLE `dienstleistungen` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~4 rows (ungefähr)
-/*!40000 ALTER TABLE `leistungsspektren` DISABLE KEYS */;
-INSERT INTO `leistungsspektren` (`ls_id`, `ls_dln_id`, `ls_dlr_id`, `ls_preis`) VALUES
+
+/*!40000 ALTER TABLE `lnLspDln` DISABLE KEYS */;
+INSERT INTO `lnLspDln` (`lld_id`, `lld_dln_id`, `lld_lsp_id`, `lld_preis`) VALUES
 	(1, 1, 1, 200),
 	(2, 2, 1, 300),
     (3, 3, 1, 250),
@@ -56,14 +57,21 @@ INSERT INTO `leistungsspektren` (`ls_id`, `ls_dln_id`, `ls_dlr_id`, `ls_preis`) 
     (7, 2, 3, 100),
     (8, 3, 3, 150),
     (9, 4, 6, 350),
-    (10, 4, 1, 350),
-    (11, 4, 1, 350),
-    (12, 4, 1, 350),
-    (13, 4, 1, 350),
-    (14, 4, 1, 350),
-    (15, 4, 1, 350),
-    (16, 4, 1, 350),
-    (17, 4, 1, 350);
+    (10, 4, 6, 350);
+/*!40000 ALTER TABLE `leistungsspektren` ENABLE KEYS */;
+
+/*!40000 ALTER TABLE `leistungsspektren` DISABLE KEYS */;
+INSERT INTO `leistungsspektren` (`lsp_id`, `lsp_dlr_id`) VALUES
+	(1, 1),
+	(2, 1),
+    (3, 2),
+    (4, 2),
+    (5, 2),
+    (6, 3),
+    (7, 4),
+    (8, 4),
+    (9, 4),
+    (10, 4);
 /*!40000 ALTER TABLE `leistungsspektren` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~4 rows (ungefähr)
