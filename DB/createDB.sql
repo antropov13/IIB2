@@ -153,8 +153,7 @@ CREATE TABLE IF NOT EXISTS `maengel` (
   `mgl_id` int(11) NOT NULL AUTO_INCREMENT,
   `mgl_dln_id` int(11) DEFAULT NULL,
   `mgl_dlr_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`mgl_id`) 
-  KEY `r_id` (`lrw_rau_id`),
+  PRIMARY KEY (`mgl_id`) ,
   KEY `dn_id` (`mgl_dln_id`),
   KEY `dr_id` (`mgl_dlr_id`),
   CONSTRAINT `dn_id` 
