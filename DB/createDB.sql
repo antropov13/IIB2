@@ -66,24 +66,6 @@ CREATE TABLE IF NOT EXISTS `dezernatmitarbeiter` (
   PRIMARY KEY (`dma_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `auftraege`;
-CREATE TABLE IF NOT EXISTS `auftraege` (
-  `aft_id` int(11) NOT NULL AUTO_INCREMENT,
-  `aft_dleistungen` varchar(50) DEFAULT NULL,
-  `aft_ersteller` int(11) DEFAULT NULL,
-  `aft_dleister` int(11) DEFAULT NULL,
-  `aft_datum` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `aft_status` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`aft_id`),
-  FOREIGN KEY (`aft_dleistungen`)
-  REFERENCES `dienstleistungen`(`dln_name`),
-  FOREIGN KEY (`aft_ersteller`)
-  REFERENCES `dezernatmitarbeiter`(`dma_id`),
-  FOREIGN KEY (`aft_dleister`)
-  REFERENCES `dienstleister`(`dlr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
-
 DROP TABLE IF EXISTS `gebaeude`;
 CREATE TABLE IF NOT EXISTS `gebaeude` (
   `geb_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -172,8 +154,8 @@ CREATE TABLE IF NOT EXISTS `lndokumentiert` (
   CONSTRAINT `m_id` FOREIGN KEY (`ldo_mgl_id`) REFERENCES `maengel` (`mgl_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `auftraege1`;
-CREATE TABLE IF NOT EXISTS `auftraege1` (
+DROP TABLE IF EXISTS `auftraege`;
+CREATE TABLE IF NOT EXISTS `auftraege` (
   `aft_id` int(11) NOT NULL AUTO_INCREMENT,
   `aft_dma_id` int(11) DEFAULT NULL,
   `aft_dlr_id` int(11) DEFAULT NULL,
@@ -193,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `lnAftDln` (
   `lad_dln_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`lad_id`),
   KEY `lad_a_id` (`lad_aft_id`),
-  CONSTRAINT `lad_a_id` FOREIGN KEY (`lad_aft_id`) REFERENCES `auftraege1`(`aft_id`) ON DELETE SET NULL  ON UPDATE CASCADE,
+  CONSTRAINT `lad_a_id` FOREIGN KEY (`lad_aft_id`) REFERENCES `auftraege`(`aft_id`) ON DELETE SET NULL  ON UPDATE CASCADE,
   KEY `lad_d_id` (`lad_dln_id`),
   CONSTRAINT `lad_d_id` FOREIGN KEY (`lad_dln_id`) REFERENCES `dienstleistungen` (`dln_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
