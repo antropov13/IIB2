@@ -40,9 +40,32 @@ function startTime() {
     var t = setTimeout(startTime, 500);
 }
 
+function getParam(){
+	var params = window
+    .location
+    .search
+    .replace('?','')
+    .split('&')
+    .reduce(
+        function(p,e){
+            var a = e.split('=');
+            p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+            return p;
+        },
+        {}
+    );
+	if (params['LeistungID']!=-1){
+		x = document.getElementsByName("sel");
+		  for (i = 0; i < x.length; i++) {
+		     x[i].style.display = "none";
+		  }
+	}
+}
+
 function start(){
 	startTime();
 	openFunktion(event, 'Leistungen', true);
+	getParam();
 }
 </script>
 
@@ -78,18 +101,27 @@ function start(){
 			<c:forEach items="${leistungen}" var="ln">
 				<tr class="w3-green">
 						<tr>
+						<td name="sel">Auswählen</td>
+						<td>
+							<select name="sel">
+								<option>1</option>
+								<option>2</option>
+							</select>
+						<td>
+						</tr>
+						<tr>
 							<td>Name</td>
 							<td>
-								<input name="Name" type="text" value="${ln.getName()}" style="width:200px"></input>
+								<input name="Name" type="text" required  value="${ln.getName()}" style="width:200px"></input>
 							</td>
 						</tr>
 						<tr>
 							<td>Beschreibung</td>
-							<td><textarea name="Beschreibung"  value="${ln.getBeschreibung()}" style="width:470px; height:300px; max-width:470px; min-width:470px">${ln.getBeschreibung()}</textarea></td>
+							<td><textarea name="Beschreibung" required  value="${ln.getBeschreibung()}" style="width:470px; height:300px; max-width:470px; min-width:470px">${ln.getBeschreibung()}</textarea></td>
 						</tr>
 						<tr>
 						<td>Preis</td>
-						<td><input name="Preis" type="number" value="${ln.getPreis()}" style="width:70px"></input> &#8364;</td>
+						<td><input name="Preis" type="number" required  value="${ln.getPreis()}" style="width:70px"></input> &#8364;</td>
 						</tr>
 				</tr>
 				</c:forEach>

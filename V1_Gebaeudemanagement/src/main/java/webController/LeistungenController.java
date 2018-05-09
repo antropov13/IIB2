@@ -34,15 +34,27 @@ public class LeistungenController {
 			view = "error";
 		} else {
 			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
-
 			DBManager dbm = new DBManager();
 			
+			if (this.leistungID==-1) {
+				Leistungsspektren ls = null ;
+				ls = new Leistungsspektren();
+				ls.setName("");
+				ls.setBescheibung("");
+				ls.setPreis(0);
+				leistungen.add(ls);
+				view = "aenderungLeistung";
+			}
+			
+			else {
 			String sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
 					+ "FROM leistungsspektren, dienstleistungen "
 					+ "WHERE ls_dlr_id = " + user.getId() + " AND ls_dln_id = dln_id AND ls_id = " + leistungID + ";";
 			leistungen = dbm.getLeistungen(sql);
-			model.addAttribute("leistungen", leistungen);
 			view = "aenderungLeistung";
+			}
+			model.addAttribute("leistungen", leistungen);
+			
 			
 			for (Leistungsspektren l : leistungen) {
 				System.out.println(l.getName());
@@ -74,7 +86,13 @@ public class LeistungenController {
 			String sql = "INSERT INTO dienstleistungen (dln_name, dln_beschreibung) values('" + name +"', '" + beschreibung + "');";
 			int id_new = dbm.setLeistungen(sql);
 			
-			sql = "UPDATE leistungsspektren SET ls_dln_id = " + id_new + ", ls_preis = " + preis + " where ls_id = " + this.leistungID + " ;";
+			if (this.leistungID==-1) {
+				sql = "INSERT INTO leistungsspektren (ls_dln_id, ls_dlr_id, ls_preis) values('" + id_new +"', '" + user.getId() + "', '" + preis + "');";
+			}
+			else {
+				sql = "UPDATE leistungsspektren SET ls_dln_id = " + id_new + ", ls_preis = " + preis + " where ls_id = " + this.leistungID + " ;";
+			}
+			
 			dbm.update(sql);
 			System.out.println(this.leistungID + " " + preis +  " " + id_new);
 			
