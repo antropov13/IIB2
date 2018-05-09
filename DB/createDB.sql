@@ -255,6 +255,7 @@ CREATE TABLE IF NOT EXISTS `lnLspDln` (
   `lld_id` int(11) NOT NULL AUTO_INCREMENT,
   `lld_dln_id` int(11) DEFAULT NULL,
   `lld_lsp_id` int(11) DEFAULT NULL,
+  `lld_preis` int(11) DEFAULT NULL,
   PRIMARY KEY (`lld_id`),
   KEY `lld_d_id` (`lld_dln_id`),
   KEY `lld_l_id` (`lld_lsp_id`),
