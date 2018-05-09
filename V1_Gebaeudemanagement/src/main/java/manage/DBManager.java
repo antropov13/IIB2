@@ -106,36 +106,46 @@ public class DBManager {
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
+		
 		Leistungsspektren ls = null ;
 		Dienstleistung dln = null ;
 		int id_spektren = 0;
 		int id_spektren_new = 0;
+		int nr = 0;
 		
-	    while (r.next()) {
-	    	id_spektren_new = r.getInt(1);
-	    	if (id_spektren_new!=id_spektren)
-	    	{
-	    		if (id_spektren!=0) {
-	    			ls.setDienstleistungen(dlnList);
-	    			lsList.add(ls);
-	    			dlnList = new ArrayList<Dienstleistung>();
-	    		}
-	    		ls = new Leistungsspektren();
-	    		ls.setName("Leistungsspekter " + id_spektren_new);
-	    		ls.setId(id_spektren_new);
-	    	}
-	    	dln = new Dienstleistung();
-	    	dln.setId(r.getInt(2));
-	    	dln.setName(r.getString(3));
-	    	dln.setBescheibung(r.getString(4));
-	    	dln.setPreis(r.getInt(5));
-	    	dlnList.add(dln);
-	    	id_spektren = id_spektren_new;
-	    	
-	    }
-	    ls.setDienstleistungen(dlnList);
-		lsList.add(ls);
-		con.close(); // Very important!
+		boolean val = r.next();
+		if(val==false){
+			return lsList;
+		}
+		else {
+		    while (val) {
+		    	id_spektren_new = r.getInt(1);
+		    	if (id_spektren_new!=id_spektren)
+		    	{
+		    		if (id_spektren!=0) {
+		    			ls.setDienstleistungen(dlnList);
+		    			lsList.add(ls);
+		    			dlnList = new ArrayList<Dienstleistung>();
+		    		}
+		    		nr++;
+		    		ls = new Leistungsspektren();
+		    		ls.setName("Leistungsspekter " + nr);
+		    		ls.setId(id_spektren_new);
+		    	}
+		    	dln = new Dienstleistung();
+		    	dln.setId(r.getInt(2));
+		    	dln.setName(r.getString(3));
+		    	dln.setBescheibung(r.getString(4));
+		    	dln.setPreis(r.getInt(5));
+		    	dlnList.add(dln);
+		    	id_spektren = id_spektren_new;
+		    	val=r.next();
+		    	
+		    }
+		    ls.setDienstleistungen(dlnList);
+			lsList.add(ls);
+			con.close(); // Very important!
+		}
 		return lsList;
 	}
 	

@@ -45,6 +45,15 @@ function start(){
 	openFunktion(event, 'Leistungen', true);
 }
 
+function myFunction(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+
 function newwindow(){
 win = window.open("window.htm","win","height=300,width=300");
 }
@@ -74,27 +83,65 @@ win = window.open("window.htm","win","height=300,width=300");
   <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
 </div>
 
-
   <div id="Leistungen" class="w3-container city" style="display:none;">
   	<div style="width:600px; float: left; height: 100%; margin-left:128px">
-			<table class="w3-table w3-bordered">
-				<tr class="w3-green">
+			<!-- <table class="w3-table w3-bordered">  -->
+				<!-- <tr class="w3-green">
 						<th>Name</th>
 						<th>Beschreibung</th>
 						<th>Preis</th>
 				</tr>
-		
+				 -->
+				<div class="w3-container">
 				<c:forEach items="${leistungen}" var="ln">
-						<tr class="w3-light-grey">
-							<td>${ln.getName()}</td>
-							<c:forEach items="${ln.getDienstleistungen()}" var="dln">
+						<!-- <tr class="w3-light-grey">
+							<td>
+							 -->
+							
+							<!--  </td>-->
+							
+							<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">${ln.getName()}</button>
+							
+							
+							<div id="${ln.getName()}" class="w3-container w3-hide">
+							
+							<table class="w3-table w3-bordered">
 							<tr>
-							<td>${dln.getName()}</td>
-							<td>${dln.getBeschreibung()}</td>
-							<td>${dln.getPreis()}</td>
+							<th>Name</th>
+							<th>Beschreibung</th>
+							<th>Preis</th>
 							</tr>
-							</c:forEach>
-						</tr>
+							
+							<c:forEach items="${ln.getDienstleistungen()}" var="dln">
+							
+							
+							<!-- <tr>  -->
+							
+							
+							
+							<tr>
+							  <td>${dln.getName()}</td>
+  							  <td>${dln.getBeschreibung()}</td>
+  							  <td style="width: 70px;">${dln.getPreis()} &#8364;</td>
+  							 </tr>
+  							 
+  							 </c:forEach>
+  							 
+  							</table>
+  							
+  							
+  							</div>
+							<!-- 
+							<td>${dln.getName()}</td>
+							<td></td>
+							<td>${dln.getPreis()}</td>
+							 -->
+							
+							
+							<!-- </tr>  -->
+							
+						<!-- </tr>  -->
+						<!-- 
 						<tr>
 							<td>
 							 <button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
@@ -106,8 +153,10 @@ win = window.open("window.htm","win","height=300,width=300");
 							</button>
 							</td>
 						</tr>
+						 -->
 				</c:forEach>
-			</table>
+				</div>
+			<!-- </table>  -->
 	</div>
 	
 	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 743px;">
