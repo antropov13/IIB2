@@ -70,36 +70,31 @@ DROP TABLE IF EXISTS `auftraege`;
 CREATE TABLE IF NOT EXISTS `auftraege` (
   `aft_id` int(11) NOT NULL AUTO_INCREMENT,
   `aft_dleistungen` varchar(50) DEFAULT NULL,
-  `aft_ersteller` varchar(50) DEFAULT NULL,
-  `aft_dleister` varchar(50) DEFAULT NULL,
+  `aft_ersteller` int(11) DEFAULT NULL,
+  `aft_dleister` int(11) DEFAULT NULL,
   `aft_datum` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `aft_status` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`auft_id`),
-  FOREIGN KEY (`auft_dleistungen`)
-  REFERENCES dienstleistungen(`dlstng_name`),
-  FOREIGN KEY (`auft_ersteller`)
-  REFERENCES dezernatmitarbeiter(`dma_id`),
-  FOREIGN KEY (`auft_dleister`)
-  REFERENCES dienstleister(`dlt_id`)
+  PRIMARY KEY (`aft_id`),
+  FOREIGN KEY (`aft_dleistungen`)
+  REFERENCES `dienstleistungen`(`dln_name`),
+  FOREIGN KEY (`aft_ersteller`)
+  REFERENCES `dezernatmitarbeiter`(`dma_id`),
+  FOREIGN KEY (`aft_dleister`)
+  REFERENCES `dienstleister`(`dlr_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `gebaude`;
+DROP TABLE IF EXISTS `gebaeude`;
 CREATE TABLE IF NOT EXISTS `gebaeude` (
   `geb_id` int(11) NOT NULL AUTO_INCREMENT,
   `geb_strasse` varchar(50) DEFAULT NULL,
   `geb_hausnr` varchar(4) DEFAULT NULL,
   `geb_ort` varchar(50) DEFAULT NULL,
   `geb_plz`int(6) unsigned DEFAULT NULL,
-  `geb_dma` int(11) DEFAULT NULL,
+  `geb_dma_id` int(11) DEFAULT NULL,
    PRIMARY KEY (`geb_id`),
   KEY `geb_d_id` (`geb_dma_id`),
-  CONSTRAINT `geb_d_id`
-  FOREIGN KEY (`geb_dma_id`) 
-  REFERENCES `dezernatmitarbeiter` (`dma_id`) 
-  ON DELETE SET NULL 
-  ON UPDATE CASCADE
-
+  CONSTRAINT `geb_d_id` FOREIGN KEY (`geb_dma_id`) REFERENCES `dezernatmitarbeiter` (`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.raum
@@ -174,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `lndokumentiert` (
    KEY `dm_id` (`ldo_dma_id`),
    KEY `m_id` (`ldo_mgl_id`),
   CONSTRAINT `dm_id` FOREIGN KEY (`ldo_dma_id`) REFERENCES `dezernatmitarbeiter` (`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `m_id` FOREIGN KEY (`ldo_mgl_id`) REFERENCES `maengel` (`mlg_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `m_id` FOREIGN KEY (`ldo_mgl_id`) REFERENCES `maengel` (`mgl_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `auftraege1`;
@@ -186,11 +181,9 @@ CREATE TABLE IF NOT EXISTS `auftraege1` (
   `aft_status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`aft_id`),
   KEY `aft_d_id` (`aft_dma_id`),
-  CONSTRAINT `aft_d_id` FOREIGN KEY (`aft_dma_id`) REFERENCES dezernatmitarbeiter(`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `aft_d_id` FOREIGN KEY (`aft_dma_id`) REFERENCES `dezernatmitarbeiter`(`dma_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   KEY `a_dr_id` (`aft_dlr_id`),
-  CONSTRAINT `a_dr_id`
-  FOREIGN KEY (`aft_dlr_id`)
-  REFERENCES dienstleister(`dlr_id`)
+  CONSTRAINT `a_dr_id` FOREIGN KEY (`aft_dlr_id`) REFERENCES `dienstleister`(`dlr_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `lnAftDln`;
@@ -200,15 +193,9 @@ CREATE TABLE IF NOT EXISTS `lnAftDln` (
   `lad_dln_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`lad_id`),
   KEY `lad_a_id` (`lad_aft_id`),
-  CONSTRAINT `lad_d_id`
-  FOREIGN KEY (`lad_aft_id`)
-    REFERENCES auftraege1(`aft_id`) ON DELETE SET NULL  ON UPDATE CASCADE,
+  CONSTRAINT `lad_a_id` FOREIGN KEY (`lad_aft_id`) REFERENCES `auftraege1`(`aft_id`) ON DELETE SET NULL  ON UPDATE CASCADE,
   KEY `lad_d_id` (`lad_dln_id`),
-  CONSTRAINT `lad_d_id`
-  FOREIGN KEY (`lad_dln_id`)
-  REFERENCES `dienstleistungen` (`dln_id`)
-    ON DELETE SET NULL 
-    ON UPDATE CASCADE
+  CONSTRAINT `lad_d_id` FOREIGN KEY (`lad_dln_id`) REFERENCES `dienstleistungen` (`dln_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
  
 -- Exportiere Struktur von Tabelle gebaeudemanagement.leistungspektren1
@@ -218,11 +205,7 @@ CREATE TABLE IF NOT EXISTS `leistungsspektren1` (
   `lsp_dlr_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`lsp_id`),
   KEY `lsp_d_id` (`lsp_dlr_id`),
-  CONSTRAINT `lsp_d_id` 
-  FOREIGN KEY (`lsp_dlr_id`)
-  REFERENCES `dienstleister` (`dlr_id`)
-    ON DELETE SET NULL 
-    ON UPDATE CASCADE
+  CONSTRAINT `lsp_d_id` FOREIGN KEY (`lsp_dlr_id`) REFERENCES `dienstleister` (`dlr_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
  
