@@ -63,6 +63,8 @@ public class LoginController {
 				req.getSession().setAttribute("user", fr); // set session attribute
 				model.addAttribute("user", fr);
 				
+				/*
+				
 				if(fr.getFachrolle().equals("Dienstleister")) {
 					
 					List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
@@ -75,7 +77,7 @@ public class LoginController {
 					req.getSession().setAttribute("leistungen", leistungen); // set session attribute
 					model.addAttribute("leistungen", leistungen);
 					
-				}
+				}*/
 		
 			} else {
 				model.addAttribute("warning", "Passwort oder Nutzerkonto ist falsch!");
