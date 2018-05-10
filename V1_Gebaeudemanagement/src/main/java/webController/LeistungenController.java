@@ -111,6 +111,31 @@ public class LeistungenController {
 		return "aenderungLeistung";
 	}
 	
+	@RequestMapping(value = "/hinzufuegenLeistungsspektrum", method = RequestMethod.GET)
+	public String hinzufuegenLeistungsspektrum(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		/*
+		this.leistungID = Integer.parseInt(req.getParameter("DnlID"));
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
+		Leistungsspektrum ls = (Leistungsspektrum) user.getLeistungsspektren(LeistungsspektrumID);
+		Dienstleistung dln = (Dienstleistung) ls.getDienstleistungen(leistungID);
+		ls.delDienstleistungen(dln);
+		DBManager dbm = new DBManager();
+		
+		String sql = "";
+		if(leistungID==-1) {
+			sql = "DELETE FROM leistungsspektren WHERE ls_dlr_id = " + user.getId() + ";";
+		}
+		
+		else {
+			sql = "DELETE FROM lnlspdln WHERE lld_dln_id = " + leistungID + " AND lld_lsp_id = " + LeistungsspektrumID + ";";
+		}
+		dbm.update(sql);
+		model.addAttribute("spektrum", ls);
+		*/
+		return "hinzufuegenSpektrum";
+	}
+	
 	@RequestMapping(value = "/loeschenLeistungsspektrum", method = RequestMethod.GET)
 	public String loeschenLeistungsspektrum(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {

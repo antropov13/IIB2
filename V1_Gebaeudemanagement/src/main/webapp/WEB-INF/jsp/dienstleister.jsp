@@ -135,7 +135,7 @@ win = window.open("window.htm","win","height=300,width=300");
   	</button>
   	
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">
-	<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=-1">Hinzufügen</a>
+	<a href="<%=request.getContextPath() %>/hinzufuegenLeistungsspektrum">Hinzufügen</a>
 	</button>
 	
 	</div>
