@@ -43,6 +43,8 @@ function startTime() {
 function start(){
 	startTime();
 	openFunktion(event, 'Leistungen', true);
+	
+	
 }
 
 function myFunction(id) {
@@ -96,7 +98,7 @@ win = window.open("window.htm","win","height=300,width=300");
 						<th>Preis</th>
 						<th>
 							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-								<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=${ln.getId()}">&#9998;</a> 
+								<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspekterID=${ln.getId()}">&#9998;</a> 
 							</button>
 						</th>
 					</tr>
@@ -113,7 +115,7 @@ win = window.open("window.htm","win","height=300,width=300");
 						<tr>
 							<td>
 							 <button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=${ln.getId()}">&#9998;</a> 
+							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspekterID=${ln.getId()}">&#9998;</a> 
 							</button>
 							
 							<button id="${ln.getId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">

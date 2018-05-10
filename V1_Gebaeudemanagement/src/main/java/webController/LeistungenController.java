@@ -12,20 +12,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import beansDB.Dienstleister;
+import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektren;
 import manage.DBManager;
 
 @Controller
 public class LeistungenController {
-
+	
+	public int LeistungsspekterID = 0;
 	public int leistungID = 0;
+	
+	@RequestMapping(value = { "/", "dienstleister" })
+	public void home() {
+		System.out.println("1234");
+		//return "redirect:/dienstleister.jsp";
+	}
 
 	@RequestMapping(value = "/aenderungLeistung", method = RequestMethod.GET)
 	public String aenderungLeistung(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
-		this.leistungID = Integer.parseInt(req.getParameter("LeistungID"));
+		this.LeistungsspekterID = Integer.parseInt(req.getParameter("LeistungsspekterID"));
 		String view;
 		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
 		
@@ -33,34 +41,17 @@ public class LeistungenController {
 			model.addAttribute("error", "Bitte loggen Sie sich als Dienstleiter ein, um auf diese Seite zu kommen.");
 			view = "error";
 		} else {
-			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
-			DBManager dbm = new DBManager();
 			
-			/*
-			if (this.leistungID==-1) {
-				Leistungsspektren ls = null ;
-				ls = new Leistungsspektren();
-				ls.setName("");
-				ls.setBescheibung("");
-				ls.setPreis(0);
-				leistungen.add(ls);
-				view = "aenderungLeistung";
+			List<Leistungsspektren> ls = (List<Leistungsspektren>) user.getLeistungsspektren();
+			Leistungsspektren spektren = new Leistungsspektren();
+			for (Leistungsspektren l : ls) {
+				if(l.getId()==LeistungsspekterID) {
+					spektren = l;
+					break;
+				}
 			}
-			
-			
-			else {
-			String sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
-					+ "FROM leistungsspektren, dienstleistungen "
-					+ "WHERE ls_dlr_id = " + user.getId() + " AND ls_dln_id = dln_id AND ls_id = " + leistungID + ";";
-			leistungen = dbm.getLeistungen(sql);
+			model.addAttribute("spektren", spektren);
 			view = "aenderungLeistung";
-			}
-			model.addAttribute("leistungen", leistungen);
-			*/
-			view = "aenderungLeistung";
-			for (Leistungsspektren l : leistungen) {
-				System.out.println(l.getName());
-			}
 		}
 		return view;
 
@@ -88,7 +79,7 @@ public class LeistungenController {
 			String sql = "INSERT INTO dienstleistungen (dln_name, dln_beschreibung) values('" + name +"', '" + beschreibung + "');";
 			int id_new = dbm.setLeistungen(sql);
 			
-			if (this.leistungID==-1) {
+			if (this.LeistungsspekterID==-1) {
 				sql = "INSERT INTO leistungsspektren (ls_dln_id, ls_dlr_id, ls_preis) values('" + id_new +"', '" + user.getId() + "', '" + preis + "');";
 			}
 			else {
@@ -96,7 +87,7 @@ public class LeistungenController {
 			}
 			
 			dbm.update(sql);
-			System.out.println(this.leistungID + " " + preis +  " " + id_new);
+			System.out.println(this.LeistungsspekterID + " " + preis +  " " + id_new);
 			
 			List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
 			
@@ -117,32 +108,24 @@ public class LeistungenController {
 	public String loeschenLeistung(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
+		this.leistungID = Integer.parseInt(req.getParameter("DnlID"));
 		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
+		Leistungsspektren ls = (Leistungsspektren) user.getLeistungsspektren(LeistungsspekterID);
+		Dienstleistung dln = (Dienstleistung) ls.getDienstleistungen(leistungID);
+		ls.delDienstleistungen(dln);
 		DBManager dbm = new DBManager();
 		
-		this.leistungID = Integer.parseInt(req.getParameter("LeistungID"));
 		String sql = "";
 		if(leistungID==-1) {
 			sql = "DELETE FROM leistungsspektren WHERE ls_dlr_id = " + user.getId() + ";";
 		}
 		
 		else {
-			sql = "DELETE FROM leistungsspektren WHERE ls_id = " + leistungID + " AND ls_dlr_id = " + user.getId() + ";";
+			sql = "DELETE FROM lnlspdln WHERE lld_dln_id = " + leistungID + " AND lld_lsp_id = " + LeistungsspekterID + ";";
 		}
 		
 		dbm.update(sql);
-		
-		List<Leistungsspektren> leistungen = new ArrayList<Leistungsspektren>();
-		
-		sql = "SELECT ls_id, dln_name, dln_beschreibung, ls_preis "
-				+ "FROM leistungsspektren, dienstleistungen "
-				+ "WHERE ls_dlr_id = " + user.getId() + " AND ls_dln_id = dln_id;";
-		
-		leistungen = dbm.getLeistungen(sql);
-		req.getSession().setAttribute("leistungen", leistungen); // set session attribute
-		model.addAttribute("leistungen", leistungen);
-		
-		return "redirect:/" + user.getFachrolle().toLowerCase() + ".jsp";
+		return "aenderungLeistung";
 		
 	}
 /*

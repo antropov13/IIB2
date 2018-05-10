@@ -79,6 +79,14 @@ public class Dienstleister {
     public List<Leistungsspektren> getLeistungsspektren() {
         return leistungsspektren;
     }
+    
+    public Leistungsspektren getLeistungsspektren(int id) {
+    	for (Leistungsspektren l : leistungsspektren)
+    	{
+    		if (l.getId()==id) return l;
+    	}
+        return null;
+    }
 
     /**
      * @param fachrolle the Leistungsspektren to set

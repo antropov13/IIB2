@@ -24,6 +24,18 @@ public class Leistungsspektren {
     public List<Dienstleistung> getDienstleistungen() {
         return dienstleistungen;
     }
+    
+    public Dienstleistung getDienstleistungen(int id) {
+    	for (Dienstleistung d : dienstleistungen)
+    	{
+    		if (d.getId()==id) return d;
+    	}
+        return null;
+    }
+    
+    public void delDienstleistungen(Dienstleistung d) {
+    	dienstleistungen.remove(d);
+    }
 
     public void setDienstleistungen(List<Dienstleistung> dienstleistungen) {
         this.dienstleistungen = dienstleistungen;

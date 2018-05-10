@@ -85,6 +85,7 @@ function start(){
 </div>
 
 <form class="w3-container w3-card-1 w3-white" method="POST" action="aenderungLeistungForm">
+
 <div class="w3-light-grey" style="margin:0 auto; width:890px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
@@ -92,46 +93,42 @@ function start(){
   <button class="w3-bar-item w3-button tablink" type="submit">Speichern</button>
   <button class="w3-bar-item w3-button tablink" onclick="history.back()">Zurück</button>
   <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
-</div>
+  </div>
 
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
   	<div style="width:600px; float: left; height: 100%; margin-left:128px">
 		<div class="w3-container">
-			<c:forEach items="${leistungen}" var="ln">
-			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">${ln.getName()}</button>
-			<div id="${ln.getName()}" class="w3-container w3-hide">
-				<table class="w3-table w3-bordered">
+			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">${spektren.getName()}</div>
+			<table class="w3-table w3-bordered">
 					<tr>
 						<th>Name</th>
 						<th>Beschreibung</th>
 						<th>Preis</th>
 						<th>
-							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
+							<button id="${spektren.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
 								<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=${ln.getId()}">&#9998;</a> 
 							</button>
 						</th>
 					</tr>
-					<c:forEach items="${ln.getDienstleistungen()}" var="dln">
+					<c:forEach items="${spektren.getDienstleistungen()}" var="dln">
 						<tr>
 							<td>${dln.getName()}</td>
 	  						<td>${dln.getBeschreibung()}</td>
 	  						<td style="width: 70px;">${dln.getPreis()} &#8364;</td>
+	  						<th>
+							<button id="${dln.getId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">
+							<a href="<%=request.getContextPath() %>/loeschenLeistung?DnlID=${dln.getId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
+							</button>
+							</button>
+							</th>
 	  					</tr>
 					</c:forEach>
  				</table>
-			</div>
-			</c:forEach>
 		</div>
+	  </div>
 	</div>
-	
-	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 743px;">
-	</div>
-	
-   </div>
-  
-</form>
-
 </div>
+</form>
 </body>
 </html>

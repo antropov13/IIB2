@@ -51,8 +51,7 @@ public class LoginController {
 			}
 			
 			else {
-				req.getSession().setAttribute("user", dlr); // set session attribute
-				model.addAttribute("user", dlr);
+
 				
 				List<Leistungsspektren> spektren = new ArrayList<Leistungsspektren>();
 				
@@ -67,7 +66,10 @@ public class LoginController {
 				req.getSession().setAttribute("leistungen", spektren); // set session attribute
 				model.addAttribute("leistungen", spektren);
 				
+				dlr.setLeistungsspektren(spektren);
 				
+				req.getSession().setAttribute("user", dlr); // set session attribute
+				model.addAttribute("user", dlr);
 				return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
 			}
 		}
@@ -92,51 +94,6 @@ public class LoginController {
 				return "redirect:/" + dma.getFachrolle().toLowerCase() + ".jsp";
 			}
 		}
-		
-		//return "index";
-		
-		//if (fr.getUsername() == "" || fr.getPass() == "") {
-		//	model.addAttribute("warning", "Geben Sie bitte alle Daten ein");
-		//	return "index";
-		//} 
-		
-		//else {
-
-			//DBManager dbm = new DBManager();
-			//String kuerzel = "dma_";
-			//if (fr.getFachrolle().equals("Dienstleister")) {
-			//	kuerzel = "dlr_";
-			//}
-			//String sql = "SELECT * FROM " + fr.getFachrolle() + " WHERE " + kuerzel + "username = '" + fr.getUsername()
-			//		+ "' AND " + kuerzel + "passwort = '" + fr.getPass() + "';";
-
-			//fr = dbm.getUser(sql, fr.getFachrolle());
-			
-				
-				/*
-				
-				if(fr.getFachrolle().equals("Dienstleister")) {
-					
-					List<Leistungsspektren> spektren = new ArrayList<Leistungsspektren>();
-					
-					
-					sql = "SELECT lsp_id, dln_id, dln_name, dln_beschreibung, lld_preis "
-							+ "from leistungsspektren, dienstleistungen, lnlspdln where lsp_dlr_id = " + fr.getId() + " "
-							+ "AND lsp_id = lld_lsp_id AND lld_dln_id = dln_id";
-					
-					spektren = dbm.getLeistungen(sql);
-					req.getSession().setAttribute("leistungen", spektren); // set session attribute
-					model.addAttribute("leistungen", spektren);
-				}
-				
-				*/
-		
-			//} else {
-			//	model.addAttribute("warning", "Passwort oder Nutzerkonto ist falsch!");
-			//	return "index";
-			//}
-		//}
-		//return "redirect:/" + fr.getFachrolle().toLowerCase() + ".jsp";
 	}
 	
 	public Dienstleister loginDLR(Dienstleister dlr) throws ClassNotFoundException, SQLException {
