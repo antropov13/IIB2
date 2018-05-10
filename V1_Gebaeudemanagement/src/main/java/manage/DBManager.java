@@ -170,8 +170,10 @@ public class DBManager {
 			    	dln.setDlnId(r.getInt(2));
 			    	dln.setName(r.getString(3));
 			    	dln.setBescheibung(r.getString(4));
-			    	dln.setPreis(r.getInt(5));
-			    	dln.setId(r.getInt(6));
+			    	dln.setHaeufigkeit(r.getString(5));
+			    	dln.setPreis(r.getInt(6));
+			    	dln.setId(r.getInt(7));
+			    	dln.setDmaId(r.getInt(8));
 			    	dlnList.add(dln);
 			    	id_spektren = id_spektren_new;
 			    	val=r.next();
@@ -200,6 +202,36 @@ public class DBManager {
 		return id;
 	}
 	
+	public List<Dienstleistung> getDienstleistungen(String sql) throws ClassNotFoundException, SQLException {
+		List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Dienstleistung dln = null ;
+		
+		boolean val = r.next();
+		if(val==false){
+			return dlnList;
+		}
+		else {
+		    while (val) {
+		    	dln = new Dienstleistung();
+		    	dln.setDlnId(r.getInt(1));
+		    	dln.setId(r.getInt(1));
+		    	dln.setName(r.getString(2));
+		    	dln.setBescheibung(r.getString(3));
+		    	dln.setHaeufigkeit(r.getString(4));
+		    	dln.setDmaId(r.getInt(5));
+		    	dlnList.add(dln);
+		    	val=r.next();
+		    	
+		    }
+			con.close(); // Very important!
+		}
+		
+		return dlnList;
+	}
+	
 	public int setSpektrum(String sql) throws ClassNotFoundException, SQLException {
 		Integer id=-1;
 		Connection con = getDBConnection(datenbankname);
@@ -208,6 +240,20 @@ public class DBManager {
 		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 		
 		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.next()){
+		    id=rs.getInt(1);
+		}
+		System.out.println("id " + id);
+
+		con.close(); // Very important!
+		return id;
+	}
+	
+	public int getSpektrum(String sql) throws ClassNotFoundException, SQLException {
+		Integer id=-1;
+		Connection con = getDBConnection(datenbankname);
+	    Statement stmt = con.createStatement();
+	    ResultSet rs = stmt.executeQuery(sql);	
 		if (rs.next()){
 		    id=rs.getInt(1);
 		}

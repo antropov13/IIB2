@@ -62,7 +62,7 @@ public class LoginController {
 				spektrum = dbm.getLeistungsspektren(sql);
 				dlr.setLeistungsspektren(spektrum);
 				
-				sql = "SELECT lsp_id, dln_id, dln_name, dln_beschreibung, lld_preis, lld_id "
+				sql = "SELECT lsp_id, dln_id, dln_name, dln_beschreibung, dln_haefigkeit, lld_preis, lld_id, dln_dma_id "
 						+ "from leistungsspektren, dienstleistungen, lnlspdln where lsp_dlr_id = " + dlr.getId() + " "
 						+ "AND lsp_id = lld_lsp_id AND lld_dln_id = dln_id";
 

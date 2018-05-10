@@ -73,7 +73,7 @@ function start(){
 </head>
 <body onload="start()">
 
-<div style="margin:0 auto; width:890px;">
+<div style="margin:0 auto; width:1000px;">
 	<div class="w3-container w3-blue-grey w3-opacity"">
 		<div class="w3-display-container">
 			<div style="float: left; width:300px">
@@ -86,7 +86,7 @@ function start(){
 
 <form class="w3-container w3-card-1 w3-white" method="POST" action="aenderungLeistungForm">
 
-<div class="w3-light-grey" style="margin:0 auto; width:890px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
+<div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistung</button>
@@ -97,7 +97,7 @@ function start(){
 
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:600px; float: left; height: 100%; margin-left:148px">
+  	<div style="width:710px; float: left; height: 100%; margin-left:148px">
 	
 			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Leistungsspektrum ${spektrum.getName()}</div>
 			<table class="w3-table w3-bordered">
@@ -123,14 +123,14 @@ function start(){
  			</table>
 	  </div>
 	  
-	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 760px;">
+	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
 		<h5 class="w3-bar-item"><p></p></h5>
 	  	<button class="w3-medium w3-bar-item w3-button">
 	  	<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=${spektrum.getId()}" onclick="return confirm('Möchten Sie den Leistungsspektrum löschen?')" style="text-decoration: none;">Löschen</a>
 	  	</button>
 	  	
 	  	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">
-		<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungID=-1">Hinzufügen</a>
+		<a href="<%=request.getContextPath() %>/hinzufuegenLeistung?LeistungID=-1">Hinzufügen Leistung</a>
 		</button>
 	  	</div>
 	</div>

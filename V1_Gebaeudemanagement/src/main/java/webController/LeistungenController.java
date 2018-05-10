@@ -129,26 +129,68 @@ public class LeistungenController {
 		ls.setName(String.valueOf(id));
 		model.addAttribute("spektrum", ls);
 		
-		/*
-		this.leistungID = Integer.parseInt(req.getParameter("DnlID"));
-		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
-		Leistungsspektrum ls = (Leistungsspektrum) user.getLeistungsspektren(LeistungsspektrumID);
-		Dienstleistung dln = (Dienstleistung) ls.getDienstleistungen(leistungID);
-		ls.delDienstleistungen(dln);
-		DBManager dbm = new DBManager();
-		
-		String sql = "";
-		if(leistungID==-1) {
-			sql = "DELETE FROM leistungsspektren WHERE ls_dlr_id = " + user.getId() + ";";
-		}
-		
-		else {
-			sql = "DELETE FROM lnlspdln WHERE lld_dln_id = " + leistungID + " AND lld_lsp_id = " + LeistungsspektrumID + ";";
-		}
-		dbm.update(sql);
-		model.addAttribute("spektrum", ls);
-		*/
 		return "dienstleister";
+	}
+	
+	@RequestMapping(value = "/hinzufuegenLeistung", method = RequestMethod.GET)
+	public String hinzufuegenLeistung(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
+		
+		DBManager dbm = new DBManager();
+		String sql = "SELECT * FROM dienstleistungen";
+		List<Dienstleistung> dlnList = dbm.getDienstleistungen(sql);
+		
+		model.addAttribute("dienstleistungen", dlnList);
+		
+		return "hinzufuegenLeistung";
+	}
+	
+	@RequestMapping(value = "hinzufuegenLeistungForm", method = { RequestMethod.POST })
+	public String hinzufuegenLeistungForm(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
+		String dln = req.getParameter("dienstleistungen");
+		String[] subStr;
+		subStr = dln.split("; ");
+		this.leistungID = Integer.parseInt(subStr[3]);
+		String name = subStr[0];
+		String beschreibung = subStr[1];
+		String haeufigkeit = subStr[2];
+		int preis = Integer.parseInt(req.getParameter("preis"));
+		
+		//System.out.println(leistungID + " " + LeistungsspektrumID + " " +preis);
+		//System.out.println("0");
+		DBManager dbm = new DBManager();
+		//String sql = "SET FOREIGN_KEY_CHECKS=0";
+		//String sql = "SELECT lsp_id FROM `leistungsspektren` WHERE lsp_id=" +  LeistungsspektrumID + ";";
+		//dbm.getSpektrum(sql);
+		//System.out.println("1");
+		String sql = "INSERT INTO `lnlspdln` (lld_dln_id, lld_lsp_id, lld_preis) VALUES (" + leistungID +", " + LeistungsspektrumID + ", " + preis + ");";
+		//String sql = "INSERT INTO `lnlspdln` (lld_dln_id, lld_lsp_id, lld_preis) VALUES (3, 5, 8);";
+		//System.out.println("2");
+		//sql = "INSERT INTO `lnlspdln` (lld_dln_id, lld_lsp_id, lld_preis) VALUES (3, " + "(SELECT lsp_id FROM `leistungsspektren` WHERE lsp_id=" +  LeistungsspektrumID + ")" + ", 350)";
+		dbm.update(sql);
+		//System.out.println("2");
+		//sql = "SET FOREIGN_KEY_CHECKS=1";
+		//dbm.update(sql);
+		//System.out.println("3");
+		
+		Dienstleistung dlnnew = new Dienstleistung();
+		//dlnnew.setId(leistungID);
+		dlnnew.setDlnId(leistungID);
+		dlnnew.setName(name);
+		dlnnew.setBescheibung(beschreibung);
+		dlnnew.setHaeufigkeit(haeufigkeit);
+		dlnnew.setPreis(preis);
+		
+		Leistungsspektrum ls = user.getLeistungsspektren(LeistungsspektrumID);
+		ls.addDienstleistung(dlnnew);
+		model.addAttribute("spektrum", ls);
+
+		return "aenderungLeistung";
 	}
 	
 	@RequestMapping(value = "/loeschenLeistungsspektrum", method = RequestMethod.GET)

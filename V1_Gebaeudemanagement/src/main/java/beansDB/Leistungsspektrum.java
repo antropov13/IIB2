@@ -40,6 +40,10 @@ public class Leistungsspektrum {
     public void setDienstleistungen(List<Dienstleistung> dienstleistungen) {
         this.dienstleistungen = dienstleistungen;
     }
+    
+    public void addDienstleistung(Dienstleistung dienstleistung) {
+        this.dienstleistungen.add(dienstleistung);
+    }
 
     /**
      * @return the id

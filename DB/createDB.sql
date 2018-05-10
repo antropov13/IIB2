@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `dienstleistungen` (
   `dln_id` int(11) NOT NULL AUTO_INCREMENT,
   `dln_name` varchar(50) DEFAULT NULL,
   `dln_beschreibung` text(255) DEFAULT NULL,
-  `dln_haefigkeit` int(11) DEFAULT NULL,
+  `dln_haefigkeit` varchar(50) DEFAULT NULL,
   `dln_dma_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`dln_id`),
   KEY `dln_d_id` (`dln_dma_id`),
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `lnLspDln` (
     ON DELETE SET NULL 
     ON UPDATE CASCADE,
   CONSTRAINT `lld_l_id` FOREIGN KEY (`lld_lsp_id`)
-  REFERENCES `lesistungsspektren` (`lsp_id`)
+  REFERENCES `leistungsspektren` (`lsp_id`)
     ON DELETE SET NULL 
     ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;

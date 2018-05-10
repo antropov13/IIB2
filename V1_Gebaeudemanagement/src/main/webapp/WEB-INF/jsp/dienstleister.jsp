@@ -66,18 +66,18 @@ win = window.open("window.htm","win","height=300,width=300");
 
 <body onload="start()">
 
-<div style="margin:0 auto; width:890px;">
+<div style="margin:0 auto; width:1000px;">
 	<div class="w3-container w3-blue-grey w3-opacity"">
 		<div class="w3-display-container">
 			<div style="float: left; width:300px">
 				<h2>Guten Tag ${sessionScope.user.getFirmaname()}</h2>
 			</div > 
-			<div id="time"; style="float: right; margin-top: 20px;"></div>
+			<div id="time"; style="float: right; margin-top: 20px; margin-right: 10px;"></div>
 		</div>
 	</div>
 </div>
 
-<div class="w3-light-grey" style="margin:0 auto; width:890px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
+<div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
@@ -86,7 +86,7 @@ win = window.open("window.htm","win","height=300,width=300");
 </div>
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:600px; float: left; height: 100%; margin-left:148px">
+  	<div style="width:710px; float: left; height: 100%; margin-left:148px">
 		<div class="w3-container">
 			<c:forEach items="${leistungen}" var="ln">
 			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Leistungsspektrum ${ln.getName()}</button>
@@ -95,6 +95,7 @@ win = window.open("window.htm","win","height=300,width=300");
 					<tr>
 						<th>Name</th>
 						<th>Beschreibung</th>
+						<th>Häufigkeit</th>
 						<th>Preis</th>
 						<th>
 							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
@@ -106,7 +107,8 @@ win = window.open("window.htm","win","height=300,width=300");
 						<tr>
 							<td>${dln.getName()}</td>
 	  						<td>${dln.getBeschreibung()}</td>
-	  						<td style="width: 70px;">${dln.getPreis()} &#8364;</td>
+	  						<td>${dln.getHaeufigkeit()}</td>
+	  						<td style="width: 80px;">${dln.getPreis()} &#8364;</td>
 	  					</tr>
 					</c:forEach>
  				</table>
@@ -128,7 +130,7 @@ win = window.open("window.htm","win","height=300,width=300");
 		</div>
 	</div>
 	
-	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 760px;">
+	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
 	<h5 class="w3-bar-item"><p></p></h5>
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Loeschen')">
   	<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=-1" onclick="return confirm('Möchten Sie alle Leistungsspektren löschen?')">Löschen alle</a>
