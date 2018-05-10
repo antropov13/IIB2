@@ -15,7 +15,7 @@ import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
-import beansDB.Leistungsspektren;
+import beansDB.Leistungsspektrum;
 import manage.start;
 
 // CRUD = Create, Retrieve, Update, Delete
@@ -107,18 +107,15 @@ public class DBManager {
 		return dma;
 	}
 	
-	public List<Leistungsspektren> getLeistungen(String sql) throws ClassNotFoundException, SQLException {
-		List<Leistungsspektren> lsList = new ArrayList<Leistungsspektren>();
-		List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
+	public List<Leistungsspektrum> getLeistungsspektren(String sql) throws ClassNotFoundException, SQLException {
+		List<Leistungsspektrum> lsList = new ArrayList<Leistungsspektrum>();
+	
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
-		
-		Leistungsspektren ls = null ;
-		Dienstleistung dln = null ;
-		int id_spektren = 0;
-		int id_spektren_new = 0;
 		int nr = 0;
+		int id_spektren_new = 0;
+		Leistungsspektrum ls = null ;
 		
 		boolean val = r.next();
 		if(val==false){
@@ -126,32 +123,60 @@ public class DBManager {
 		}
 		else {
 		    while (val) {
-		    	id_spektren_new = r.getInt(1);
-		    	if (id_spektren_new!=id_spektren)
-		    	{
-		    		if (id_spektren!=0) {
-		    			ls.setDienstleistungen(dlnList);
-		    			lsList.add(ls);
-		    			dlnList = new ArrayList<Dienstleistung>();
-		    		}
-		    		nr++;
-		    		ls = new Leistungsspektren();
-		    		ls.setName("Leistungsspekter " + nr);
-		    		ls.setId(id_spektren_new);
-		    	}
-		    	dln = new Dienstleistung();
-		    	dln.setId(r.getInt(2));
-		    	dln.setName(r.getString(3));
-		    	dln.setBescheibung(r.getString(4));
-		    	dln.setPreis(r.getInt(5));
-		    	dlnList.add(dln);
-		    	id_spektren = id_spektren_new;
+		    	nr++;
+	    		ls = new Leistungsspektrum();
+	    		ls.setName("Leistungsspekter " + nr);
+	    		ls.setId(r.getInt(1));
+	    		lsList.add(ls);
 		    	val=r.next();
 		    	
 		    }
-		    ls.setDienstleistungen(dlnList);
-			lsList.add(ls);
 			con.close(); // Very important!
+		}
+		
+		return lsList;
+	
+	}
+	
+	public List<Leistungsspektrum> getLeistungen(String sql, Dienstleister dlr) throws ClassNotFoundException, SQLException {
+		List<Leistungsspektrum> lsList = dlr.getLeistungsspektren();
+		List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		
+		Leistungsspektrum ls = null ;
+		Dienstleistung dln = null ;
+		int id_spektren = 0;
+		int id_spektren_new = 0;
+		
+			boolean val = r.next();
+			if(val==false){
+				return lsList;
+			}
+			else {
+				while (val) {
+			    	id_spektren_new = r.getInt(1);
+			    	if (id_spektren_new!=id_spektren)
+			    	{
+			    		if (id_spektren!=0) {
+			    			ls.setDienstleistungen(dlnList);
+			    			dlnList = new ArrayList<Dienstleistung>();
+			    		}
+			    		ls = dlr.getLeistungsspektren(id_spektren_new);
+			    	}
+			    	dln = new Dienstleistung();
+			    	dln.setId(r.getInt(2));
+			    	dln.setName(r.getString(3));
+			    	dln.setBescheibung(r.getString(4));
+			    	dln.setPreis(r.getInt(5));
+			    	dlnList.add(dln);
+			    	id_spektren = id_spektren_new;
+			    	val=r.next();
+			    	
+			    }
+			    ls.setDienstleistungen(dlnList);
+				con.close();
 		}
 		return lsList;
 	}

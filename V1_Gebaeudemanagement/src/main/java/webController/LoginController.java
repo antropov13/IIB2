@@ -16,7 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
-import beansDB.Leistungsspektren;
+import beansDB.Leistungsspektrum;
 import manage.DBManager;
 
 @Controller
@@ -53,20 +53,24 @@ public class LoginController {
 			else {
 
 				
-				List<Leistungsspektren> spektren = new ArrayList<Leistungsspektren>();
+				List<Leistungsspektrum> spektrum = new ArrayList<Leistungsspektrum>();
 				
 				DBManager dbm = new DBManager();	
 				
+							
+				String sql = "SELECT lsp_id from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
+				spektrum = dbm.getLeistungsspektren(sql);
+				dlr.setLeistungsspektren(spektrum);
 				
-				String sql = "SELECT lsp_id, dln_id, dln_name, dln_beschreibung, lld_preis "
+				sql = "SELECT lsp_id, dln_id, dln_name, dln_beschreibung, lld_preis "
 						+ "from leistungsspektren, dienstleistungen, lnlspdln where lsp_dlr_id = " + dlr.getId() + " "
 						+ "AND lsp_id = lld_lsp_id AND lld_dln_id = dln_id";
+
+				spektrum = dbm.getLeistungen(sql, dlr);
+				dlr.setLeistungsspektren(spektrum);
 				
-				spektren = dbm.getLeistungen(sql);
-				req.getSession().setAttribute("leistungen", spektren); // set session attribute
-				model.addAttribute("leistungen", spektren);
-				
-				dlr.setLeistungsspektren(spektren);
+				req.getSession().setAttribute("leistungen", spektrum); // set session attribute
+				model.addAttribute("leistungen", spektrum);
 				
 				req.getSession().setAttribute("user", dlr); // set session attribute
 				model.addAttribute("user", dlr);

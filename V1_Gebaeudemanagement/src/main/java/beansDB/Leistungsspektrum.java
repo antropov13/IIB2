@@ -2,7 +2,7 @@ package beansDB;
 
 import java.util.List;
 
-public class Leistungsspektren {
+public class Leistungsspektrum {
 	private String name;
 	private List<Dienstleistung> dienstleistungen;
 	private int id;

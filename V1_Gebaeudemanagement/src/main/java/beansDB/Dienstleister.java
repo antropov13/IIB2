@@ -7,7 +7,7 @@ public class Dienstleister {
     private String username;
     private String passwort;
     private String fachrolle = "Dienstleister";
-    private List<Leistungsspektren> leistungsspektren;
+    private List<Leistungsspektrum> leistungsspektrumList;
     private int id;
     
     /**
@@ -76,22 +76,26 @@ public class Dienstleister {
     /**
      * @return the Leistungsspektren
      */
-    public List<Leistungsspektren> getLeistungsspektren() {
-        return leistungsspektren;
+    public List<Leistungsspektrum> getLeistungsspektren() {
+        return leistungsspektrumList;
     }
     
-    public Leistungsspektren getLeistungsspektren(int id) {
-    	for (Leistungsspektren l : leistungsspektren)
+    public Leistungsspektrum getLeistungsspektren(int id) {
+    	for (Leistungsspektrum l : leistungsspektrumList)
     	{
     		if (l.getId()==id) return l;
     	}
         return null;
     }
+    
+    public void delLeistungsspektren(Leistungsspektrum ls) {
+    	leistungsspektrumList.remove(ls);
+    }
 
     /**
      * @param fachrolle the Leistungsspektren to set
      */
-    public void setLeistungsspektren(List<Leistungsspektren> leistungsspektren) {
-        this.leistungsspektren = leistungsspektren;
+    public void setLeistungsspektren(List<Leistungsspektrum> leistungsspektren) {
+        this.leistungsspektrumList = leistungsspektren;
     }
 }
