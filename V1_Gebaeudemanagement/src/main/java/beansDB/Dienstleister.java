@@ -98,4 +98,9 @@ public class Dienstleister {
     public void setLeistungsspektren(List<Leistungsspektrum> leistungsspektren) {
         this.leistungsspektrumList = leistungsspektren;
     }
+    
+    public void setLeistungsspektrum(Leistungsspektrum leistungsspektren) {
+        this.leistungsspektrumList.add(leistungsspektren);
+    }
+    
 }

@@ -125,7 +125,8 @@ public class DBManager {
 		    while (val) {
 		    	nr++;
 	    		ls = new Leistungsspektrum();
-	    		ls.setName("Leistungsspekter " + nr);
+	    		//ls.setName("Leistungsspektrum " + nr);
+	    		ls.setName(String.valueOf(r.getInt(1)));
 	    		ls.setId(r.getInt(1));
 	    		lsList.add(ls);
 		    	val=r.next();
@@ -199,6 +200,23 @@ public class DBManager {
 		return id;
 	}
 	
+	public int setSpektrum(String sql) throws ClassNotFoundException, SQLException {
+		Integer id=-1;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		
+		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.next()){
+		    id=rs.getInt(1);
+		}
+		System.out.println("id " + id);
+
+		con.close(); // Very important!
+		return id;
+	}
+	
 	public void update(String sql) throws ClassNotFoundException, SQLException {
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
@@ -212,4 +230,5 @@ public class DBManager {
 	    ResultSet rs = stmt.executeQuery(sql);	       
 	    return rs;
 	}
+
 }

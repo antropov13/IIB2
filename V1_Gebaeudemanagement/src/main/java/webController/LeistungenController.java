@@ -114,6 +114,21 @@ public class LeistungenController {
 	@RequestMapping(value = "/hinzufuegenLeistungsspektrum", method = RequestMethod.GET)
 	public String hinzufuegenLeistungsspektrum(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
+		
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
+		
+		DBManager dbm = new DBManager();
+		String sql = "INSERT INTO `leistungsspektren` (lsp_dlr_id) VALUES (" + user.getId() +");";
+		int id = dbm.setSpektrum(sql);
+		
+		
+		Leistungsspektrum ls = new Leistungsspektrum();
+		ls.setId(id);
+		user.setLeistungsspektrum(ls);
+		//int countLS = user.getLeistungsspektren().size();
+		ls.setName(String.valueOf(id));
+		model.addAttribute("spektrum", ls);
+		
 		/*
 		this.leistungID = Integer.parseInt(req.getParameter("DnlID"));
 		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
@@ -133,7 +148,7 @@ public class LeistungenController {
 		dbm.update(sql);
 		model.addAttribute("spektrum", ls);
 		*/
-		return "hinzufuegenSpektrum";
+		return "dienstleister";
 	}
 	
 	@RequestMapping(value = "/loeschenLeistungsspektrum", method = RequestMethod.GET)

@@ -99,7 +99,7 @@ function start(){
   <div id="Leistungen" class="w3-container city" style="display:none;">
   	<div style="width:600px; float: left; height: 100%; margin-left:148px">
 	
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">${spektrum.getName()}</div>
+			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Leistungsspektrum ${spektrum.getName()}</div>
 			<table class="w3-table w3-bordered">
 					<tr>
 						<th>Name</th>

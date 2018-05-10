@@ -89,7 +89,7 @@ win = window.open("window.htm","win","height=300,width=300");
   	<div style="width:600px; float: left; height: 100%; margin-left:148px">
 		<div class="w3-container">
 			<c:forEach items="${leistungen}" var="ln">
-			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">${ln.getName()}</button>
+			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Leistungsspektrum ${ln.getName()}</button>
 			<div id="${ln.getName()}" class="w3-container w3-hide">
 				<table class="w3-table w3-bordered">
 					<tr>
