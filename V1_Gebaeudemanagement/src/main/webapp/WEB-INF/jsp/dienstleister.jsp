@@ -86,7 +86,7 @@ win = window.open("window.htm","win","height=300,width=300");
 </div>
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:600px; float: left; height: 100%; margin-left:128px">
+  	<div style="width:600px; float: left; height: 100%; margin-left:148px">
 		<div class="w3-container">
 			<c:forEach items="${leistungen}" var="ln">
 			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">${ln.getName()}</button>
@@ -128,7 +128,7 @@ win = window.open("window.htm","win","height=300,width=300");
 		</div>
 	</div>
 	
-	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 743px;">
+	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 760px;">
 	<h5 class="w3-bar-item"><p></p></h5>
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Loeschen')">
   	<a href="<%=request.getContextPath() %>/loeschenLeistung?LeistungID=-1" onclick="return confirm('Möchten Sie alle Leistung löschen?')">Löschen alle</a>

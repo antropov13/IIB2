@@ -166,10 +166,11 @@ public class DBManager {
 			    		ls = dlr.getLeistungsspektren(id_spektren_new);
 			    	}
 			    	dln = new Dienstleistung();
-			    	dln.setId(r.getInt(2));
+			    	dln.setDlnId(r.getInt(2));
 			    	dln.setName(r.getString(3));
 			    	dln.setBescheibung(r.getString(4));
 			    	dln.setPreis(r.getInt(5));
+			    	dln.setId(r.getInt(6));
 			    	dlnList.add(dln);
 			    	id_spektren = id_spektren_new;
 			    	val=r.next();

@@ -84,7 +84,7 @@ function start(){
 	</div>
 </div>
 
-<!-- <form class="w3-container w3-card-1 w3-white" method="POST" action="aenderungLeistungForm"> -->
+<form class="w3-container w3-card-1 w3-white" method="POST" action="aenderungLeistungForm">
 
 <div class="w3-light-grey" style="margin:0 auto; width:890px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
@@ -97,8 +97,8 @@ function start(){
 
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:600px; float: left; height: 100%; margin-left:128px">
-		<div class="w3-container">
+  	<div style="width:600px; float: left; height: 100%; margin-left:148px">
+	
 			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">${spektrum.getName()}</div>
 			<table class="w3-table w3-bordered">
 					<tr>
@@ -110,20 +110,20 @@ function start(){
 						<tr>
 							<td>${dln.getName()}</td>
 	  						<td>${dln.getBeschreibung()}</td>
-	  						<td style="width: 70px;">${dln.getPreis()} &#8364;</td>
+	  						<td style="width: 100px;">
+	  						<input id="${dln.getId()}" name="Preis ${dln.getId()}" type="number" min="0" value="${dln.getPreis()}" style="width: 60px"> &#8364;</input >
+	  						</td>
 	  						<th>
 							<button id="${dln.getId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">
 							<a href="<%=request.getContextPath() %>/loeschenLeistung?DnlID=${dln.getId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
-							</button>
 							</button>
 							</th>
 	  					</tr>
 					</c:forEach>
  			</table>
-		</div>
 	  </div>
 	  
-	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 743px;">
+	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 760px;">
 		<h5 class="w3-bar-item"><p></p></h5>
 	  	<button class="w3-medium w3-bar-item w3-button">
 	  	<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=${spektrum.getId()}" onclick="return confirm('Möchten Sie den Leistungsspektrum löschen?')" style="text-decoration: none;">Löschen</a>
@@ -135,6 +135,6 @@ function start(){
 	  	</div>
 	</div>
 </div>
-<!-- </form> -->
+</form>
 </body>
 </html>

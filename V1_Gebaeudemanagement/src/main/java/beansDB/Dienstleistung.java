@@ -4,6 +4,7 @@ public class Dienstleistung {
 	private String name;
     private String beschreibung;
     private int preis;
+    private int dln_id;
     private int id;
 	
 	/**
@@ -41,6 +42,21 @@ public class Dienstleistung {
     public void setPreis(int preis) {
         this.preis = preis;
     }
+    
+    /**
+     * @return the id
+     */
+    public int getDlnId() {
+        return dln_id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setDlnId(int id) {
+        this.dln_id = id;
+    }
+	
     
     /**
      * @return the id
