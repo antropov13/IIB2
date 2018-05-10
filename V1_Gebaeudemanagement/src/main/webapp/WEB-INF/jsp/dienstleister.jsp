@@ -131,7 +131,7 @@ win = window.open("window.htm","win","height=300,width=300");
 	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 760px;">
 	<h5 class="w3-bar-item"><p></p></h5>
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Loeschen')">
-  	<a href="<%=request.getContextPath() %>/loeschenLeistung?LeistungID=-1" onclick="return confirm('Möchten Sie alle Leistung löschen?')">Löschen alle</a>
+  	<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=-1" onclick="return confirm('Möchten Sie alle Leistungsspektren löschen?')">Löschen alle</a>
   	</button>
   	
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">

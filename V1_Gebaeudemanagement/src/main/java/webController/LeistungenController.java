@@ -2,6 +2,7 @@ package webController;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -116,21 +117,42 @@ public class LeistungenController {
 		
 		this.LeistungsspektrumID = Integer.parseInt(req.getParameter("LeistungsspektrumID"));
 		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
-		
-		Leistungsspektrum ls = (Leistungsspektrum) user.getLeistungsspektren(LeistungsspektrumID);
-		//Dienstleistung dln = (Dienstleistung) ls.getDienstleistungen(leistungID);
-		user.delLeistungsspektren(ls);
-		List<Leistungsspektrum> lss = (List<Leistungsspektrum>) user.getLeistungsspektren();
-		
 		DBManager dbm = new DBManager();
 		
 		String sql = "";
+		
+		if (LeistungsspektrumID!=-1) {
+		System.out.println("-1");
+		Leistungsspektrum ls = (Leistungsspektrum) user.getLeistungsspektren(LeistungsspektrumID);
+		//Dienstleistung dln = (Dienstleistung) ls.getDienstleistungen(leistungID);
+		user.delLeistungsspektren(ls);
+		List<Leistungsspektrum> lss = user.getLeistungsspektren();
+		
+
 		sql = "DELETE FROM lnlspdln WHERE lld_lsp_id = " + LeistungsspektrumID + ";";
 		dbm.update(sql);
-		sql = "DELETE FROM leistungsspektren WHERE lsp_dlr_id = " + user.getId() + ";";
+		sql = "DELETE FROM leistungsspektren WHERE lsp_dlr_id = " + user.getId() + " AND lsp_id = " + ls.getId() + ";";
 		dbm.update(sql);
 
 		model.addAttribute("spektrum", lss);
+		}
+		
+		else {
+			List<Leistungsspektrum> lsList = user.getLeistungsspektren();
+			for (Leistungsspektrum l : lsList) {
+				sql = "DELETE FROM lnlspdln WHERE lld_lsp_id = " + l.getId() + ";";
+				dbm.update(sql);
+				sql = "DELETE FROM leistungsspektren WHERE lsp_dlr_id = " + user.getId() + " AND lsp_id = " + l.getId() + ";";
+				dbm.update(sql);
+			}
+			
+			for (Iterator<Leistungsspektrum> iterator = lsList.iterator(); iterator.hasNext(); ) {
+			    Leistungsspektrum value = iterator.next();
+			        iterator.remove();
+			}
+			List<Leistungsspektrum> lss = user.getLeistungsspektren();
+			model.addAttribute("spektrum", lss);
+		}
 		return "dienstleister";
 	}
 /*
