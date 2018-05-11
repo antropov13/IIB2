@@ -28,7 +28,31 @@ public class GebueudeController {
 	@RequestMapping(value = { "/", "gebaeude" })
 	public String home(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
+	    Dezernatmitarbeiter dma = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		
+		List<Gebaeude> gebAll = new ArrayList<Gebaeude>();
+		List<Gebaeude> gebForID = new ArrayList<Gebaeude> ();
+		
+		DBManager dbm = new DBManager();	
+
+		String sql = "SELECT geb_id from gebaeude;";
+		//String sql2 = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+		gebAll = dbm.getGeb(sql);
+		
+		for(Gebaeude g: gebAll) {
+			if(g.getDma_id() == dma.getId())
+				gebForID.add(g);
+		}
+
+		req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
+		model.addAttribute("gebaeude", gebAll);
+		req.getSession().setAttribute("mGebaude", gebForID); // set session attribute for my buildings
+		model.addAttribute("mGebaeude", gebForID);
+	
+		req.getSession().setAttribute("user", dma); // set session attribute
+		model.addAttribute("user", dma);
+		//return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
+	 
 		return "/dezernatmitarbeiter";
 	}
 

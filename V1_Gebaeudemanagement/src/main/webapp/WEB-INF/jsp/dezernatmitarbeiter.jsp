@@ -67,12 +67,12 @@ win = window.open("window.htm","win","height=300,width=300");
 <body onload="start()">
 
 <div style="margin:0 auto; width:1000px;">
-	<div class="w3-container w3-blue-grey w3-opacity"">
+	<div class="w3-container w3-blue-grey w3-opacity">
 		<div class="w3-display-container">
 			<div style="float: left; width:500px">
 				<h2>Guten Tag ${sessionScope.user.getVorname()} ${sessionScope.user.getNachname()}</h2>
 			</div > 
-			<div id="time"; style="float: right; margin-top: 20px; margin-right: 10px;"></div>
+			<div id="time" style="float: right; margin-top: 20px; margin-right: 10px;"></div>
 		</div>
 	</div>
 </div>
@@ -88,57 +88,57 @@ win = window.open("window.htm","win","height=300,width=300");
 
 <div id="Gebaeude" class="w3-container city" style="display:none;">
 	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-		<button  style="margin-top:10px;" onclick="myFunction('1')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebäude 1</button>
-		<div id="1" class="w3-container w3-hide">
-		<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=1">&#9998;</a> 
-		</div>
+		 
+		${gebaeude.get(1)}
+		 <c:forEach items="${gebaeude}" var="ln">
+	
+			<button  style="margin-top:10px;" onclick="myFunction('${ln.getID()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude ${ln.getID()}</button>
+			<div id="${ln.getID()}" class="w3-container w3-hide">
+				<table class="w3-table w3-bordered">
+					<tr>
+						<th>Strasse</th>
+						<th>Hausnr.</th>
+						<th>Ort</th>
+						<th>PLZ</th>
+						<th>Ersteller</th>
+						<th>
+							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
+								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${ln.getId()}">&#9998;</a> 
+							</button>
+						</th>
+					</tr> 
+ 				</table>
+			</div> 
+						 
+			</c:forEach>
+		 
 	</div>
 </div>
 
   <div id="Leistungen" class="w3-container city" style="display:none;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
 		<div class="w3-container">
-		<!-- 
-			<c:forEach items="${leistungen}" var="ln">
-			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Leistungsspektrum ${ln.getName()}</button>
-			<div id="${ln.getName()}" class="w3-container w3-hide">
+		 <c:forEach items="${gebaeude}" var="ln">
+			<button  style="margin-top:10px;" onclick="myFunction('${ln.getID()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude ${ln.getName()}</button>
+			<div id="${ln.getID()}" class="w3-container w3-hide">
 				<table class="w3-table w3-bordered">
 					<tr>
-						<th>Name</th>
-						<th>Beschreibung</th>
-						<th>Häufigkeit</th>
-						<th>Preis</th>
+						<th>Strasse</th>
+						<th>Hausnr.</th>
+						<th>Ort</th>
+						<th>PLZ</th>
+						<th>Ersteller</th>
 						<th>
 							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-								<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspektrumID=${ln.getId()}">&#9998;</a> 
+								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${ln.getId()}">&#9998;</a> 
 							</button>
 						</th>
-					</tr>
-					<c:forEach items="${ln.getDienstleistungen()}" var="dln">
-						<tr>
-							<td>${dln.getName()}</td>
-	  						<td>${dln.getBeschreibung()}</td>
-	  						<td>${dln.getHaeufigkeit()}</td>
-	  						<td style="width: 80px;">${dln.getPreis()} &#8364;</td>
-	  					</tr>
-					</c:forEach>
+					</tr> 
  				</table>
-			</div>
-						<!-- 
-						<tr>
-							<td>
-							 <button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspektrumID=${ln.getId()}">&#9998;</a> 
-							</button>
-							
-							<button id="${ln.getId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">
-							<a href="<%=request.getContextPath() %>/loeschenLeistung?LeistungID=${ln.getId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
-							</button>
-							</td>
-						</tr>
+			</div> 
 						 
 			</c:forEach>
-			 -->
+		 
 		</div>
 	</div>
 	

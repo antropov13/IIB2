@@ -17,6 +17,7 @@ import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektrum;
 import manage.start;
+import beansDB.Gebaeude;
 
 // CRUD = Create, Retrieve, Update, Delete
 public class DBManager {
@@ -30,7 +31,7 @@ public class DBManager {
 	    String p = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //das ist notwendig wegen Fehler "time zone"
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "0000");    		
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "Caramelo2");    		
 		    		
 		} 
 		catch (SQLException ex) {
@@ -274,6 +275,35 @@ public class DBManager {
 	    Statement stmt = con.createStatement();
 	    ResultSet rs = stmt.executeQuery(sql);	       
 	    return rs;
+	}
+
+
+	public List<Gebaeude> getGeb(String sql) throws ClassNotFoundException, SQLException {
+		List<Gebaeude> gebList = null;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Gebaeude geb = null ;
+		boolean val = r.next();
+		if(val==false){
+			return gebList;
+		}
+		else {
+			gebList = new ArrayList<Gebaeude>();
+		    while (val) {
+		    	geb = new Gebaeude();
+		    	geb.setId(r.getInt(1));
+		    	geb.setStrasse(r.getString(2));
+		    	geb.setHausnummer(r.getString(3));
+		    	geb.setOrt(r.getString(4));
+		    	geb.setPlz(r.getInt(5));
+		    	geb.setDma_id(r.getInt(6));
+		    	gebList.add(geb);
+		    	val=r.next();
+		    }
+			con.close(); // Very important!
+		}
+		return gebList;
 	}
 
 }
