@@ -21,7 +21,7 @@ import beansDB.Leistungsspektrum;
 import manage.DBManager;
 
 @Controller
-public class GebueudeController {
+public class GebaeudeController {
 	
 	public int GebaeudeID = 0;
 	
@@ -57,7 +57,7 @@ public class GebueudeController {
 	}
 
 	@RequestMapping(value = "/aenderungGebaeude", method = RequestMethod.GET)
-	public String aenderungLeistung(HttpServletRequest req, HttpServletResponse res, Model model)
+	public String aenderungGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
 		this.GebaeudeID = Integer.parseInt(req.getParameter("GebaeudeID"));

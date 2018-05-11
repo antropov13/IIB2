@@ -8,6 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Gebaeudemenegement - Dezernatmitarbeiter</title>
 	<link rel="stylesheet" href="styles/gmCSS.css">	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
@@ -88,28 +89,33 @@ win = window.open("window.htm","win","height=300,width=300");
 
 <div id="Gebaeude" class="w3-container city" style="display:none;">
 	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-		 
-		${gebaeude.get(1)}
-		 <c:forEach items="${gebaeude}" var="ln">
+	<div style="display: inline-block;">
+	<button  style="margin-top:10px;" onclick="myFunction('${geb.getId()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude hinzufügen ${geb.getId()}</button>
+	</div>
+	<c:forEach items="${gebaeude}" var="geb">
 	
-			<button  style="margin-top:10px;" onclick="myFunction('${ln.getID()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude ${ln.getID()}</button>
-			<div id="${ln.getID()}" class="w3-container w3-hide">
+			<button  style="margin-top:10px;" onclick="myFunction('${geb.getId()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude ${geb.getId()}</button>
+			<div id="${geb.getId()}" class="w3-container w3-hide">
 				<table class="w3-table w3-bordered">
 					<tr>
-						<th>Strasse</th>
-						<th>Hausnr.</th>
-						<th>Ort</th>
-						<th>PLZ</th>
-						<th>Ersteller</th>
+						<th>${geb.getStrasse()}</th>
+						<th>${geb.getHausnummer()}.</th>
+						<th>${geb.getOrt()}</th>
+						<th>${geb.getPlz()}</th>
+						<th>${geb.getDma_id()}</th>
 						<th>
-							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${ln.getId()}">&#9998;</a> 
+						<c:if test="${mGebaeude.contains(geb)}">
+							<button  id="${geb.getId()}" class="w3-button w3-yellow" title="Verändern Gebaeude">
+								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${geb.getId()}">&#9998;</a> 
 							</button>
+							<button  id="${geb.getId()}" class="w3-button w3-yellow" title="Gebäude löschen">
+								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${geb.getId()}"><i class="fa fa-trash"></i></a> 
+							</button>
+							</c:if>
 						</th>
 					</tr> 
  				</table>
 			</div> 
-						 
 			</c:forEach>
 		 
 	</div>
@@ -118,9 +124,9 @@ win = window.open("window.htm","win","height=300,width=300");
   <div id="Leistungen" class="w3-container city" style="display:none;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
 		<div class="w3-container">
-		 <c:forEach items="${gebaeude}" var="ln">
-			<button  style="margin-top:10px;" onclick="myFunction('${ln.getID()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude ${ln.getName()}</button>
-			<div id="${ln.getID()}" class="w3-container w3-hide">
+		 <c:forEach items="${leistungen}" var="ln">
+			<button  style="margin-top:10px;" onclick="myFunction('${ln.getId()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude ${ln.getId()}</button>
+			<div id="${ln.getId()}" class="w3-container w3-hide">
 				<table class="w3-table w3-bordered">
 					<tr>
 						<th>Strasse</th>
@@ -130,7 +136,7 @@ win = window.open("window.htm","win","height=300,width=300");
 						<th>Ersteller</th>
 						<th>
 							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${ln.getId()}">&#9998;</a> 
+								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${ln.getId()}">&#F1F8;</a> 
 							</button>
 						</th>
 					</tr> 

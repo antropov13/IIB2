@@ -16,6 +16,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
+import beansDB.Gebaeude;
 import beansDB.Leistungsspektrum;
 import manage.DBManager;
 
@@ -93,6 +94,26 @@ public class LoginController {
 			}
 			
 			else {
+
+				List<Gebaeude> gebAll = new ArrayList<Gebaeude>();
+				List<Gebaeude> gebForID = new ArrayList<Gebaeude>();
+				DBManager dbm = new DBManager();	
+				
+
+				String sql = "SELECT * from gebaeude;";
+				//String sql2 = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+				gebAll = dbm.getGeb(sql);
+				
+				for(Gebaeude g: gebAll) {
+					if(g.getDma_id() == dma.getId())
+						gebForID.add(g);
+				}
+
+				req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
+				model.addAttribute("gebaeude", gebAll);
+				req.getSession().setAttribute("mGebaeude", gebForID); // set session attribute for my buildings
+				model.addAttribute("mGebaeude", gebForID);
+			
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);
 				return "redirect:/" + dma.getFachrolle().toLowerCase() + ".jsp";

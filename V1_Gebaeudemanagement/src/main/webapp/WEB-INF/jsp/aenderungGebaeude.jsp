@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Gebaeudemenegement - Dienstleister</title>
+	<title>Gebaeudemenegement - Dezernatmitarbeiter</title>
 	<link rel="stylesheet" href="styles/gmCSS.css">	
 	
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
