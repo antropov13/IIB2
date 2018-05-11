@@ -7,7 +7,6 @@ public class Dienstleistung {
     private int preis;
     private int dln_id;
     private int dma_id;
-    private int id;
 	
 	/**
      * @return the vorname
@@ -87,19 +86,5 @@ public class Dienstleistung {
         this.dma_id = id;
     }
 	
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 	
 }

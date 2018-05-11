@@ -109,7 +109,7 @@ public class DBManager {
 	
 	public List<Leistungsspektrum> getLeistungsspektren(String sql) throws ClassNotFoundException, SQLException {
 		List<Leistungsspektrum> lsList = new ArrayList<Leistungsspektrum>();
-	
+		List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
@@ -128,6 +128,7 @@ public class DBManager {
 	    		//ls.setName("Leistungsspektrum " + nr);
 	    		ls.setName(String.valueOf(r.getInt(1)));
 	    		ls.setId(r.getInt(1));
+	    		ls.setDienstleistungen(dlnList);
 	    		lsList.add(ls);
 		    	val=r.next();
 		    	
@@ -172,7 +173,7 @@ public class DBManager {
 			    	dln.setBescheibung(r.getString(4));
 			    	dln.setHaeufigkeit(r.getString(5));
 			    	dln.setPreis(r.getInt(6));
-			    	dln.setId(r.getInt(7));
+			    	//dln.setId(r.getInt(7));
 			    	dln.setDmaId(r.getInt(8));
 			    	dlnList.add(dln);
 			    	id_spektren = id_spektren_new;
@@ -203,32 +204,30 @@ public class DBManager {
 	}
 	
 	public List<Dienstleistung> getDienstleistungen(String sql) throws ClassNotFoundException, SQLException {
-		List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
+		List<Dienstleistung> dlnList = null;
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
 		Dienstleistung dln = null ;
-		
 		boolean val = r.next();
 		if(val==false){
 			return dlnList;
 		}
 		else {
+			dlnList = new ArrayList<Dienstleistung>();
 		    while (val) {
 		    	dln = new Dienstleistung();
 		    	dln.setDlnId(r.getInt(1));
-		    	dln.setId(r.getInt(1));
+		    	//dln.setId(r.getInt(1));
 		    	dln.setName(r.getString(2));
 		    	dln.setBescheibung(r.getString(3));
 		    	dln.setHaeufigkeit(r.getString(4));
 		    	dln.setDmaId(r.getInt(5));
 		    	dlnList.add(dln);
 		    	val=r.next();
-		    	
 		    }
 			con.close(); // Very important!
 		}
-		
 		return dlnList;
 	}
 	

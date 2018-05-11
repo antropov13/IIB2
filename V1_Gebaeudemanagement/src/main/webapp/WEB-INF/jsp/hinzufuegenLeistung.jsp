@@ -79,6 +79,16 @@ function start(){
 }
 </script>
 
+<script type="text/javascript">
+var Msg ='<%=session.getAttribute("warning")%>';
+    if (Msg != "null") {
+ function alertName(){
+ alert("Form has been submitted");
+ } 
+ }
+ </script> 
+
+
 
 </head>
 <body onload="start()">
@@ -94,15 +104,12 @@ function start(){
 	</div>
 </div>
 
-<form class="w3-container w3-card-1 w3-white" method="POST" action="hinzufuegenLeistungForm">
-
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
-  <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistung</button>
-  <button class="w3-bar-item w3-button tablink" type="submit">Speichern</button>
+  <a href="<%=request.getContextPath() %>/leistungen" class="w3-bar-item w3-button tablink w3-red">Leistungen</a>
   <button class="w3-bar-item w3-button tablink" onclick="history.back()">Zurück</button>
-  <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
+  <a href="<%=request.getContextPath() %>/logout" class="w3-bar-item w3-button tablink">Logout</a>
   </div>
 
 
@@ -110,19 +117,19 @@ function start(){
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
 	 
 			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">${spektrum.getName()}</div>
+			<form class="w3-container w3-card-1 w3-white" method="POST" action="hinzufuegenLeistungForm">
 			<table>
 			<tr>
-			<td>Auswählen Art der Leistung</td>
-			<td>
-				<select id="dienstleistungen" name="dienstleistungen">
-				<c:forEach items="${dienstleistungen}" var="dln">
-				<option value="${dln.getName()}; ${dln.getBeschreibung()}; ${dln.getHaeufigkeit()}; ${dln.getId()}">${dln.getName()}</option>
-				</c:forEach>
-				</select>
-			</td>
+				<td>Auswählen Art der Leistung</td>
+				<td>
+					<select id="dienstleistungen" name="dienstleistungen">
+					<c:forEach items="${dienstleistungen}" var="dln">
+					<option value="${dln.getName()}; ${dln.getBeschreibung()}; ${dln.getHaeufigkeit()}; ${dln.getDlnId()}">${dln.getName()}</option>
+					</c:forEach>
+					</select>
+				</td>
 			</tr>
 			</table>
-			
 			<table class="w3-table w3-bordered">
 					<tr>
 						<th>Name</th>
@@ -130,6 +137,7 @@ function start(){
 						<th>Häufigkeit</th>
 						<th>Preis</th>
 					</tr>
+					
 					
 						<tr>
 							<td id="nameDln"></td>
@@ -143,6 +151,7 @@ function start(){
 	  						<button type="submit" name="btnadd" id="0" class="w3-button w3-green" style="color: #000!important;">&#10003;</button>
 							</td>
 	  					</tr>
+	  					
 	  		<script type="text/javascript">
     		document.getElementById("dienstleistungen").addEventListener("change", function(){
       		var str = this.value;
@@ -153,14 +162,14 @@ function start(){
     		document.getElementById('id').innerHTML = mass[3];  
     		});
 			</script>
-			
  			</table>
+ 			</form>
  			</div>	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
 		<h5 class="w3-bar-item"><p></p></h5>
 	  	</div>
 	</div>
 </div>
-</form>
+
 </body>
 </html>

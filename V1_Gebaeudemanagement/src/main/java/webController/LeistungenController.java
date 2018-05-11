@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +25,35 @@ public class LeistungenController {
 	public int LeistungsspektrumID = 0;
 	public int leistungID = 0;
 	
-	@RequestMapping(value = { "/", "dienstleister" })
-	public void home() {
-		System.out.println("1234");
-		//return "redirect:/dienstleister.jsp";
+	@RequestMapping(value = { "/", "leistungen" })
+	public String home(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		
+		Dienstleister dlr = (Dienstleister) req.getSession().getAttribute("user");
+		
+		List<Leistungsspektrum> spektrum = new ArrayList<Leistungsspektrum>();
+		
+		DBManager dbm = new DBManager();	
+		
+					
+		String sql = "SELECT lsp_id from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
+		spektrum = dbm.getLeistungsspektren(sql);
+		dlr.setLeistungsspektren(spektrum);
+		
+		sql = "SELECT lsp_id, dln_id, dln_name, dln_beschreibung, dln_haefigkeit, lld_preis, lld_id, dln_dma_id "
+				+ "from leistungsspektren, dienstleistungen, lnlspdln where lsp_dlr_id = " + dlr.getId() + " "
+				+ "AND lsp_id = lld_lsp_id AND lld_dln_id = dln_id";
+
+		spektrum = dbm.getLeistungen(sql, dlr);
+		dlr.setLeistungsspektren(spektrum);
+		
+		req.getSession().setAttribute("leistungen", spektrum); // set session attribute
+		model.addAttribute("leistungen", spektrum);
+		
+		req.getSession().setAttribute("user", dlr); // set session attribute
+		model.addAttribute("user", dlr);
+		//return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
+		return "dienstleister";
 	}
 
 	@RequestMapping(value = "/aenderungLeistung", method = RequestMethod.GET)
@@ -73,13 +99,13 @@ public class LeistungenController {
 		
 		for (Dienstleistung d : dlnList)
 		{
-			String preis = req.getParameter("Preis " + d.getId());
+			String preis = req.getParameter("Preis " + d.getDlnId());
 			System.out.println(preis);
 			d.setPreis(Integer.parseInt(preis));
 			
-			String sql = "UPDATE lnlspdln SET lld_preis = " + preis + " where lld_id = " + d.getId() +" AND lld_lsp_id = " + LeistungsspektrumID + ";";
+			String sql = "UPDATE lnlspdln SET lld_preis = " + preis + " where lld_id = " + d.getDlnId() +" AND lld_lsp_id = " + LeistungsspektrumID + ";";
 			dbm.update(sql);
-			System.out.println(preis + " " + d.getId());
+			System.out.println(preis + " " + d.getDlnId());
 		}
 		model.addAttribute("spektrum", ls);
 		return "dienstleister";
@@ -121,12 +147,16 @@ public class LeistungenController {
 		String sql = "INSERT INTO `leistungsspektren` (lsp_dlr_id) VALUES (" + user.getId() +");";
 		int id = dbm.setSpektrum(sql);
 		
+		List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
 		
 		Leistungsspektrum ls = new Leistungsspektrum();
 		ls.setId(id);
+		ls.setDienstleistungen(dlnList);
+		ls.setName(String.valueOf(id));
+		
 		user.setLeistungsspektrum(ls);
 		//int countLS = user.getLeistungsspektren().size();
-		ls.setName(String.valueOf(id));
+		
 		model.addAttribute("spektrum", ls);
 		
 		return "dienstleister";
@@ -137,46 +167,42 @@ public class LeistungenController {
 			throws ClassNotFoundException, SQLException {
 		
 		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
-		
 		DBManager dbm = new DBManager();
-		String sql = "SELECT * FROM dienstleistungen";
+		String sql ="SELECT * FROM dienstleistungen where dln_id NOT IN (select lld_dln_id from lnlspdln where lld_lsp_id = " + LeistungsspektrumID + ")";  // "SELECT * FROM dienstleistungen";
 		List<Dienstleistung> dlnList = dbm.getDienstleistungen(sql);
-		
+		if (dlnList==null)
+		{
+			Leistungsspektrum ls = user.getLeistungsspektren(LeistungsspektrumID);
+			model.addAttribute("spektrum", ls);
+			req.setAttribute("submitDone","done");
+			return "aenderungLeistung";
+		}
+		else {
 		model.addAttribute("dienstleistungen", dlnList);
-		
 		return "hinzufuegenLeistung";
+		}
+		
 	}
 	
 	@RequestMapping(value = "hinzufuegenLeistungForm", method = { RequestMethod.POST })
 	public String hinzufuegenLeistungForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-		
+		System.out.println("0");
 		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
 		String dln = req.getParameter("dienstleistungen");
 		String[] subStr;
 		subStr = dln.split("; ");
+		System.out.println("1");
 		this.leistungID = Integer.parseInt(subStr[3]);
 		String name = subStr[0];
 		String beschreibung = subStr[1];
 		String haeufigkeit = subStr[2];
 		int preis = Integer.parseInt(req.getParameter("preis"));
-		
-		//System.out.println(leistungID + " " + LeistungsspektrumID + " " +preis);
-		//System.out.println("0");
 		DBManager dbm = new DBManager();
-		//String sql = "SET FOREIGN_KEY_CHECKS=0";
-		//String sql = "SELECT lsp_id FROM `leistungsspektren` WHERE lsp_id=" +  LeistungsspektrumID + ";";
-		//dbm.getSpektrum(sql);
-		//System.out.println("1");
+		System.out.println("2");
 		String sql = "INSERT INTO `lnlspdln` (lld_dln_id, lld_lsp_id, lld_preis) VALUES (" + leistungID +", " + LeistungsspektrumID + ", " + preis + ");";
-		//String sql = "INSERT INTO `lnlspdln` (lld_dln_id, lld_lsp_id, lld_preis) VALUES (3, 5, 8);";
-		//System.out.println("2");
-		//sql = "INSERT INTO `lnlspdln` (lld_dln_id, lld_lsp_id, lld_preis) VALUES (3, " + "(SELECT lsp_id FROM `leistungsspektren` WHERE lsp_id=" +  LeistungsspektrumID + ")" + ", 350)";
 		dbm.update(sql);
-		//System.out.println("2");
-		//sql = "SET FOREIGN_KEY_CHECKS=1";
-		//dbm.update(sql);
-		//System.out.println("3");
+		System.out.println("3");
 		
 		Dienstleistung dlnnew = new Dienstleistung();
 		//dlnnew.setId(leistungID);
@@ -185,11 +211,14 @@ public class LeistungenController {
 		dlnnew.setBescheibung(beschreibung);
 		dlnnew.setHaeufigkeit(haeufigkeit);
 		dlnnew.setPreis(preis);
-		
+		System.out.println("4 " + LeistungsspektrumID);
 		Leistungsspektrum ls = user.getLeistungsspektren(LeistungsspektrumID);
+		System.out.println("6" + ls.getName());
+		
 		ls.addDienstleistung(dlnnew);
+		System.out.println("7");
 		model.addAttribute("spektrum", ls);
-
+		System.out.println("5");
 		return "aenderungLeistung";
 	}
 	

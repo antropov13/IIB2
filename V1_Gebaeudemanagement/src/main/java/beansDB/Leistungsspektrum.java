@@ -1,5 +1,6 @@
 package beansDB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Leistungsspektrum {
@@ -28,7 +29,7 @@ public class Leistungsspektrum {
     public Dienstleistung getDienstleistungen(int id) {
     	for (Dienstleistung d : dienstleistungen)
     	{
-    		if (d.getId()==id) return d;
+    		if (d.getDlnId()==id) return d;
     	}
         return null;
     }
