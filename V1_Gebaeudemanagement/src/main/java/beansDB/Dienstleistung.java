@@ -3,9 +3,10 @@ package beansDB;
 public class Dienstleistung {
 	private String name;
     private String beschreibung;
+    private String haeufigkeit;
     private int preis;
     private int dln_id;
-    private int id;
+    private int dma_id;
 	
 	/**
      * @return the vorname
@@ -35,6 +36,20 @@ public class Dienstleistung {
         this.beschreibung = beschreibung;
     }
     
+    /**
+     * @return the nachname
+     */
+    public String getHaeufigkeit() {
+        return haeufigkeit;
+    }
+
+    /**
+     * @param nachname the nachname to set
+     */
+    public void setHaeufigkeit(String haeufigkeit) {
+        this.haeufigkeit = haeufigkeit;
+    }
+    
     public int getPreis() {
         return preis;
     }
@@ -56,20 +71,20 @@ public class Dienstleistung {
     public void setDlnId(int id) {
         this.dln_id = id;
     }
-	
     
     /**
      * @return the id
      */
-    public int getId() {
-        return id;
+    public int getDmaId() {
+        return dma_id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setDmaId(int id) {
+        this.dma_id = id;
     }
+	
 	
 }

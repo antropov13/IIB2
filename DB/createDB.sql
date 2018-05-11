@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `dienstleister` (
   `dlr_username` varchar(50) DEFAULT NULL,
   `dlr_passwort` blob,
   PRIMARY KEY (`dlr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.dienstleister
 DROP TABLE IF EXISTS `dienstleistungen`;
@@ -33,12 +33,12 @@ CREATE TABLE IF NOT EXISTS `dienstleistungen` (
   `dln_id` int(11) NOT NULL AUTO_INCREMENT,
   `dln_name` varchar(50) DEFAULT NULL,
   `dln_beschreibung` text(255) DEFAULT NULL,
-  `dln_haefigkeit` int(11) DEFAULT NULL,
+  `dln_haefigkeit` varchar(50) DEFAULT NULL,
   `dln_dma_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`dln_id`),
   KEY `dln_d_id` (`dln_dma_id`),
   CONSTRAINT `dln_d_id` FOREIGN KEY (`dln_dma_id`) REFERENCES `dezernatmitarbeiter` (`dlr_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.leistungspektren1
 DROP TABLE IF EXISTS `leistungsspektren`;
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `leistungsspektren` (
   REFERENCES `dienstleister` (`dlr_id`)
     ON DELETE SET NULL 
     ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
  
 -- Exportiere Struktur von Tabelle gebaeudemanagement.lnLspDln
@@ -70,10 +70,10 @@ CREATE TABLE IF NOT EXISTS `lnLspDln` (
     ON DELETE SET NULL 
     ON UPDATE CASCADE,
   CONSTRAINT `lld_l_id` FOREIGN KEY (`lld_lsp_id`)
-  REFERENCES `lesistungsspektren` (`lsp_id`)
+  REFERENCES `leistungsspektren` (`lsp_id`)
     ON DELETE SET NULL 
     ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.dezernatmitarbeiter
 DROP TABLE IF EXISTS `dezernatmitarbeiter`;
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `dezernatmitarbeiter` (
   `dma_username` varchar(50) DEFAULT NULL,
   `dma_passwort` blob,
   PRIMARY KEY (`dma_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `auftraege`;
 CREATE TABLE IF NOT EXISTS `auftraege` (
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `auftraege` (
   CONSTRAINT `a_dr_id`
   FOREIGN KEY (`aft_dlr_id`)
   REFERENCES `dienstleister`(`dlr_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `gebaude`;
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `gebaeude` (
   ON DELETE SET NULL 
   ON UPDATE CASCADE
 
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.raum
 DROP TABLE IF EXISTS `raum`;
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `raum` (
   PRIMARY KEY (`rau_id`),
   KEY `r_s_id` (`rau_stw_id`),
   CONSTRAINT `r_s_id` FOREIGN KEY (`rau_stw_id`) REFERENCES `stockwerk` (`stw_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.stockwerk
 DROP TABLE IF EXISTS `stockwerk`;
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `stockwerk` (
   PRIMARY KEY (`stw_id`),
   KEY `s_geb_id` (`stw_geb_id`),
   CONSTRAINT `s_geb_id` FOREIGN KEY (`stw_geb_id`) REFERENCES `gebaeude` (`geb_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle gebaeudemanagement.wand
@@ -154,7 +154,7 @@ DROP TABLE IF EXISTS `wand`;
 CREATE TABLE IF NOT EXISTS `wand` (
   `wan_id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`wan_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.lnraumwand
 DROP TABLE IF EXISTS `lnraumwand`;
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `lnraumwand` (
   KEY `w_id` (`lrw_wan_id`),
   CONSTRAINT `r_id` FOREIGN KEY (`lrw_rau_id`) REFERENCES `raum` (`rau_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `w_id` FOREIGN KEY (`lrw_wan_id`) REFERENCES `wand` (`wan_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.maengel
@@ -189,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `maengel` (
    REFERENCES `dienstleister` (`dlr_id`)
     ON DELETE SET NULL 
     ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.lndokumentiert
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `lndokumentiert` (
   REFERENCES `maengel` (`mgl_id`)
    ON DELETE SET NULL 
    ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `lnAftDln`;
@@ -235,4 +235,4 @@ CREATE TABLE IF NOT EXISTS `lnAftDln` (
   REFERENCES `dienstleistungen` (`dln_id`)
     ON DELETE SET NULL 
     ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
