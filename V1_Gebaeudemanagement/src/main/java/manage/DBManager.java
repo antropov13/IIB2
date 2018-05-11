@@ -270,11 +270,14 @@ public class DBManager {
 		Statement stmt = con.createStatement();
 		Connection con2 = getDBConnection(datenbankname);
 		Statement stmt2 = con2.createStatement();
+		Connection con3 = getDBConnection(datenbankname);
+		Statement stmt3 = con3.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
 		int nr = 0;
 		int id_spektren_new = 0;
 		Auftrag at = null ;
 		String sql2 = "";
+		String sql3 = "";
 		String dma = "";
 		boolean val = r.next();
 		if(val==false){
@@ -295,6 +298,9 @@ public class DBManager {
 	    		{
 	    			dma = r2.getString(1) + " " + r2.getString(2);
 	    		}
+	    		
+	    		sql3 = "SELECT * from gebaeude where geb_id = " + r.getInt(6);
+	    		at.setGebaeude(getGebaeude(sql3));
 	    		at.setAuftragsersteller(dma);
 	    		auftraegeList.add(at);
 		    	val=r.next();
@@ -305,6 +311,24 @@ public class DBManager {
 		
 		return auftraegeList;
 	
+	}
+	
+	public Gebaeude getGebaeude(String sql) throws ClassNotFoundException, SQLException {
+		Connection con = getDBConnection(datenbankname);
+	    Statement stmt = con.createStatement();
+	    ResultSet rs = stmt.executeQuery(sql);
+	    
+	    Gebaeude gebaeude = new Gebaeude();
+		while (rs.next())
+		{
+			gebaeude.setId(rs.getInt(1));
+			gebaeude.setStrasse(rs.getString(2));
+			gebaeude.setHausnummer(rs.getString(3));
+			gebaeude.setOrt(rs.getString(4));
+			gebaeude.setPlz(rs.getInt(5));
+			gebaeude.setDma_id(rs.getInt(6));
+		}
+	    return gebaeude;
 	}
 	
 	public void update(String sql) throws ClassNotFoundException, SQLException {

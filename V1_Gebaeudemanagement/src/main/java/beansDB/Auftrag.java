@@ -6,6 +6,7 @@ public class Auftrag {
 	private String status;
 	private int dlr_id;
 	private int dma_idl;
+	private Gebaeude gebaeude;
 	private String auftragsersteller;
 	public int getId() {
 		return id;
@@ -38,6 +39,12 @@ public class Auftrag {
 		this.dma_idl = dma_idl;
 	}
 	
+	public Gebaeude getGebaeude() {
+		return gebaeude;
+	}
+	public void setGebaeude(Gebaeude gebaeude) {
+		this.gebaeude = gebaeude;
+	}
 	public String getAuftragsersteller() {
 		return auftragsersteller;
 	}

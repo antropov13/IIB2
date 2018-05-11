@@ -167,7 +167,7 @@ win = window.open("window.htm","win","height=300,width=300");
 					</c:if>
 					
 					<div style="float:left;">Ort:</div>
-					<div>Darmstadt</div>
+					<div>${at.getGebaeude().getOrt()}</div>
 					</div>
 					
 				    </div>

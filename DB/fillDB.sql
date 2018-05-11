@@ -147,8 +147,8 @@ INSERT INTO `auftraege` (`aft_id`,`aft_dma_id`, `aft_dlr_id`, `aft_datum`, `aft_
     (5, 4,7, '2018-01-01 20:00:00', 'Abgelehnt', 4),
     (6, 2,8, '2018-05-01 11:30:05', 'Abgelehnt', 4),
     (7, 7,2, '2018-05-07 10:00:00', 'Warte auf eine Antwort', 5),
-    (8, 3, 1, '2018-05-07 12:00:00', 'Warte auf eine Antwort', 1),
-    (9, 4, 1, '2018-05-07 15:00:00', 'Abgelehnt', 1);
+    (8, 3, 1, '2018-05-07 12:00:00', 'Warte auf eine Antwort', 2),
+    (9, 4, 1, '2018-05-07 15:00:00', 'Abgelehnt', 3);
 /*!40000 ALTER TABLE `auftraege` ENABLE KEYS */;
 
 
