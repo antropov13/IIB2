@@ -60,13 +60,31 @@ public class GebaeudeController {
 	public String aenderungGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
-		this.GebaeudeID = Integer.parseInt(req.getParameter("GebaeudeID"));
+		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
 		String view;
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("mGebaeude");
+		
+			for(Gebaeude g: gebaeude) {
+				
+			}
+		model.addAttribute("gebaeude", gebaeude);
+		view = "aenderungGebaeude";
+		System.out.println("1234");
+		return view;
+
+	}
+	@RequestMapping(value = "/aenderungGebaeude", method = RequestMethod.POST)
+	public String aenderungGebaeudeForm(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+
+		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
+		String view;
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("mGebaeude");
 		
 			
-		//List<Gebaeude> gebaeudeList = (List<Gebaeude>) user.getGebaeude();
-		Gebaeude gebaeude = new Gebaeude();
+		
 		/*
 		for (Gebaeude geb : gebaeudeList) {
 			if(geb.getId()==GebaeudeID) {

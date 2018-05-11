@@ -98,7 +98,6 @@ public class LoginController {
 				List<Gebaeude> gebAll = new ArrayList<Gebaeude>();
 				List<Gebaeude> gebForID = new ArrayList<Gebaeude>();
 				DBManager dbm = new DBManager();	
-				
 
 				String sql = "SELECT * from gebaeude;";
 				//String sql2 = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
@@ -113,7 +112,12 @@ public class LoginController {
 				model.addAttribute("gebaeude", gebAll);
 				req.getSession().setAttribute("mGebaeude", gebForID); // set session attribute for my buildings
 				model.addAttribute("mGebaeude", gebForID);
-			
+				
+				sql = "SELECT * from dienstleistungen;";
+			    List<Dienstleistung> leistungen = new ArrayList<Dienstleistung>();
+				leistungen = dbm.getDienstleistungen(sql);
+				req.getSession().setAttribute("leistungen", leistungen); // set session attribute
+				model.addAttribute("leistungen", leistungen);
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);
 				return "redirect:/" + dma.getFachrolle().toLowerCase() + ".jsp";

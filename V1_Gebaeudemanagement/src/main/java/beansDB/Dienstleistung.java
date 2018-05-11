@@ -1,6 +1,7 @@
 package beansDB;
 
 public class Dienstleistung {
+	private int id;
 	private String name;
     private String beschreibung;
     private String haeufigkeit;
@@ -85,6 +86,14 @@ public class Dienstleistung {
     public void setDmaId(int id) {
         this.dma_id = id;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	
 }
