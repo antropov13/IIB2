@@ -132,21 +132,23 @@ INSERT INTO `lnLspDln` (`lld_id`, `lld_lsp_id`, `lld_dln_id`, `lld_preis`) VALUE
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.auftraege: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `auftraege` DISABLE KEYS */;
-INSERT INTO `auftraege`(`aft_id`, `aft_dma_id`, `aft_dlr_id`, `aft_status`) VALUES
-    (1, 1,1,'Ausführung'),
-    (2, 1,1,'Erledigt'),
-    (3, 1,4,'Warte auf eine Antwort'),
-    (4, 3,4,'Erledigt');
+INSERT INTO `auftraege`(`aft_id`, `aft_dma_id`, `aft_dlr_id`, `aft_status`, `aft_geb_id`) VALUES
+    (1, 1,1,'Ausführung', 1),
+    (2, 1,1,'Erledigt', 1),
+    (3, 1,4,'Warte auf eine Antwort', 2),
+    (4, 3,4,'Erledigt', 3);
 /*!40000 ALTER TABLE `auftraege` ENABLE KEYS */;
 
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.auftraege: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `auftraege` DISABLE KEYS */;
 
-INSERT INTO `auftraege` (`aft_id`,`aft_dma_id`, `aft_dlr_id`, `aft_datum`, `aft_status`) VALUES
-    (5, 4,7, '2018-01-01 20:00:00', 'Abgelehnt'),
-    (6, 2,8, '2018-05-01 11:30:05', 'Abgelehnt'),
-    (7, 7,2, '2018-05-07 10:00:00', 'Warte auf eine Antwort');
+INSERT INTO `auftraege` (`aft_id`,`aft_dma_id`, `aft_dlr_id`, `aft_datum`, `aft_status`,  `aft_geb_id`) VALUES
+    (5, 4,7, '2018-01-01 20:00:00', 'Abgelehnt', 4),
+    (6, 2,8, '2018-05-01 11:30:05', 'Abgelehnt', 4),
+    (7, 7,2, '2018-05-07 10:00:00', 'Warte auf eine Antwort', 5),
+    (8, 3, 1, '2018-05-07 12:00:00', 'Warte auf eine Antwort', 1),
+    (9, 4, 1, '2018-05-07 15:00:00', 'Abgelehnt', 1);
 /*!40000 ALTER TABLE `auftraege` ENABLE KEYS */;
 
 
@@ -188,8 +190,15 @@ INSERT INTO `wand`(`wan_id`) VALUES
 /*!40000 ALTER TABLE `wand` DISABLE KEYS */;
 INSERT INTO `gebaeude`(`geb_id`, `geb_strasse`, `geb_hausnr`, `geb_ort`,
             `geb_plz`, `geb_dma_id`) VALUES
-    (1, 'Hauptstr.', 1, 'Darmstadt', 64287, 3),
-    (2, 'Hauptstr.', 2, 'Darmstadt', 64287, 4);
+    (1, 'Hauptstr.', 1, 'Darmstadt', 64287, 1),
+    (2, 'Hauptstr.', 2, 'Frankfurt', 64287, 2),
+    (3, 'Hauptstr.', 3, 'Mainz', 64287, 3),
+    (4, 'Hauptstr.', 4, 'Darmstadt', 64287, 3),
+    (5, 'Hauptstr.', 5, 'Frankfurt', 64287, 3),
+    (6, 'Hauptstr.', 6, 'Wiesbaden', 64287, 4),
+    (7, 'Hauptstr.', 7, 'Darmstadt', 64287, 5),
+    (8, 'Hauptstr.', 8, 'Mainz', 64287, 6),
+    (9, 'Hauptstr.', 9, 'Darmstadt', 64287, 7);
 /*!40000 ALTER TABLE `gebaeude` ENABLE KEYS */;
 
 
