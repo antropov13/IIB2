@@ -8,6 +8,7 @@ public class Dienstleister {
     private String passwort;
     private String fachrolle = "Dienstleister";
     private List<Leistungsspektrum> leistungsspektrumList;
+    private List<Auftrag> auftraegeList;
     private int id;
     
     /**
@@ -101,6 +102,17 @@ public class Dienstleister {
     
     public void setLeistungsspektrum(Leistungsspektrum leistungsspektren) {
         this.leistungsspektrumList.add(leistungsspektren);
+    }
+    
+    /**
+     * @param fachrolle the Leistungsspektren to set
+     */
+    public void setAuftraege(List<Auftrag> auftraege) {
+        this.auftraegeList = auftraege;
+    }
+    
+    public List<Auftrag> getAuftraege() {
+        return auftraegeList;
     }
     
 }

@@ -8,6 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Gebaeudemenegement - Dienstleister</title>
 	<link rel="stylesheet" href="styles/gmCSS.css">	
+	<link rel="stylesheet" href="styles/style.css">	
 	
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
@@ -113,19 +114,6 @@ win = window.open("window.htm","win","height=300,width=300");
 					</c:forEach>
  				</table>
 			</div>
-						<!-- 
-						<tr>
-							<td>
-							 <button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspektrumID=${ln.getId()}">&#9998;</a> 
-							</button>
-							
-							<button id="${ln.getId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">
-							<a href="<%=request.getContextPath() %>/loeschenLeistung?LeistungID=${ln.getId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
-							</button>
-							</td>
-						</tr>
-						 -->
 			</c:forEach>
 		</div>
 	</div>
@@ -139,12 +127,57 @@ win = window.open("window.htm","win","height=300,width=300");
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">
 	<a href="<%=request.getContextPath() %>/hinzufuegenLeistungsspektrum">Hinzufügen</a>
 	</button>
-	
 	</div>
   </div>
 
   <div id="Auftraege" class="w3-container city" style="display:none">
-    <h2>Auftraege</h2>
+    <div style="width:870px; height: 100%; margin-left:130px">
+		<div class="container">
+			<div class="catalog">
+			<c:forEach items="${auftraege}" var="at">
+			<div class="w3-card-4 item" style="margin-top: 10px;">
+    			<header class="w3-container w3-green">
+      				<h5>Auftrag ${at.getId()}</h5>
+    			</header>
+    			    <div class="w3-container w3-white">
+	    			    <div style="width:40%; float:left;">
+	    			    <figure style:="text-align: center;">
+	  						<img src="img/6.jpg" class="w3-circle" style="width:60px;">
+					    	<figcaption>${at.getAuftragsersteller()}</figcaption>
+					    </figure>
+					    </div>
+					  
+					<div style="width:60%; float:right; margin-top:20px;">
+					<c:set var = "status" value = "${at.getStatus()}"/>
+					<c:if test = "${status == 'Ausführung' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#0066ff">${at.getStatus()}</div>
+					</c:if>
+					<c:if test = "${status == 'Erledigt' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#009933">${at.getStatus()}</div>
+					</c:if>
+					<c:if test = "${status == 'Warte auf eine Antwort' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#ffcc00">${at.getStatus()}</div>
+					</c:if>
+					<c:if test = "${status == 'Abgelehnt' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#ff0000">${at.getStatus()}</div>
+					</c:if>
+					
+					<div style="float:left;">Ort:</div>
+					<div>Darmstadt</div>
+					</div>
+					
+				    </div>
+				    <button class="w3-button w3-block w3-dark-grey">Öffnen</button>
+		    </div>
+			</c:forEach>
+			</div>
+		</div>
+	</div>
+	 
 </div>
 
 </div>

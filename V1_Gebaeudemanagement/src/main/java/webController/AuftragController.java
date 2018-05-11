@@ -21,22 +21,23 @@ import beansDB.Leistungsspektrum;
 import manage.DBManager;
 
 @Controller
-public class GebueudeController {
+public class AuftragController {
 	
-	public int GebaeudeID = 0;
+	public int AuftragID = 0;
 	
-	@RequestMapping(value = { "/", "gebaeude" })
+	@RequestMapping(value = { "/", "auftraege" })
 	public String home(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
 		return "/dezernatmitarbeiter";
 	}
 
-	@RequestMapping(value = "/aenderungGebaeude", method = RequestMethod.GET)
-	public String aenderungGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
+	
+	@RequestMapping(value = "/aenderungAuftraege", method = RequestMethod.GET)
+	public String aenderungAuftraege(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
-		this.GebaeudeID = Integer.parseInt(req.getParameter("GebaeudeID"));
+		this.AuftragID = Integer.parseInt(req.getParameter("AuftragID"));
 		String view;
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		
@@ -49,8 +50,8 @@ public class GebueudeController {
 				gebaeude = geb;
 				break;
 			}
-		}
-		*/
+		}*/
+		
 		model.addAttribute("gebaeude", gebaeude);
 		view = "aenderungGebaeude";
 		System.out.println("1234");

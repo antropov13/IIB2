@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.mysql.jdbc.*;
 
+import beansDB.Auftrag;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
@@ -260,6 +261,50 @@ public class DBManager {
 
 		con.close(); // Very important!
 		return id;
+	}
+	
+	public List<Auftrag> getAuftraege(String sql) throws ClassNotFoundException, SQLException {
+		List<Auftrag> auftraegeList = new ArrayList<Auftrag>();
+		//List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		Connection con2 = getDBConnection(datenbankname);
+		Statement stmt2 = con2.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		int nr = 0;
+		int id_spektren_new = 0;
+		Auftrag at = null ;
+		String sql2 = "";
+		String dma = "";
+		boolean val = r.next();
+		if(val==false){
+			return auftraegeList;
+		}
+		else {
+		    while (val) {
+		    	nr++;
+	    		at = new Auftrag();
+	    		at.setId(r.getInt(1));
+	    		at.setDma_idl(r.getInt(2));
+	    		at.setDlr_id(r.getInt(3));
+	    		at.setDate(r.getString(4));
+	    		at.setStatus(r.getString(5));
+	    		sql2 = "SELECT dma_name, dma_vorname from dezernatmitarbeiter where dma_id = " + r.getInt(2);
+	    		ResultSet r2 = stmt2.executeQuery(sql2);
+	    		while (r2.next())
+	    		{
+	    			dma = r2.getString(1) + " " + r2.getString(2);
+	    		}
+	    		at.setAuftragsersteller(dma);
+	    		auftraegeList.add(at);
+		    	val=r.next();
+		    	
+		    }
+			con.close(); // Very important!
+		}
+		
+		return auftraegeList;
+	
 	}
 	
 	public void update(String sql) throws ClassNotFoundException, SQLException {

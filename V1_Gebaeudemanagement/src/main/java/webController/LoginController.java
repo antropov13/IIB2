@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
+import beansDB.Auftrag;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
@@ -52,7 +53,6 @@ public class LoginController {
 			
 			else {
 
-				
 				List<Leistungsspektrum> spektrum = new ArrayList<Leistungsspektrum>();
 				
 				DBManager dbm = new DBManager();	
@@ -72,9 +72,19 @@ public class LoginController {
 				req.getSession().setAttribute("leistungen", spektrum); // set session attribute
 				model.addAttribute("leistungen", spektrum);
 				
+				List<Auftrag> auftragList = new ArrayList<Auftrag>();
+				sql = "SELECT * from auftraege where aft_dlr_id = " + dlr.getId() + ";";
+				auftragList = dbm.getAuftraege(sql);
+				dlr.setAuftraege(auftragList);
+				
+				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
+				model.addAttribute("auftraege", auftragList);
+				
 				req.getSession().setAttribute("user", dlr); // set session attribute
 				model.addAttribute("user", dlr);
+				
 				return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
+				
 			}
 		}
 		else {
@@ -93,6 +103,7 @@ public class LoginController {
 			}
 			
 			else {
+				
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);
 				return "redirect:/" + dma.getFachrolle().toLowerCase() + ".jsp";
