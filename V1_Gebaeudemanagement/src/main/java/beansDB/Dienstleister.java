@@ -115,4 +115,12 @@ public class Dienstleister {
         return auftraegeList;
     }
     
+    public Auftrag getAuftrag(int id) {
+        for (Auftrag a : auftraegeList)
+        {
+        	if (a.getId()==id) return a;
+        }
+        return null;
+    }
+    
 }

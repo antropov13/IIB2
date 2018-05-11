@@ -82,7 +82,7 @@ win = window.open("window.htm","win","height=300,width=300");
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge</button>
+  <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge ${warte_auftrag}</button>
   <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
 </div>
 
@@ -149,29 +149,32 @@ win = window.open("window.htm","win","height=300,width=300");
 					  
 					<div style="width:60%; float:right; margin-top:20px;">
 					<c:set var = "status" value = "${at.getStatus()}"/>
-					<c:if test = "${status == 'Ausführung' }">
+					<c:choose>
+					<c:when test = "${status == 'Ausführung' }">
 						<div style="float:left;">Status:</div>
 						<div style="color:#0066ff">${at.getStatus()}</div>
-					</c:if>
-					<c:if test = "${status == 'Erledigt' }">
+					</c:when>
+					<c:when test = "${status == 'Erledigt' }">
 						<div style="float:left;">Status:</div>
 						<div style="color:#009933">${at.getStatus()}</div>
-					</c:if>
-					<c:if test = "${status == 'Warte auf eine Antwort' }">
+					</c:when>
+					<c:when test = "${status == 'Warte auf eine Antwort' }">
 						<div style="float:left;">Status:</div>
 						<div style="color:#ffcc00">${at.getStatus()}</div>
-					</c:if>
-					<c:if test = "${status == 'Abgelehnt' }">
+					</c:when>
+					<c:when test = "${status == 'Abgelehnt' }">
 						<div style="float:left;">Status:</div>
 						<div style="color:#ff0000">${at.getStatus()}</div>
-					</c:if>
+					</c:when>
+					</c:choose>
 					
 					<div style="float:left;">Ort:</div>
 					<div>${at.getGebaeude().getOrt()}</div>
 					</div>
 					
-				    </div>
-				    <button class="w3-button w3-block w3-dark-grey">Öffnen</button>
+				    </div>    
+				    <a href="<%=request.getContextPath() %>/oeffnenAuftrag?AuftragID=${at.getId()}" class="w3-button w3-block w3-dark-grey">Öffnen</a> 
+
 		    </div>
 			</c:forEach>
 			</div>

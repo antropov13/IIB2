@@ -219,7 +219,6 @@ public class DBManager {
 		    while (val) {
 		    	dln = new Dienstleistung();
 		    	dln.setDlnId(r.getInt(1));
-		    	//dln.setId(r.getInt(1));
 		    	dln.setName(r.getString(2));
 		    	dln.setBescheibung(r.getString(3));
 		    	dln.setHaeufigkeit(r.getString(4));

@@ -1,5 +1,7 @@
 package beansDB;
 
+import java.util.List;
+
 public class Auftrag {
 	private int id;
 	private String date;
@@ -8,12 +10,14 @@ public class Auftrag {
 	private int dma_idl;
 	private Gebaeude gebaeude;
 	private String auftragsersteller;
+	private List<Dienstleistung> dienstleistungList;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getDate() {
 		return date;
 	}
@@ -50,6 +54,13 @@ public class Auftrag {
 	}
 	public void setAuftragsersteller(String auftragsersteller) {
 		this.auftragsersteller = auftragsersteller;
+	}
+	
+	public List<Dienstleistung> getDienstleistungList() {
+		return dienstleistungList;
+	}
+	public void setDienstleistungList(List<Dienstleistung> dienstleistungList) {
+		this.dienstleistungList = dienstleistungList;
 	}
 	
 }

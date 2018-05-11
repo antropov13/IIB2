@@ -77,8 +77,24 @@ public class LoginController {
 				auftragList = dbm.getAuftraege(sql);
 				dlr.setAuftraege(auftragList);
 				
+				int auftrag_warte = 0;
+				String warte_auftrag = ""; 
+				
+				for (Auftrag at : dlr.getAuftraege())
+				{
+					if (at.getStatus().equals("Warte auf eine Antwort"))
+					{
+					auftrag_warte ++;
+					};
+				}
+				
+				if (auftrag_warte!=0) warte_auftrag = String.valueOf(auftrag_warte);
+				
 				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
 				model.addAttribute("auftraege", auftragList);
+				
+				req.getSession().setAttribute("warte_auftrag", warte_auftrag); // set session attribute
+				model.addAttribute("warte_auftrag", warte_auftrag);
 				
 				req.getSession().setAttribute("user", dlr); // set session attribute
 				model.addAttribute("user", dlr);

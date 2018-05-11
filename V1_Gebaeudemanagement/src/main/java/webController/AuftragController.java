@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import beansDB.Auftrag;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
@@ -28,33 +29,43 @@ public class AuftragController {
 	@RequestMapping(value = { "/", "auftraege" })
 	public String home(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-		
+		System.out.println("1234");
 		return "/dezernatmitarbeiter";
 	}
 
 	
-	@RequestMapping(value = "/aenderungAuftraege", method = RequestMethod.GET)
+	@RequestMapping(value = "/oeffnenAuftrag", method = RequestMethod.GET)
 	public String aenderungAuftraege(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
 		this.AuftragID = Integer.parseInt(req.getParameter("AuftragID"));
 		String view;
-		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
+		List<Dienstleistung> dienstleistungList = new ArrayList<Dienstleistung>();
+		Auftrag auftrag = new Auftrag();
+	
+		String sql = "SELECT * from dienstleistungen "
+				+ "where dln_id in "
+				+ "(SELECT lad_dln_id "
+					+ "FROM lnaftdln "
+					+ "where lad_aft_id = " + AuftragID + ");";
 		
-			
-		//List<Gebaeude> gebaeudeList = (List<Gebaeude>) user.getGebaeude();
-		Gebaeude gebaeude = new Gebaeude();
-		/*
-		for (Gebaeude geb : gebaeudeList) {
-			if(geb.getId()==GebaeudeID) {
-				gebaeude = geb;
-				break;
-			}
-		}*/
+		DBManager dbm = new DBManager();	
+		dienstleistungList = dbm.getDienstleistungen(sql);
+		System.out.println("12345");
 		
-		model.addAttribute("gebaeude", gebaeude);
-		view = "aenderungGebaeude";
-		System.out.println("1234");
+		if (dienstleistungList == null)
+		{
+			dienstleistungList = new ArrayList<Dienstleistung>();
+		}
+
+		auftrag = user.getAuftrag(AuftragID);
+		auftrag.setDienstleistungList(dienstleistungList);
+
+		view = "auftrag";
+		for (Dienstleistung d : dienstleistungList) {
+		System.out.println(d.getName());
+		}
 		return view;
 
 	}
