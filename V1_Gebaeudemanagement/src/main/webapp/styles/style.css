@@ -55,7 +55,7 @@ body {
 }
 
 :checked + .labelbox:after {
-  left: 150px;
+  left: 180px;
   background: #FC6666;
   content: "Dezernatmitarbeiter";
 }
