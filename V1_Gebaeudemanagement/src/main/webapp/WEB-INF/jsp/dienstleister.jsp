@@ -165,27 +165,32 @@ win = window.open("window.htm","win","height=300,width=300");
 					<c:choose>
 					<c:when test = "${status == 'Ausfuehrung' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#0066ff">Ausführung</div>
+						<div style="color:#0066ff; float:right; margin-right:5px;">Ausführung</div>
 					</c:when>
 					<c:when test = "${status == 'Erledigt' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#009933">Erledigt</div>
+						<div style="color:#009933; float:right; margin-right:5px;">Erledigt</div>
 					</c:when>
 					<c:when test = "${status == 'Warte auf eine Antwort' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#ffcc00">Warte auf eine Antwort</div>
+						<div style="color:#ffcc00; float:right; margin-right:5px;">Warte auf eine Antwort</div>
 					</c:when>
 					<c:when test = "${status == 'Abgelehnt' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#ff0000">Abgelehnt</div>
+						<div style="color:#ff0000; float:right; margin-right:5px;">Abgelehnt</div>
 					</c:when>
 					</c:choose>
-					
+					<br>
+					<div>
 					<div style="float:left;">Ort:</div>
-					<div>${at.getGebaeude().getOrt()}</div>
-					<div style="float:left;">Datum:</div>
-					<div>${at.getDateTag()}</div>
+					<div style="float:right; margin-right:5px;">${at.getGebaeude().getOrt()}</div>
 					</div>
+					<br>
+					<div>
+					<div style="float:left;">Datum:</div>
+					<div style="float:right;  margin-right:5px;">${at.getDateTag()}</div>
+					</div>
+				</div>
 					
 				    </div>    
 				    <a href="<%=request.getContextPath() %>/oeffnenAuftrag?AuftragID=${at.getId()}" class="w3-button w3-block w3-dark-grey">Öffnen</a> 
