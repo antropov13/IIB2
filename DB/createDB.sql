@@ -91,6 +91,8 @@ CREATE TABLE IF NOT EXISTS `auftraege` (
   `aft_id` int(11) NOT NULL AUTO_INCREMENT,
   `aft_dma_id` int(11) DEFAULT NULL,
   `aft_dlr_id` int(11) DEFAULT NULL,
+  `aft_dmadlr_id` int(11) DEFAULT NULL,
+  `aft_dlrdma_id` int(11) DEFAULT NULL,
   `aft_datum` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `aft_status` varchar(50) DEFAULT NULL,
   `aft_geb_id` varchar(50) DEFAULT NULL,
@@ -104,6 +106,18 @@ CREATE TABLE IF NOT EXISTS `auftraege` (
   KEY `a_dr_id` (`aft_dlr_id`),
   CONSTRAINT `a_dr_id`
   FOREIGN KEY (`aft_dlr_id`)
+	REFERENCES `dienstleister`(`dlr_id`)
+	 ON DELETE SET NULL 
+     ON UPDATE CASCADE,
+  KEY `aft_dmdr_id` (`aft_dmadlr_id`),
+  CONSTRAINT `aft_dmdr_id`
+  FOREIGN KEY (`aft_dmadlr_id`)
+    REFERENCES `dezernatmitarbeiter`(`dma_id`)
+     ON DELETE SET NULL 
+     ON UPDATE CASCADE,
+  KEY `a_drdm_id` (`aft_dlrdma_id`),
+  CONSTRAINT `a_drdm_id`
+  FOREIGN KEY (`aft_dlrdma_id`)
 	REFERENCES `dienstleister`(`dlr_id`)
 	 ON DELETE SET NULL 
      ON UPDATE CASCADE,

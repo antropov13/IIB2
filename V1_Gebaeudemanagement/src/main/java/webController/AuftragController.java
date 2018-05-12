@@ -120,7 +120,7 @@ public class AuftragController {
 			status="Abgelehnt";
 			break;
 		case 4:
-			String sql = "UPDATE auftraege SET aft_dlr_id = NULL WHERE aft_id = " + AuftragID;
+			String sql = "UPDATE auftraege SET aft_dlrdma_id = NULL WHERE aft_id = " + AuftragID;
 			DBManager dbm = new DBManager();
 			dbm.update(sql);
 			user.delAuftrag(AuftragID);
@@ -186,7 +186,7 @@ public class AuftragController {
 			status="Abgelehnt";
 			break;
 		case 4:
-			sql = "UPDATE auftraege SET aft_dma_id = NULL WHERE aft_id = " + AuftragID;
+			sql = "UPDATE auftraege SET aft_dmadlr_id = NULL WHERE aft_id = " + AuftragID;
 			dbm.update(sql);
 			user.delAuftrag(AuftragID);
 			pruefungAuftrag();
@@ -204,11 +204,13 @@ public class AuftragController {
 	}
 	
 	public void pruefungAuftrag() {
-		String sql = "";
 		DBManager dbm = new DBManager();
-		sql = "DELETE FROM auftraege WHERE aft_id = " + AuftragID + " AND aft_dma_id IS NULL AND aft_dlr_id IS NULL";
+		String sqlDelAuftrag = "DELETE FROM auftraege WHERE aft_id = " + AuftragID + " AND aft_dmadlr_id IS NULL AND aft_dlrdma_id IS NULL";
+		String sqlDelAuftragDnl = "DELETE FROM lnaftdln WHERE lad_aft_id IS NULL";
+
 		try {
-			dbm.update(sql);
+			dbm.update(sqlDelAuftrag);
+			dbm.update(sqlDelAuftragDnl);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

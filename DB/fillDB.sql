@@ -132,23 +132,23 @@ INSERT INTO `lnLspDln` (`lld_id`, `lld_lsp_id`, `lld_dln_id`, `lld_preis`) VALUE
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.auftraege: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `auftraege` DISABLE KEYS */;
-INSERT INTO `auftraege`(`aft_id`, `aft_dma_id`, `aft_dlr_id`, `aft_status`, `aft_geb_id`) VALUES
-    (1, 1,1,'Ausfuehrung', 1),
-    (2, 1,1,'Erledigt', 1),
-    (3, 1,4,'Warte auf eine Antwort', 2),
-    (4, 3,4,'Erledigt', 3);
+INSERT INTO `auftraege`(`aft_id`, `aft_dma_id`, `aft_dlr_id`, `aft_dmadlr_id`, `aft_dlrdma_id`, `aft_status`, `aft_geb_id`) VALUES
+    (1, 1,1,1,1,'Ausfuehrung', 1),
+    (2, 1,1,1,1,'Erledigt', 1),
+    (3, 1,4,1,4,'Warte auf eine Antwort', 2),
+    (4, 3,4,3,4,'Erledigt', 3);
 /*!40000 ALTER TABLE `auftraege` ENABLE KEYS */;
 
 
 -- Exportiere Daten aus Tabelle gebaeudemanagement.auftraege: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `auftraege` DISABLE KEYS */;
 
-INSERT INTO `auftraege` (`aft_id`,`aft_dma_id`, `aft_dlr_id`, `aft_datum`, `aft_status`,  `aft_geb_id`) VALUES
-    (5, 4,7, '2018-01-01 20:00:00', 'Abgelehnt', 4),
-    (6, 2,8, '2018-05-01 11:30:05', 'Abgelehnt', 4),
-    (7, 7,2, '2018-05-07 10:00:00', 'Warte auf eine Antwort', 5),
-    (8, 3, 1, '2018-05-07 12:00:00', 'Warte auf eine Antwort', 2),
-    (9, 4, 1, '2018-05-07 15:00:00', 'Abgelehnt', 3);
+INSERT INTO `auftraege` (`aft_id`,`aft_dma_id`, `aft_dlr_id`, `aft_dmadlr_id`, `aft_dlrdma_id`, `aft_datum`, `aft_status`,  `aft_geb_id`) VALUES
+    (5, 4,7,4,7,'2018-01-01 20:00:00', 'Abgelehnt', 4),
+    (6, 2,8,2,8,'2018-05-01 11:30:05', 'Abgelehnt', 4),
+    (7, 7,2,7,2,'2018-05-07 10:00:00', 'Warte auf eine Antwort', 5),
+    (8, 3,1,3,1,'2018-05-07 12:00:00', 'Warte auf eine Antwort', 2),
+    (9, 4,1,4,1, '2018-05-07 15:00:00', 'Abgelehnt', 3);
 /*!40000 ALTER TABLE `auftraege` ENABLE KEYS */;
 
 

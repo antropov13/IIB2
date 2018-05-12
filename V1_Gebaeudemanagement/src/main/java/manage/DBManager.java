@@ -291,8 +291,8 @@ public class DBManager {
 	    		at.setId(r.getInt(1));
 	    		at.setDma_idl(r.getInt(2));
 	    		at.setDlr_id(r.getInt(3));
-	    		at.setDate(r.getDate(4));
-	    		at.setStatus(r.getString(5));
+	    		at.setDate(r.getDate(6));
+	    		at.setStatus(r.getString(7));
 	    		sqlDMA = "SELECT dma_name, dma_vorname from dezernatmitarbeiter where dma_id = " + r.getInt(2);
 	    		ResultSet rDMA = stmtDMA.executeQuery(sqlDMA);
 	    		while (rDMA.next())
@@ -309,7 +309,7 @@ public class DBManager {
 	    		}
 	    		at.setDienstleister(dlr);
 	    		
-	    		sqlGeb = "SELECT * from gebaeude where geb_id = " + r.getInt(6);
+	    		sqlGeb = "SELECT * from gebaeude where geb_id = " + r.getInt(8);
 	    		at.setGebaeude(getGebaeude(sqlGeb));
 	    		auftraegeList.add(at);
 		    	val=r.next();
