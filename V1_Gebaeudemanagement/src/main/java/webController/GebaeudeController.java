@@ -122,7 +122,7 @@ public class GebaeudeController {
 
 	}
 
-	@RequestMapping(value = "/loeschenGebaeude", method = RequestMethod.GET)
+	@RequestMapping(value = "/loeschenGebaeude", method = RequestMethod.POST)
 	public String loeschenGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
