@@ -81,6 +81,19 @@ win = window.open("window.htm","win","height=300,width=300");
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
+  
+  <c:set var = "warte_auftrag" value = "0"/>
+  <c:forEach items="${auftraege}" var="at">
+  <c:set var = "status" value = "${at.getStatus()}"/>
+  <c:choose>
+	<c:when test = "${status == 'Warte auf eine Antwort' }">
+		 <c:set var = "warte_auftrag" value = "${warte_auftrag + 1}"/>
+	</c:when>
+  </c:choose>
+  </c:forEach>
+  <c:if test="${warte_auftrag == 0}"><c:set var = "warte_auftrag" value = ""/></c:if>
+  
+  
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
   <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge ${warte_auftrag}</button>
   <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
@@ -141,7 +154,7 @@ win = window.open("window.htm","win","height=300,width=300");
     			</header>
     			    <div class="w3-container w3-white">
 	    			    <div style="width:40%; float:left;">
-	    			    <figure style:="text-align: center;">
+	    			    <figure style:="text-align: center;" style="margin: 10px;">
 	  						<img src="img/6.jpg" class="w3-circle" style="width:60px;">
 					    	<figcaption>${at.getAuftragsersteller()}</figcaption>
 					    </figure>
@@ -150,26 +163,28 @@ win = window.open("window.htm","win","height=300,width=300");
 					<div style="width:60%; float:right; margin-top:20px;">
 					<c:set var = "status" value = "${at.getStatus()}"/>
 					<c:choose>
-					<c:when test = "${status == 'Ausführung' }">
+					<c:when test = "${status == 'Ausfuehrung' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#0066ff">${at.getStatus()}</div>
+						<div style="color:#0066ff">Ausführung</div>
 					</c:when>
 					<c:when test = "${status == 'Erledigt' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#009933">${at.getStatus()}</div>
+						<div style="color:#009933">Erledigt</div>
 					</c:when>
 					<c:when test = "${status == 'Warte auf eine Antwort' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#ffcc00">${at.getStatus()}</div>
+						<div style="color:#ffcc00">Warte auf eine Antwort</div>
 					</c:when>
 					<c:when test = "${status == 'Abgelehnt' }">
 						<div style="float:left;">Status:</div>
-						<div style="color:#ff0000">${at.getStatus()}</div>
+						<div style="color:#ff0000">Abgelehnt</div>
 					</c:when>
 					</c:choose>
 					
 					<div style="float:left;">Ort:</div>
 					<div>${at.getGebaeude().getOrt()}</div>
+					<div style="float:left;">Datum:</div>
+					<div>${at.getDateTag()}</div>
 					</div>
 					
 				    </div>    

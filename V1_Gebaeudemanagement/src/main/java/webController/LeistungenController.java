@@ -266,41 +266,4 @@ public class LeistungenController {
 		}
 		return "dienstleister";
 	}
-/*
- * 
-	@RequestMapping(value = "/gebaeudeEingeben", method = RequestMethod.GET)
-	public String gebaeudeeingeben(HttpServletRequest req, HttpServletResponse res, Model model)
-			throws ClassNotFoundException, SQLException {
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
-		model.addAttribute("user", user);
-		return "gebaeudeEingeben";
-	}
-
-	@RequestMapping(value = "/insertGeb", method = RequestMethod.POST)
-	public String eingeben(HttpServletRequest req, HttpServletResponse res, Model model)
-			throws ClassNotFoundException, SQLException {
-		String view;
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
-		if (user == null) {
-			model.addAttribute("error", "Bitte loggen Sie sich als Gutachter ein, um auf diese Seite zu kommen.");
-			view = "error";
-
-		} else {
-
-			Gebaeude geb = new Gebaeude();
-			geb.setGuid(req.getParameter("guid"));
-			geb.setStrasse(req.getParameter("strasse"));
-			geb.setHausnummer(req.getParameter("hausnummer"));
-			geb.setPlz(Integer.parseInt(req.getParameter("plz")));
-			geb.setOrt(req.getParameter("ort"));
-
-			geb.setBlt_id(user.getId());
-			DBManager.eingebenGeb(geb);
-			model.addAttribute("feedback", "erfolgreich eingegeben!");
-			view = user.getFachrolle().toLowerCase();
-			view = "redirect:/" + view + ".jsp";
-		}
-		return view;
-	}
-*/
 }

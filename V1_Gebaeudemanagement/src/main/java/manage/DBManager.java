@@ -289,7 +289,7 @@ public class DBManager {
 	    		at.setId(r.getInt(1));
 	    		at.setDma_idl(r.getInt(2));
 	    		at.setDlr_id(r.getInt(3));
-	    		at.setDate(r.getString(4));
+	    		at.setDate(r.getDate(4));
 	    		at.setStatus(r.getString(5));
 	    		sql2 = "SELECT dma_name, dma_vorname from dezernatmitarbeiter where dma_id = " + r.getInt(2);
 	    		ResultSet r2 = stmt2.executeQuery(sql2);

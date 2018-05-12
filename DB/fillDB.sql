@@ -133,7 +133,7 @@ INSERT INTO `lnLspDln` (`lld_id`, `lld_lsp_id`, `lld_dln_id`, `lld_preis`) VALUE
 -- Exportiere Daten aus Tabelle gebaeudemanagement.auftraege: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `auftraege` DISABLE KEYS */;
 INSERT INTO `auftraege`(`aft_id`, `aft_dma_id`, `aft_dlr_id`, `aft_status`, `aft_geb_id`) VALUES
-    (1, 1,1,'Ausführung', 1),
+    (1, 1,1,'Ausfuehrung', 1),
     (2, 1,1,'Erledigt', 1),
     (3, 1,4,'Warte auf eine Antwort', 2),
     (4, 3,4,'Erledigt', 3);

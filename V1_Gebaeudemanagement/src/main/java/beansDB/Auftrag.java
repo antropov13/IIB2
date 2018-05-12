@@ -1,10 +1,13 @@
 package beansDB;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Auftrag {
 	private int id;
-	private String date;
+	private Date date;
 	private String status;
 	private int dlr_id;
 	private int dma_idl;
@@ -18,10 +21,15 @@ public class Auftrag {
 		this.id = id;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	
+	public String getDateTag() {
+		SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
+		return formatForDateNow.format(date);
+	}
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getStatus() {

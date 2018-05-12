@@ -52,7 +52,6 @@ public class AuftragController {
 		
 		DBManager dbm = new DBManager();	
 		dienstleistungList = dbm.getDienstleistungen(sql);
-		System.out.println("12345");
 		
 		if (dienstleistungList == null)
 		{
@@ -61,13 +60,77 @@ public class AuftragController {
 
 		auftrag = user.getAuftrag(AuftragID);
 		auftrag.setDienstleistungList(dienstleistungList);
+		
+		model.addAttribute("auftrag", auftrag);
 
 		view = "auftrag";
-		for (Dienstleistung d : dienstleistungList) {
-		System.out.println(d.getName());
-		}
 		return view;
 
+	}
+	
+	@RequestMapping(value = "/aenderungStatus", method = RequestMethod.GET)
+	public String aenderungStatus(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		String view;
+		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
+		int status_int = Integer.parseInt(req.getParameter("status"));
+		String status = "";
+		String warte_auftrag = "";
+		switch(status_int) {
+		
+		case 1: 
+			status="Erledigt";
+			break;
+		case 2:
+			status="Ausfuehrung";
+			break;
+		case 3: 
+			status="Abgelehnt";
+			break;
+		case 4:
+			String sql = "UPDATE auftraege SET aft_dlr_id = NULL WHERE aft_id = " + AuftragID;
+			DBManager dbm = new DBManager();
+			dbm.update(sql);
+			user.delAuftrag(AuftragID);
+			warte_auftrag = warteAuftrag(user);
+			model.addAttribute("warte_auftrag", warte_auftrag);
+			return "dienstleister";
+		
+		}
+		
+		warte_auftrag = warteAuftrag(user);
+		
+		String sql = "UPDATE auftraege SET aft_status = '" + status + "' where aft_id = " + AuftragID;
+		DBManager dbm = new DBManager();
+		dbm.update(sql);
+		
+		user.getAuftrag(AuftragID).setStatus(status);
+
+		Auftrag auftrag = new Auftrag();
+		auftrag = user.getAuftrag(AuftragID);
+		
+		model.addAttribute("auftrag", auftrag);
+		model.addAttribute("warte_auftrag", warte_auftrag);
+
+		view = "auftrag";
+		return view;
+	}
+	
+	public String warteAuftrag(Dienstleister dlr)
+	{
+		int auftrag_warte = 0;
+		String warte_auftrag = ""; 
+		
+		for (Auftrag at : dlr.getAuftraege())
+		{
+			if (at.getStatus().equals("Warte auf eine Antwort"))
+			{
+			auftrag_warte ++;
+			};
+		}
+		
+		if (auftrag_warte!=0) warte_auftrag = String.valueOf(auftrag_warte);
+		return warte_auftrag;
 	}
 		
 }

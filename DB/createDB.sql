@@ -104,7 +104,9 @@ CREATE TABLE IF NOT EXISTS `auftraege` (
   KEY `a_dr_id` (`aft_dlr_id`),
   CONSTRAINT `a_dr_id`
   FOREIGN KEY (`aft_dlr_id`)
-  REFERENCES `dienstleister`(`dlr_id`),
+	REFERENCES `dienstleister`(`dlr_id`)
+	 ON DELETE SET NULL 
+     ON UPDATE CASCADE,
   KEY `a_g_id` (`aft_geb_id`),
   CONSTRAINT `a_g_id`
   FOREIGN KEY (`aft_geb_id`)

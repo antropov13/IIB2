@@ -123,4 +123,15 @@ public class Dienstleister {
         return null;
     }
     
+    public void delAuftrag(int id) {
+        for (Auftrag a : auftraegeList)
+        {
+        	if (a.getId()==id) 
+        	{
+        		auftraegeList.remove(a);
+        		break;
+        	}
+        }
+    }
+    
 }

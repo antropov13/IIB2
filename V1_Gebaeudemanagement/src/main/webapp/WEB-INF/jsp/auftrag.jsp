@@ -55,65 +55,97 @@ function start(){
   </div>
 
 
-  <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:710px; float: left; height: 100%; margin-left:148px">
+    <div style="width:870px; height: 100%; margin-left:130px; margin-top:10px">
 	 
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">${spektrum.getName()}</div>
-			
-			<!-- 
-			<form class="w3-container w3-card-1 w3-white" method="POST" action="hinzufuegenLeistungForm">
-			<table>
-			<tr>
-				<td>Auswählen Art der Leistung</td>
-				<td>
-					<select id="dienstleistungen" name="dienstleistungen">
-					<c:forEach items="${dienstleistungen}" var="dln">
-					<option value="${dln.getName()}; ${dln.getBeschreibung()}; ${dln.getHaeufigkeit()}; ${dln.getDlnId()}">${dln.getName()}</option>
-					</c:forEach>
-					</select>
-				</td>
-			</tr>
-			</table>
-			<table class="w3-table w3-bordered">
+			<div class="w3-card-4" style="margin: 0 auto; width:800px">
+    			<header class="w3-container w3-grey">
+      				<h3>Auftrag ${auftrag.getId()}</h3>
+    			</header>
+    			
+    			<div class="w3-container w3-white">
+    				<div class="w3-panel w3-border-right w3-border-blue" style="width:35%; float:left;">
+	    			    <figure style:="text-align: center;">
+	  						<img src="img/6.jpg" class="w3-circle" style="width:60px;">
+					    	<figcaption>${auftrag.getAuftragsersteller()}</figcaption>
+					    </figure>
+					</div>
+					
+					<div class="w3-panel" style="width:63%; float:right;">
+					<table class="w3-table w3-bordered">
 					<tr>
 						<th>Name</th>
 						<th>Beschreibung</th>
 						<th>Häufigkeit</th>
-						<th>Preis</th>
 					</tr>
-					
-					
+					<c:forEach items="${auftrag.getDienstleistungList()}" var="dln">
 						<tr>
-							<td id="nameDln"></td>
-	  						<td id="beschreibung"></td>
-	  						<td id="haeufigkeit"></td>
-	  						<td>
-	  						<input name="preis" type="number" min="0" id="preis" style="width:70px" value=0></input>
-	  						</td>
-	  						<td id="id" style="display:none"></td>
-	  						<td>
-	  						<button type="submit" name="btnadd" id="0" class="w3-button w3-green" style="color: #000!important;">&#10003;</button>
-							</td>
+							<td>${dln.getName()}</td>
+	  						<td>${dln.getBeschreibung()}</td>
+	  						<td>${dln.getHaeufigkeit()}</td>
 	  					</tr>
-	  					
-	  		<script type="text/javascript">
-    		document.getElementById("dienstleistungen").addEventListener("change", function(){
-      		var str = this.value;
-      		var mass = str.split('; ');
-    		document.getElementById('nameDln').innerHTML = mass[0];  
-    		document.getElementById('beschreibung').innerHTML = mass[1];  
-    		document.getElementById('haeufigkeit').innerHTML = mass[2];  
-    		document.getElementById('id').innerHTML = mass[3];  
-    		});
-			</script>
- 			</table>
- 			</form>  -->
- 			</div>	  
-	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
-		<h5 class="w3-bar-item"><p></p></h5>
-	  	</div>
+					</c:forEach>
+ 					</table>
+					</div>
+					
+					<div style="width:35%; margin-top:10px; margin-bottom:10px;" class="w3-border-right w3-border-blue">
+						<table style="margin: 0 auto;" >
+						<tr>
+							<td>Ort:</td>
+							<td>${auftrag.getGebaeude().getOrt()}</td>
+						</tr>
+						<tr>
+							<td>Datum:</td>
+							<td>${auftrag.getDateTag()}</td>
+						</tr>
+						
+						<c:set var = "status" value = "${auftrag.getStatus()}"/>
+						<c:choose>
+						<c:when test = "${status == 'Ausfuehrung' }">
+							<tr>
+								<td>Status:</td>
+								<td style="color:#0066ff">${auftrag.getStatus()}</td>
+							</tr>
+							<tr>
+        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=1" class="w3-block w3-button w3-blue">Erledigt</a></td>
+        					</tr>
+						</c:when>
+						<c:when test = "${status == 'Erledigt' }">
+							<tr>
+							<td>Status:</td>
+							<td style="color:#009933">${auftrag.getStatus()}</td>
+							</tr>
+							<tr>
+        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=4" class="w3-block w3-button w3-red">Löschen</button></td>
+        					</tr>
+						</c:when>
+						<c:when test = "${status == 'Warte auf eine Antwort' }">
+							<tr>
+								<td>Status:</td>
+								<td style="color:#ffcc00">${auftrag.getStatus()}</td>
+							</tr>
+							<tr>
+        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=2" class="w3-block w3-button w3-green">Annehmen</a></td>
+        					</tr>
+        					<tr>
+        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=3" class="w3-block w3-button w3-red">Ablehnen</a></td>
+							</tr>
+						</c:when>
+						<c:when test = "${status == 'Abgelehnt' }">
+							<tr>
+							<td>Status:</td>
+							<td style="color:#ff0000">${auftrag.getStatus()}</td>
+							</tr>
+							<tr>
+        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=4" class="w3-block w3-button w3-red">Löschen</button></td>
+        					</tr>
+						</c:when>
+						</c:choose>
+						
+						</table>
+    				</div>
+    		</div>
+ 		</div>	  
 	</div>
-</div>
 
 </body>
 </html>
