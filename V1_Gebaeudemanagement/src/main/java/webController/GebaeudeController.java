@@ -35,8 +35,8 @@ public class GebaeudeController {
 		
 		DBManager dbm = new DBManager();	
 
-		String sql = "SELECT geb_id from gebaeude;";
-		//String sql2 = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+		String sql = "SELECT * from gebaeude;";
+		//
 		gebAll = dbm.getGeb(sql);
 		
 		for(Gebaeude g: gebAll) {
@@ -59,32 +59,57 @@ public class GebaeudeController {
 	@RequestMapping(value = "/aenderungGebaeude", method = RequestMethod.GET)
 	public String aenderungGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
-		String view;
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("mGebaeude");
+		String view;
+		List<Gebaeude> gebAll = new ArrayList<Gebaeude> ();
+		List<Gebaeude> gebForID = new ArrayList<Gebaeude> ();
 		
-			for(Gebaeude g: gebaeude) {
-				
-			}
-		model.addAttribute("gebaeude", gebaeude);
-		view = "aenderungGebaeude";
-		System.out.println("1234");
+		DBManager dbm = new DBManager();	
+
+		String sql = "SELECT * from gebaeude;";
+		//
+		gebAll = dbm.getGeb(sql); 
+		
+		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
+		gebForID = dbm.getGeb(sql); 
+		model.addAttribute("gebaeude", gebAll); 
+		model.addAttribute("mGebaeude", gebForID);
+		model.addAttribute("gebToEdit", GebaeudeID);
+		view = "/aenderungGebaeude"; 
 		return view;
 
 	}
-	@RequestMapping(value = "/aenderungGebaeude", method = RequestMethod.POST)
-	public String aenderungGebaeudeForm(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/aenderungGebaeudeForm", method = RequestMethod.POST)
+	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
-		String view;
+	 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("mGebaeude");
+		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("gebaeude");
+		List<Gebaeude> mGebaeude = new ArrayList<Gebaeude>();
+		DBManager dbm = new DBManager();
+		String str = req.getParameter("strasse"); 
+		String nr = req.getParameter("nr");
+		String ort = req.getParameter("ort");
+		int plz = Integer.parseInt(req.getParameter("plz"));
 		
-			
+		for(Gebaeude g: gebaeude) {
+			if(g.getId() == GebaeudeID) {
+				g.setStrasse(str);
+				g.setHausnummer(nr);
+				g.setOrt(ort);
+				g.setPlz(plz);
+				}
+			if(g.getDma_id() == user.getId()) {
+				mGebaeude.add(g);
+			}
+		}
 		
+		String sql = "UPDATE gebaeude SET geb_strasse = \" " + str + "\" , geb_hausnr = \""+ nr +
+				"\" , geb_ort = \"" + ort + "\" , geb_plz = " + plz + " where geb_id = " + GebaeudeID + ";";
+		dbm.update(sql); 
 		/*
 		for (Gebaeude geb : gebaeudeList) {
 			if(geb.getId()==GebaeudeID) {
@@ -94,10 +119,39 @@ public class GebaeudeController {
 		}
 		*/
 		model.addAttribute("gebaeude", gebaeude);
-		view = "aenderungGebaeude";
-		System.out.println("1234");
-		return view;
+		model.addAttribute("mGebaeude", mGebaeude);
+ 
+		return "/aenderungGebaeude";
 
+	}
+	
+	@RequestMapping(value = "/loeschenGebaeude", method = RequestMethod.GET)
+	public String loeschenGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		
+		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		List<Gebaeude> mGebaeude = new ArrayList<Gebaeude>();
+		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("gebaeude");
+		
+		String sql = "" ; 
+		DBManager dbm = new DBManager();
+		
+		Iterator<Gebaeude> it = gebaeude.iterator();
+		while(it.hasNext()) {
+			Gebaeude g = it.next();
+			if(g.getId() == GebaeudeID) {
+				sql = "DELETE FROM gebaeude WHERE geb_id = " + GebaeudeID + ";" ;
+				it.remove();
+			}
+		}
+		 
+		dbm.update(sql);
+		model.addAttribute("gebaeude", gebaeude);
+		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
+		mGebaeude = dbm.getGeb(sql);
+		model.addAttribute("gebaeude", mGebaeude);
+		return "dezernatmitarbeiter";
 	}
 		
 }

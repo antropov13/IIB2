@@ -106,7 +106,7 @@ win = window.open("window.htm","win","height=300,width=300");
 						<th>
 						<c:if test="${mGebaeude.contains(geb)}">
 							<button  id="${geb.getId()}" class="w3-button w3-yellow" title="Verändern Gebaeude">
-								<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${geb.getId()}">&#9998;</a> 
+								<a href="<%=request.getContextPath() %>/aenderungGebaeude?gebID=${geb.getId()}">&#9998;</a> 
 							</button>
 							<button  id="${geb.getId()}" class="w3-button w3-yellow" title="Gebäude löschen">
 								<a href="<%=request.getContextPath() %>/loeschenGebaeude?gebID=${geb.getId()}" onclick="return confirm('Möchten Sie die Geb'ude löschen?')">&#10005;</a>

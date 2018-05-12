@@ -55,7 +55,7 @@ function getParam(){
         {}
     );
 	
-	if (params['GebaäudeID']!=-1){
+	if (params['gebId']!=-1){
 		x = document.getElementsByName("sel");
 		  for (i = 0; i < x.length; i++) {
 		     x[i].style.display = "none";
@@ -69,7 +69,7 @@ function getParam(){
 
 function start(){
 	startTime();
-	openFunktion(event, 'Gebäude', true);
+	openFunktion(event, 'Gebaeude', true);
 	getParam();
 }
 
@@ -107,7 +107,9 @@ function start(){
 
   <div id="Gebaeude" class="w3-container city" style="display:none;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Gebäude }</div>
+			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Gebäude ${gebToEdit}</div>
+			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit}">
+		
 			<table class="w3-table w3-bordered">
 					<tr>
 						<th>Strasse</th>
@@ -123,12 +125,13 @@ function start(){
 	  						<td><input type="text" name="ort" value="${geb.getOrt()}"></td>
 	  						<td><input type="number" name="plz" value="${geb.getPlz()}"></td>
 	  						<td> User ID</td>
-	  						<td> <button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern"">
-	  						<a href="<%=request.getContextPath() %>/aenderungGebaeude?gebID=${geb.getId()}"">  &#10003;</a>
+	  						<td> <button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
+	  						  &#10003; 
 							</button>
 	  						</tr>
 					</c:forEach>
 					</table>
+						</form>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
 		<h5 class="w3-bar-item"><p></p></h5>
