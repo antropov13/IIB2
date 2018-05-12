@@ -39,10 +39,8 @@ public class GebaeudeController {
 		//
 		gebAll = dbm.getGeb(sql);
 
-		for (Gebaeude g : gebAll) {
-			if (g.getDma_id() == dma.getId())
-				gebForID.add(g);
-		}
+		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+		gebForID = dbm.getGeb(sql);
 
 		req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
 		model.addAttribute("gebaeude", gebAll);
@@ -53,7 +51,7 @@ public class GebaeudeController {
 		model.addAttribute("user", dma);
 		// return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
 
-		return "/dezernatmitarbeiter";
+		return "redirect:/dezernatmitarbeiter.jsp";
 	}
 
 	@RequestMapping(value = "/aenderungGebaeude", method = RequestMethod.GET)
@@ -103,55 +101,49 @@ public class GebaeudeController {
 				g.setOrt(ort);
 				g.setPlz(plz);
 			}
-			if (g.getDma_id() == user.getId()) {
-				mGebaeude.add(g);
-			}
 		}
 
 		String sql = "UPDATE gebaeude SET geb_strasse = \" " + str + "\" , geb_hausnr = \"" + nr + "\" , geb_ort = \""
 				+ ort + "\" , geb_plz = " + plz + " where geb_id = " + GebaeudeID + ";";
 		dbm.update(sql);
-		/*
-		 * for (Gebaeude geb : gebaeudeList) { if(geb.getId()==GebaeudeID) { gebaeude =
-		 * geb; break; } }
-		 */
+
+		sql = "SELECT * from gebaeude;";
+		gebaeude = dbm.getGeb(sql);
+
+		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
+		mGebaeude = dbm.getGeb(sql);
 		model.addAttribute("gebaeude", gebaeude);
 		model.addAttribute("mGebaeude", mGebaeude);
 
-		return "/aenderungGebaeude";
+		return "redirect:/dezernatmitarbeiter.jsp";
 
 	}
 
 	@RequestMapping(value = "/loeschenGebaeude", method = RequestMethod.POST)
 	public String loeschenGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-
+		String view = "";
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		List<Gebaeude> mGebaeude = new ArrayList<Gebaeude>();
-		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("gebaeude");
+		List<Gebaeude> gebaeude = new ArrayList<Gebaeude>();
 
 		String sql = "";
 		DBManager dbm = new DBManager();
 
-		Iterator<Gebaeude> it = gebaeude.iterator();
-		while (it.hasNext()) {
-			Gebaeude g = it.next();
-			if (g.getId() == GebaeudeID) {
-				sql = "DELETE FROM gebaeude WHERE geb_id = " + GebaeudeID + ";";
-				it.remove();
-			}
-		}
+		sql = "DELETE FROM gebaeude WHERE geb_id = " + GebaeudeID + ";";
 
 		dbm.update(sql);
-		model.addAttribute("gebaeude", gebaeude);
-		req.getSession().setAttribute("gebaeude", gebaeude); // set session attribute
+
+		sql = "SELECT * from gebaeude;";
+		gebaeude = dbm.getGeb(sql);
+
 		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
 		mGebaeude = dbm.getGeb(sql);
+		model.addAttribute("gebaeude", gebaeude);
 		model.addAttribute("mGebaeude", mGebaeude);
-
-		req.getSession().setAttribute("mGebaeude", mGebaeude); // set session attribute
-		return "dezernatmitarbeiter";
+		view = "redirect:/dezernatmitarbeiter.jsp";
+		return view;
 	}
 
 	@RequestMapping(value = "/hinzufuegenGebaeude", method = RequestMethod.GET)
@@ -162,19 +154,20 @@ public class GebaeudeController {
 		DBManager dbm = new DBManager();
 		return "/hinzufuegenGebaeude";
 	}
-	
+
 	@RequestMapping(value = "/hinzufuegenGebaeudeForm", method = RequestMethod.POST)
 	public String hinzufuegennGebaeudeForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
+		String view = "";
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		DBManager dbm = new DBManager();
 		String str = req.getParameter("strasse");
 		String nr = req.getParameter("nr");
 		String ort = req.getParameter("ort");
 		int plz = Integer.parseInt(req.getParameter("plz"));
- 
-		String sql = "INSERT INTO gebaeude (geb_strasse, geb_hausnr, geb_ort, geb_plz, geb_dma_id)  VALUES (\"" 
-						+ str + "\", \""+ nr + "\", \"" + ort + "\", " + plz + ", " + user.getId() + ");";
+
+		String sql = "INSERT INTO gebaeude (geb_strasse, geb_hausnr, geb_ort, geb_plz, geb_dma_id)  VALUES (\"" + str
+				+ "\", \"" + nr + "\", \"" + ort + "\", " + plz + ", " + user.getId() + ");";
 		dbm.update(sql);
 		Gebaeude geb = new Gebaeude();
 		geb.setStrasse(str);
@@ -182,21 +175,15 @@ public class GebaeudeController {
 		geb.setOrt(ort);
 		geb.setPlz(plz);
 		geb.setDma_id(user.getId());
-		
-		List<Gebaeude> gebaeude;
-		List<Gebaeude> mGebaeude =  new ArrayList<Gebaeude>();
-		mGebaeude = (List<Gebaeude>) req.getSession().getAttribute("mGebaeude");
-		 gebaeude = (List<Gebaeude>) req.getSession().getAttribute("gebaeude"); 
-		 if(gebaeude == null) {
-			gebaeude = new ArrayList<Gebaeude>();
-		 }
-		 if(mGebaeude == null) {
-				mGebaeude = new ArrayList<Gebaeude>();
-			 }
-		gebaeude.add(geb);
-		mGebaeude.add(geb);
+
+		sql = "SELECT * from gebaeude;";
+		List<Gebaeude> gebaeude = dbm.getGeb(sql);
+
+		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
+		List<Gebaeude> mGebaeude = dbm.getGeb(sql);
 		model.addAttribute("gebaeude", gebaeude);
 		model.addAttribute("mGebaeude", mGebaeude);
-		return "/dezernatmitarbeiter";
+		view = "redirect:/dezernatmitarbeiter.jsp";
+		return view;
 	}
 }

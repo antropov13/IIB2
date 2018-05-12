@@ -11,6 +11,28 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<style>
+#gebs {
+	margin-top: 40px;
+}
+#gebs td, #gebs th {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+#gebs tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#gebs th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: center;
+	background-color: #4CAF50;
+	color: white;
+}
+</style>
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
@@ -106,38 +128,55 @@
 		<div id="Gebaeude" class="w3-container city" style="display: none;">
 			<div
 				style="width: 710px; float: left; height: 100%; margin-left: 148px">
-				<a href="<%=request.getContextPath()%>/hinzufuegenGebaeude">
-					Gebäude hinzufügen</a>
-				<c:forEach items="${gebaeude}" var="geb">
+				
+				<table class="w3-table w3-bordered" id="gebs">
+					<tr>
+						<th>ID</th>
+						<th>Strasse</th>
+						<th>Hausnr.</th>
+						<th>Ort</th>
+						<th>PLZ</th>
+						<th>Ersteller</th>
+						<th>Bearbeiten</th>
+						<th>Löschen</th>
+					</tr>
+					<c:forEach items="${gebaeude}" var="geb">
+						<div id="${geb.getId()}" class="w3-container w3-hide">
 
-					<button style="margin-top: 10px;"
-						onclick="myFunction('${geb.getId()}')"
-						class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude
-						${geb.getId()}</button>
-					<div id="${geb.getId()}" class="w3-container w3-hide">
-						<table class="w3-table w3-bordered">
 							<tr>
-								<th>${geb.getStrasse()}</th>
-								<th>${geb.getHausnummer()}.</th>
-								<th>${geb.getOrt()}</th>
-								<th>${geb.getPlz()}</th>
-								<th>${geb.getDma_id()}</th>
-								<th><c:if test="${mGebaeude.contains(geb)}">
-										 	<form method="POST">
-											<button type="submit" formaction="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">
-											  <i class="far fa-edit"></i>
+								<td>${geb.getId()}</td>
+								<td>${geb.getStrasse()}</td>
+								<td>${geb.getHausnummer()}.</td>
+								<td>${geb.getOrt()}</td>
+								<td>${geb.getPlz()}</td>
+								<td>${geb.getDma_id()}</td>
+								<td><c:if test="${mGebaeude.contains(geb)}">
+										<form method="POST">
+											<button type="submit"
+												formaction="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">
+												<i class="fa fa-edit"></i>
 											</button>
-										  	<button type="submit" formaction="${pageContext.request.contextPath}/loeschenGebaeude?gebID=${geb.getId()}"> 
+										</form>
+									</c:if></td>
+								<td><c:if test="${mGebaeude.contains(geb)}">
+										<form method="POST">
+											<button type="submit"
+												formaction="${pageContext.request.contextPath}/loeschenGebaeude?gebID=${geb.getId()}">
 												<i class="fa fa-trash"></i>
-											</button> 
-											</form>
-									</c:if></th>
+											</button>
+										</form>
+									</c:if></td>
 							</tr>
-						</table>
-					</div>
-				</c:forEach>
-
+						</div>
+					</c:forEach>
+				</table>
 			</div>
+			<div class="w3-sidebar w3-bar-block w3-light-grey w3-card"
+				style="width: 130px; float: right; margin-left: 870px;">
+				<a href="<%=request.getContextPath()%>/hinzufuegenGebaeude">
+					<i class="fa fa-home"></i>
+					Gebäude hinzufügen</a>
+					</div>
 		</div>
 
 		<div id="Leistungen" class="w3-container city" style="display: none;">
@@ -189,7 +228,7 @@
 				<button class="w3-bar-item w3-button"
 					onclick="openCity(event, 'Hinzufuegen')">
 					<a
-						href="<%=request.getContextPath() %>/hinzufuegenLeistungsspektrum">Hinzufügen</a>
+						href="<%=request.getContextPath()%>/hinzufuegenLeistungsspektrum">Hinzufügen</a>
 				</button>
 
 			</div>
