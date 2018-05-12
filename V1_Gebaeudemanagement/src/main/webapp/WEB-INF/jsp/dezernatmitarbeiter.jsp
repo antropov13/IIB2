@@ -89,9 +89,7 @@ win = window.open("window.htm","win","height=300,width=300");
 
 <div id="Gebaeude" class="w3-container city" style="display:none;">
 	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-	<div style="display: inline-block;">
-	<button  style="margin-top:10px;" onclick="myFunction('${geb.getId()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude hinzufügen ${geb.getId()}</button>
-	</div>
+	<a href="<%=request.getContextPath() %>/hinzufuegenGebaeude"> Gebäude hinzufügen</a>
 	<c:forEach items="${gebaeude}" var="geb">
 	
 			<button  style="margin-top:10px;" onclick="myFunction('${geb.getId()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude ${geb.getId()}</button>
@@ -109,7 +107,7 @@ win = window.open("window.htm","win","height=300,width=300");
 								<a href="<%=request.getContextPath() %>/aenderungGebaeude?gebID=${geb.getId()}">&#9998;</a> 
 							</button>
 							<button  id="${geb.getId()}" class="w3-button w3-yellow" title="Gebäude löschen">
-								<a href="<%=request.getContextPath() %>/loeschenGebaeude?gebID=${geb.getId()}" onclick="return confirm('Möchten Sie die Geb'ude löschen?')">&#10005;</a>
+								<a href="<%=request.getContextPath() %>/loeschenGebaeude?gebID=${geb.getId()}">&#10005;</a>
 							</button>
 							</c:if>
 						</th>
