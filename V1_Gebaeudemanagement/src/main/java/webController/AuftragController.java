@@ -126,8 +126,8 @@ public class AuftragController {
 			user.delAuftrag(AuftragID);
 			warte_auftrag = warteAuftrag(user);
 			model.addAttribute("warte_auftrag", warte_auftrag);
+			pruefungAuftrag();
 			return "dienstleister";
-		
 		}
 		
 		warte_auftrag = warteAuftrag(user);
@@ -144,7 +144,7 @@ public class AuftragController {
 		model.addAttribute("auftrag", auftrag);
 		model.addAttribute("warte_auftrag", warte_auftrag);
 
-		view = "auftrag";
+		view = "auftragDLR";
 		return view;
 	}
 	
@@ -172,6 +172,8 @@ public class AuftragController {
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		int status_int = Integer.parseInt(req.getParameter("status"));
 		String status = "";
+		String sql = "";
+		DBManager dbm = new DBManager();
 		switch(status_int) {
 		
 		case 1: 
@@ -184,28 +186,36 @@ public class AuftragController {
 			status="Abgelehnt";
 			break;
 		case 4:
-			String sql = "DELETE FROM auftraege WHERE aft_id = " + AuftragID;
-			DBManager dbm = new DBManager();
+			sql = "UPDATE auftraege SET aft_dma_id = NULL WHERE aft_id = " + AuftragID;
+			dbm.update(sql);
+			user.delAuftrag(AuftragID);
+			pruefungAuftrag();
+			return "dezernatmitarbeiter";
+		case 5:
+			sql = "DELETE FROM auftraege WHERE aft_id = " + AuftragID;
+			dbm = new DBManager();
 			dbm.update(sql);
 			user.delAuftrag(AuftragID);
 			return "dezernatmitarbeiter";
-		
 		}
 		
-		
-		String sql = "UPDATE auftraege SET aft_status = '" + status + "' where aft_id = " + AuftragID;
-		DBManager dbm = new DBManager();
-		dbm.update(sql);
-		
-		user.getAuftrag(AuftragID).setStatus(status);
-
-		Auftrag auftrag = new Auftrag();
-		auftrag = user.getAuftrag(AuftragID);
-		
-		model.addAttribute("auftrag", auftrag);
-
-		view = "auftrag";
+		view = "dezernatmitarbeiter";
 		return view;
+	}
+	
+	public void pruefungAuftrag() {
+		String sql = "";
+		DBManager dbm = new DBManager();
+		sql = "DELETE FROM auftraege WHERE aft_id = " + AuftragID + " AND aft_dma_id IS NULL AND aft_dlr_id IS NULL";
+		try {
+			dbm.update(sql);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 		
 }

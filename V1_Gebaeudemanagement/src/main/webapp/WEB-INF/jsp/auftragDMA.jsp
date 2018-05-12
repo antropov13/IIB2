@@ -110,24 +110,25 @@ function start(){
 							<tr>
 							<td>Status:</td>
 							<td style="color:#009933">${auftrag.getStatus()}</td>
+							<tr><td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatusDMA?status=4" class="w3-block w3-button w3-red">Löschen</a></td></tr>
 							</tr>
 						</c:when>
 						<c:when test = "${status == 'Warte auf eine Antwort' }">
 							<tr>
 								<td>Status:</td>
 								<td style="color:#ffcc00">${auftrag.getStatus()}</td>
+								<tr><td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatusDMA?status=5" class="w3-block w3-button w3-red">Löschen</a></td></tr>
 							</tr>
 						</c:when>
 						<c:when test = "${status == 'Abgelehnt' }">
 							<tr>
 							<td>Status:</td>
 							<td style="color:#ff0000">${auftrag.getStatus()}</td>
+							<tr><td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatusDMA?status=4" class="w3-block w3-button w3-red">Löschen</a></td></tr>
 							</tr>
 						</c:when>
 						</c:choose>
-							<tr>
-        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatusDMA?status=4" class="w3-block w3-button w3-red">Löschen</button></td>
-        					</tr>
+        					
 						</table>
     				</div>
     		</div>
