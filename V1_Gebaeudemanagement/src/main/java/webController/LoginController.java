@@ -75,12 +75,12 @@ public class LoginController {
 				List<Auftrag> auftragList = new ArrayList<Auftrag>();
 				sql = "SELECT * from auftraege where aft_dlr_id = " + dlr.getId() + ";";
 				auftragList = dbm.getAuftraege(sql);
-				dlr.setAuftraege(auftragList);
+				dlr.setAuftraegeList(auftragList);
 				
 				int auftrag_warte = 0;
 				String warte_auftrag = ""; 
 				
-				for (Auftrag at : dlr.getAuftraege())
+				for (Auftrag at : dlr.getAuftraegeList())
 				{
 					if (at.getStatus().equals("Warte auf eine Antwort"))
 					{
@@ -119,6 +119,15 @@ public class LoginController {
 			}
 			
 			else {
+				
+				DBManager dbm = new DBManager();
+				List<Auftrag> auftragList = new ArrayList<Auftrag>();
+				String sql = "SELECT * from auftraege where aft_dma_id = " + dma.getId() + ";";
+				auftragList = dbm.getAuftraege(sql);
+				dma.setAuftraegeList(auftragList);
+				
+				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
+				model.addAttribute("auftraege", auftragList);
 				
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);

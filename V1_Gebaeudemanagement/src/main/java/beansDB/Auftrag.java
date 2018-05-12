@@ -13,6 +13,7 @@ public class Auftrag {
 	private int dma_idl;
 	private Gebaeude gebaeude;
 	private String auftragsersteller;
+	private String dienstleister;
 	private List<Dienstleistung> dienstleistungList;
 	public int getId() {
 		return id;
@@ -62,6 +63,13 @@ public class Auftrag {
 	}
 	public void setAuftragsersteller(String auftragsersteller) {
 		this.auftragsersteller = auftragsersteller;
+	}
+	
+	public String getDienstleister() {
+		return dienstleister;
+	}
+	public void setDienstleister(String dienstleister) {
+		this.dienstleister = dienstleister;
 	}
 	
 	public List<Dienstleistung> getDienstleistungList() {

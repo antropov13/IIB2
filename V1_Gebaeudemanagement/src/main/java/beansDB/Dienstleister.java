@@ -107,11 +107,11 @@ public class Dienstleister {
     /**
      * @param fachrolle the Leistungsspektren to set
      */
-    public void setAuftraege(List<Auftrag> auftraege) {
+    public void setAuftraegeList(List<Auftrag> auftraege) {
         this.auftraegeList = auftraege;
     }
     
-    public List<Auftrag> getAuftraege() {
+    public List<Auftrag> getAuftraegeList() {
         return auftraegeList;
     }
     

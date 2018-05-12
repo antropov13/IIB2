@@ -34,8 +34,8 @@ public class AuftragController {
 	}
 
 	
-	@RequestMapping(value = "/oeffnenAuftrag", method = RequestMethod.GET)
-	public String aenderungAuftraege(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/oeffnenAuftragDLR", method = RequestMethod.GET)
+	public String aenderungAuftraegeDLR(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
 		this.AuftragID = Integer.parseInt(req.getParameter("AuftragID"));
@@ -62,14 +62,46 @@ public class AuftragController {
 		auftrag.setDienstleistungList(dienstleistungList);
 		
 		model.addAttribute("auftrag", auftrag);
-
-		view = "auftrag";
+		view = "auftragDLR";
 		return view;
 
 	}
 	
-	@RequestMapping(value = "/aenderungStatus", method = RequestMethod.GET)
-	public String aenderungStatus(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/oeffnenAuftragDMA", method = RequestMethod.GET)
+	public String aenderungAuftraegeDMA(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+
+		this.AuftragID = Integer.parseInt(req.getParameter("AuftragID"));
+		String view;
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		List<Dienstleistung> dienstleistungList = new ArrayList<Dienstleistung>();
+		Auftrag auftrag = new Auftrag();
+	
+		String sql = "SELECT * from dienstleistungen "
+				+ "where dln_id in "
+				+ "(SELECT lad_dln_id "
+					+ "FROM lnaftdln "
+					+ "where lad_aft_id = " + AuftragID + ");";
+		
+		DBManager dbm = new DBManager();	
+		dienstleistungList = dbm.getDienstleistungen(sql);
+		
+		if (dienstleistungList == null)
+		{
+			dienstleistungList = new ArrayList<Dienstleistung>();
+		}
+
+		auftrag = user.getAuftrag(AuftragID);
+		auftrag.setDienstleistungList(dienstleistungList);
+		
+		model.addAttribute("auftrag", auftrag);
+		view = "auftragDMA";
+		return view;
+
+	}
+	
+	@RequestMapping(value = "/aenderungStatusDLR", method = RequestMethod.GET)
+	public String aenderungStatusDLR(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		String view;
 		Dienstleister user = (Dienstleister) req.getSession().getAttribute("user");
@@ -121,7 +153,7 @@ public class AuftragController {
 		int auftrag_warte = 0;
 		String warte_auftrag = ""; 
 		
-		for (Auftrag at : dlr.getAuftraege())
+		for (Auftrag at : dlr.getAuftraegeList())
 		{
 			if (at.getStatus().equals("Warte auf eine Antwort"))
 			{
@@ -131,6 +163,49 @@ public class AuftragController {
 		
 		if (auftrag_warte!=0) warte_auftrag = String.valueOf(auftrag_warte);
 		return warte_auftrag;
+	}
+	
+	@RequestMapping(value = "/aenderungStatusDMA", method = RequestMethod.GET)
+	public String aenderungStatusDMA(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		String view;
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		int status_int = Integer.parseInt(req.getParameter("status"));
+		String status = "";
+		switch(status_int) {
+		
+		case 1: 
+			status="Erledigt";
+			break;
+		case 2:
+			status="Ausfuehrung";
+			break;
+		case 3: 
+			status="Abgelehnt";
+			break;
+		case 4:
+			String sql = "DELETE FROM auftraege WHERE aft_id = " + AuftragID;
+			DBManager dbm = new DBManager();
+			dbm.update(sql);
+			user.delAuftrag(AuftragID);
+			return "dezernatmitarbeiter";
+		
+		}
+		
+		
+		String sql = "UPDATE auftraege SET aft_status = '" + status + "' where aft_id = " + AuftragID;
+		DBManager dbm = new DBManager();
+		dbm.update(sql);
+		
+		user.getAuftrag(AuftragID).setStatus(status);
+
+		Auftrag auftrag = new Auftrag();
+		auftrag = user.getAuftrag(AuftragID);
+		
+		model.addAttribute("auftrag", auftrag);
+
+		view = "auftrag";
+		return view;
 	}
 		
 }

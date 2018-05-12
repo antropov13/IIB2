@@ -267,17 +267,19 @@ public class DBManager {
 		//List<Dienstleistung> dlnList = new ArrayList<Dienstleistung>();
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
-		Connection con2 = getDBConnection(datenbankname);
-		Statement stmt2 = con2.createStatement();
-		Connection con3 = getDBConnection(datenbankname);
-		Statement stmt3 = con3.createStatement();
+		Connection conDMA = getDBConnection(datenbankname);
+		Statement stmtDMA = conDMA.createStatement();
+		Connection conDLR = getDBConnection(datenbankname);
+		Statement stmtDLR = conDLR.createStatement();
+		Connection conGEB = getDBConnection(datenbankname);
+		Statement stmtGEB = conGEB.createStatement();
 		ResultSet r = stmt.executeQuery(sql);
 		int nr = 0;
 		int id_spektren_new = 0;
 		Auftrag at = null ;
-		String sql2 = "";
-		String sql3 = "";
-		String dma = "";
+		String sqlDMA = "", sqlDLR  = "", sqlGeb = "";
+		String dma  = "", dlr = "";
+		
 		boolean val = r.next();
 		if(val==false){
 			return auftraegeList;
@@ -291,16 +293,24 @@ public class DBManager {
 	    		at.setDlr_id(r.getInt(3));
 	    		at.setDate(r.getDate(4));
 	    		at.setStatus(r.getString(5));
-	    		sql2 = "SELECT dma_name, dma_vorname from dezernatmitarbeiter where dma_id = " + r.getInt(2);
-	    		ResultSet r2 = stmt2.executeQuery(sql2);
-	    		while (r2.next())
+	    		sqlDMA = "SELECT dma_name, dma_vorname from dezernatmitarbeiter where dma_id = " + r.getInt(2);
+	    		ResultSet rDMA = stmtDMA.executeQuery(sqlDMA);
+	    		while (rDMA.next())
 	    		{
-	    			dma = r2.getString(1) + " " + r2.getString(2);
+	    			dma = rDMA.getString(1) + " " + rDMA.getString(2);
 	    		}
-	    		
-	    		sql3 = "SELECT * from gebaeude where geb_id = " + r.getInt(6);
-	    		at.setGebaeude(getGebaeude(sql3));
 	    		at.setAuftragsersteller(dma);
+	    		
+	    		sqlDLR = "SELECT dlr_firmaname from dienstleister where dlr_id = " + r.getInt(3);
+	    		ResultSet rDLR = stmtDLR.executeQuery(sqlDLR);
+	    		while (rDLR.next())
+	    		{
+	    			dlr = rDLR.getString(1);
+	    		}
+	    		at.setDienstleister(dlr);
+	    		
+	    		sqlGeb = "SELECT * from gebaeude where geb_id = " + r.getInt(6);
+	    		at.setGebaeude(getGebaeude(sqlGeb));
 	    		auftraegeList.add(at);
 		    	val=r.next();
 		    	

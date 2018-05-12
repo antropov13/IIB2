@@ -39,7 +39,7 @@ function start(){
 	<div class="w3-container w3-blue-grey w3-opacity"">
 		<div class="w3-display-container">
 			<div style="float: left; width:300px">
-				<h2>Guten Tag ${sessionScope.user.getFirmaname()}</h2>
+				<h2>Guten Tag ${sessionScope.user.getVorname()} ${sessionScope.user.getNachname()}</h2>
 			</div > 
 			<div id="time"; style="float: right; margin-top: 20px;"></div>
 		</div>
@@ -66,7 +66,7 @@ function start(){
     				<div class="w3-panel w3-border-right w3-border-blue" style="width:35%; float:left;">
 	    			    <figure style:="text-align: center;">
 	  						<img src="img/6.jpg" class="w3-circle" style="width:60px;">
-					    	<figcaption>${auftrag.getAuftragsersteller()}</figcaption>
+					    	<figcaption>${auftrag.getDienstleister()}</figcaption>
 					    </figure>
 					</div>
 					
@@ -105,29 +105,17 @@ function start(){
 								<td>Status:</td>
 								<td style="color:#0066ff">${auftrag.getStatus()}</td>
 							</tr>
-							<tr>
-        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=1" class="w3-block w3-button w3-blue">Erledigt</a></td>
-        					</tr>
 						</c:when>
 						<c:when test = "${status == 'Erledigt' }">
 							<tr>
 							<td>Status:</td>
 							<td style="color:#009933">${auftrag.getStatus()}</td>
 							</tr>
-							<tr>
-        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=4" class="w3-block w3-button w3-red">Löschen</button></td>
-        					</tr>
 						</c:when>
 						<c:when test = "${status == 'Warte auf eine Antwort' }">
 							<tr>
 								<td>Status:</td>
 								<td style="color:#ffcc00">${auftrag.getStatus()}</td>
-							</tr>
-							<tr>
-        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=2" class="w3-block w3-button w3-green">Annehmen</a></td>
-        					</tr>
-        					<tr>
-        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=3" class="w3-block w3-button w3-red">Ablehnen</a></td>
 							</tr>
 						</c:when>
 						<c:when test = "${status == 'Abgelehnt' }">
@@ -135,12 +123,11 @@ function start(){
 							<td>Status:</td>
 							<td style="color:#ff0000">${auftrag.getStatus()}</td>
 							</tr>
-							<tr>
-        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatus?status=4" class="w3-block w3-button w3-red">Löschen</button></td>
-        					</tr>
 						</c:when>
 						</c:choose>
-						
+							<tr>
+        						<td colspan="2"><a href="<%=request.getContextPath() %>/aenderungStatusDMA?status=4" class="w3-block w3-button w3-red">Löschen</button></td>
+        					</tr>
 						</table>
     				</div>
     		</div>

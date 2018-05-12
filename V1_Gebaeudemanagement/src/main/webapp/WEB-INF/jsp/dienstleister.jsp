@@ -193,7 +193,7 @@ win = window.open("window.htm","win","height=300,width=300");
 				</div>
 					
 				    </div>    
-				    <a href="<%=request.getContextPath() %>/oeffnenAuftrag?AuftragID=${at.getId()}" class="w3-button w3-block w3-dark-grey">Öffnen</a> 
+				    <a href="<%=request.getContextPath() %>/oeffnenAuftragDLR?AuftragID=${at.getId()}" class="w3-button w3-block w3-dark-grey">Öffnen</a> 
 
 		    </div>
 			</c:forEach>
