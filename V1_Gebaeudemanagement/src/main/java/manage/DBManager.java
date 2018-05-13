@@ -31,7 +31,7 @@ public class DBManager {
 	    String p = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //das ist notwendig wegen Fehler "time zone"
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "Caramelo2");    		
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "0000");    		
 		    		
 		} 
 		catch (SQLException ex) {
@@ -171,7 +171,7 @@ public class DBManager {
 			    	dln = new Dienstleistung();
 			    	dln.setDlnId(r.getInt(2));
 			    	dln.setName(r.getString(3));
-			    	dln.setBescheibung(r.getString(4));
+			    	dln.setBeschreibung(r.getString(4));
 			    	dln.setHaeufigkeit(r.getString(5));
 			    	dln.setPreis(r.getInt(6));
 			    	//dln.setId(r.getInt(7));
@@ -221,7 +221,7 @@ public class DBManager {
 		    	dln.setDlnId(r.getInt(1));
 		    	//dln.setId(r.getInt(1));
 		    	dln.setName(r.getString(2));
-		    	dln.setBescheibung(r.getString(3));
+		    	dln.setBeschreibung(r.getString(3));
 		    	dln.setHaeufigkeit(r.getString(4));
 		    	dln.setDmaId(r.getInt(5));
 		    	dlnList.add(dln);
