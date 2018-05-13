@@ -18,6 +18,8 @@ import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektrum;
+import beansDB.LnDokumentiert;
+import beansDB.Maengel;
 import manage.DBManager;
 
 @Controller
@@ -124,6 +126,30 @@ public class LoginController {
 
 				req.getSession().setAttribute("mDienstleistungen", mLeistungen); // set session attribute
 				model.addAttribute("mDienstleistungen", mLeistungen); 
+				
+
+				sql = "SELECT * from lndokumentiert;";
+			    List<LnDokumentiert> berichte = new ArrayList<LnDokumentiert>();
+				berichte = dbm.getBerichte(sql);
+
+				sql = "SELECT * from maengel;";
+			    List<Maengel> maengel = new ArrayList<Maengel>();
+				maengel = dbm.getMaengel(sql);
+
+				sql = "SELECT * from dienstleister;";
+				List<Dienstleister> dienstleistern = dbm.getDienstleister(sql);
+ 
+
+				req.getSession().setAttribute("berichte", berichte); // set session attribute
+				model.addAttribute("berichte", berichte);
+				
+				req.getSession().setAttribute("dienstleister", dienstleistern); // set session attribute
+				model.addAttribute("dienstleister", dienstleistern); 
+				
+
+				req.getSession().setAttribute("maengel", maengel); // set session attribute
+				model.addAttribute("maengel", maengel); 
+				
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);
 				return "redirect:/" + dma.getFachrolle().toLowerCase() + ".jsp";

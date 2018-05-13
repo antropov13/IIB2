@@ -127,6 +127,8 @@
 				onclick="openFunktion(event, 'Dienstleistungen')">Leistungen</button>
 			<button class="w3-bar-item w3-button tablink"
 				onclick="openFunktion(event, 'Auftraege')">Aufträge</button>
+				<button class="w3-bar-item w3-button tablink"
+				onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
 			<form action="logout">
 				<input type="submit" value="Logout"
 					class="w3-bar-item w3-button tablink">
@@ -245,6 +247,47 @@
 		<div id="Auftraege" class="w3-container city" style="display: none">
 			<h2>Auftraege</h2>
 		</div>
+		<div id="MaengelB" class="w3-container city"
+			style="display: none;">
+			<div
+				style="width: 810px; float: left; height: 100%; margin-left: 148px;">
+				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
+					<a class="addItem" href="<%=request.getContextPath()%>/hinzufuegenMaengel"> <i
+						class="fa fa-clipboard"></i> Mängelbericht erstellen
+					</a>
+				</div>
+				<div class="w3-container">
+					<c:forEach items="${berichte}" var="dok">
+						<button style="margin-top: 10px;"
+							onclick="myFunction('dok${dok.getTitel()}')"
+							class="w3-btn w3-block w3-green w3-left-align w3-round">Maengel:
+							${dok.getId()}</button>
+						<div id="dok${dok.getTitel()}" class="w3-container w3-hide">
+							<table class="w3-table w3-bordered">
+								<tr>
+									<th>Titel</th>
+									<th>Datum</th>
+									<th>Dienstleistung</th>
+									<th>Beschreibung</th>
+									<th>Ersteller ID</th>
+								</tr>
+								<tr>
+									<td>${dok.getTitel()}</td>
+									<td>${dok.getDate()}</td>
+									<td>${dok.getMgl_id()}</td>
+									<td>${dok.getBeschreibung()}</td> 
+									<td>${dok.getDma_id()}</td> 
+								</tr>
+							</table>
+						</div>
+
+					</c:forEach>
+
+				</div>
+			</div>
+		</div>
+
+		
 
 	</div>
 </body>

@@ -1,12 +1,12 @@
 package beansDB;
-
-import java.text.DateFormat;
+ 
+import java.util.Date;
 
 public class LnDokumentiert {
 	private int id;
 	private int dma_id;
 	private int mgl_id;
-	private DateFormat date;
+	private Date date;
 	private String beschreibung;
 	private String titel;
 	public String getTitel() {
@@ -21,10 +21,10 @@ public class LnDokumentiert {
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
-	public DateFormat getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(DateFormat date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public int getMgl_id() {
