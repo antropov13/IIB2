@@ -35,9 +35,12 @@ public class LoginController {
 	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
+		System.out.println("1");
+		
 		Dienstleister dlr = new Dienstleister();
 		Dezernatmitarbeiter dma = new Dezernatmitarbeiter();
 
+		System.out.println("2");
 		if (req.getParameter("fachrolle")==null) {
 			dlr.setUsername(req.getParameter("username"));
 			dlr.setPass(req.getParameter("password"));
@@ -46,7 +49,7 @@ public class LoginController {
 				model.addAttribute("warning", "Geben Sie bitte alle Daten ein");
 				return "index";
 			}
-			
+			System.out.println("3");
 			dlr = loginDLR(dlr);
 			
 			if (dlr==null) {
@@ -56,6 +59,7 @@ public class LoginController {
 			
 			else {
 
+				System.out.println("4");
 				List<Leistungsspektrum> spektrum = new ArrayList<Leistungsspektrum>();
 				
 				DBManager dbm = new DBManager();	
@@ -71,7 +75,7 @@ public class LoginController {
 
 				spektrum = dbm.getLeistungen(sql, dlr);
 				dlr.setLeistungsspektren(spektrum);
-				
+				System.out.println("5");
 				req.getSession().setAttribute("leistungen", spektrum); // set session attribute
 				model.addAttribute("leistungen", spektrum);
 				
@@ -90,7 +94,7 @@ public class LoginController {
 					auftrag_warte ++;
 					};
 				}
-				
+				System.out.println("6");
 				if (auftrag_warte!=0) warte_auftrag = String.valueOf(auftrag_warte);
 				
 				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
@@ -101,7 +105,7 @@ public class LoginController {
 				
 				req.getSession().setAttribute("user", dlr); // set session attribute
 				model.addAttribute("user", dlr);
-				
+				System.out.println("7");
 				return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
 				
 			}
