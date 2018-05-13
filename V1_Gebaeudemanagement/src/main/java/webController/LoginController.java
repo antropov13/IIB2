@@ -17,7 +17,10 @@ import beansDB.Auftrag;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
+import beansDB.Gebaeude;
 import beansDB.Leistungsspektrum;
+import beansDB.LnDokumentiert;
+import beansDB.Maengel;
 import manage.DBManager;
 
 @Controller
@@ -119,6 +122,7 @@ public class LoginController {
 			}
 			
 			else {
+<<<<<<< HEAD
 				
 				DBManager dbm = new DBManager();
 				List<Auftrag> auftragList = new ArrayList<Auftrag>();
@@ -128,6 +132,61 @@ public class LoginController {
 				
 				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
 				model.addAttribute("auftraege", auftragList);
+=======
+
+				List<Gebaeude> gebAll = new ArrayList<Gebaeude>();
+				List<Gebaeude> gebForID = new ArrayList<Gebaeude>();
+				DBManager dbm = new DBManager();	
+
+				String sql = "SELECT * from gebaeude;";
+				
+				gebAll = dbm.getGeb(sql);
+				 sql = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+				 gebForID = dbm.getGeb(sql);
+
+				req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
+				model.addAttribute("gebaeude", gebAll);
+				req.getSession().setAttribute("mGebaeude", gebForID); // set session attribute for my buildings
+				model.addAttribute("mGebaeude", gebForID);
+				
+				sql = "SELECT * from dienstleistungen;";
+			    List<Dienstleistung> leistungen = new ArrayList<Dienstleistung>();
+				leistungen = dbm.getDienstleistungen(sql);
+				
+				sql = "SELECT * from dienstleistungen WHERE dln_dma_id = " + dma.getId() + ";";
+			    List<Dienstleistung> mLeistungen = new ArrayList<Dienstleistung>();
+				mLeistungen = dbm.getDienstleistungen(sql);
+				
+				req.getSession().setAttribute("dienstleistungen", leistungen); // set session attribute
+				model.addAttribute("dienstleistungen", leistungen);
+				
+
+				req.getSession().setAttribute("mDienstleistungen", mLeistungen); // set session attribute
+				model.addAttribute("mDienstleistungen", mLeistungen); 
+				
+
+				sql = "SELECT * from lndokumentiert;";
+			    List<LnDokumentiert> berichte = new ArrayList<LnDokumentiert>();
+				berichte = dbm.getBerichte(sql);
+
+				sql = "SELECT * from maengel;";
+			    List<Maengel> maengel = new ArrayList<Maengel>();
+				maengel = dbm.getMaengel(sql);
+
+				sql = "SELECT * from dienstleister;";
+				List<Dienstleister> dienstleistern = dbm.getDienstleister(sql);
+ 
+
+				req.getSession().setAttribute("berichte", berichte); // set session attribute
+				model.addAttribute("berichte", berichte);
+				
+				req.getSession().setAttribute("dienstleister", dienstleistern); // set session attribute
+				model.addAttribute("dienstleister", dienstleistern); 
+				
+
+				req.getSession().setAttribute("maengel", maengel); // set session attribute
+				model.addAttribute("maengel", maengel); 
+>>>>>>> feat/gebaeudeAnlegen
 				
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);

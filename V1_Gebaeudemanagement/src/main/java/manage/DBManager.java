@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +18,15 @@ import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektrum;
+<<<<<<< HEAD
 import beansDB.LnAuftragDln;
 import beansDB.Lnlspdln;
+=======
+import beansDB.LnDokumentiert;
+import beansDB.Maengel;
+>>>>>>> feat/gebaeudeAnlegen
 import manage.start;
+import beansDB.Gebaeude;
 
 // CRUD = Create, Retrieve, Update, Delete
 public class DBManager {
@@ -195,7 +202,7 @@ public class DBManager {
 			    	dln = new Dienstleistung();
 			    	dln.setDlnId(r.getInt(2));
 			    	dln.setName(r.getString(3));
-			    	dln.setBescheibung(r.getString(4));
+			    	dln.setBeschreibung(r.getString(4));
 			    	dln.setHaeufigkeit(r.getString(5));
 			    	dln.setPreis(r.getInt(6));
 			    	dln.setDmaId(r.getInt(8));
@@ -243,7 +250,7 @@ public class DBManager {
 		    	dln = new Dienstleistung();
 		    	dln.setDlnId(r.getInt(1));
 		    	dln.setName(r.getString(2));
-		    	dln.setBescheibung(r.getString(3));
+		    	dln.setBeschreibung(r.getString(3));
 		    	dln.setHaeufigkeit(r.getString(4));
 		    	dln.setDmaId(r.getInt(5));
 		    	dlnList.add(dln);
@@ -495,6 +502,126 @@ public class DBManager {
 	    Statement stmt = con.createStatement();
 	    ResultSet rs = stmt.executeQuery(sql);	       
 	    return rs;
+	}
+
+
+	public List<Gebaeude> getGeb(String sql) throws ClassNotFoundException, SQLException {
+		List<Gebaeude> gebList = null;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Gebaeude geb = null ;
+		boolean val = r.next();
+		if(val==false){
+			return gebList;
+		}
+		else {
+			gebList = new ArrayList<Gebaeude>();
+		    while (val) {
+		    	geb = new Gebaeude();
+		    	geb.setId(r.getInt(1));
+		    	geb.setStrasse(r.getString(2));
+		    	geb.setHausnummer(r.getString(3));
+		    	geb.setOrt(r.getString(4));
+		    	geb.setPlz(r.getInt(5));
+		    	geb.setDma_id(r.getInt(6));
+		    	gebList.add(geb);
+		    	val=r.next();
+		    }
+			con.close(); // Very important!
+		}
+		return gebList;
+	}
+
+	public List<LnDokumentiert> getBerichte(String sql) throws ClassNotFoundException, SQLException {
+		List<LnDokumentiert> berichte = null;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		LnDokumentiert b = null ;
+		boolean val = r.next();
+		if(val==false){
+			return berichte;
+		}
+		else {
+			berichte = new ArrayList<LnDokumentiert>();
+		    while (val) {
+		    	b = new LnDokumentiert();
+		    	b.setId(r.getInt(1));
+		    	b.setDma_id(r.getInt(2));
+		    	b.setMgl_id(r.getInt(3));
+		    	b.setDate(r.getDate(4));
+		    	b.setTitel(r.getString(5));
+		    	b.setBeschreibung(r.getString(6)); 
+		    	berichte.add(b);
+		    	val=r.next();
+		    }
+			con.close(); // Very important!
+		}
+		return berichte;
+	}
+
+	public List<Maengel> getMaengel(String sql) throws ClassNotFoundException, SQLException{
+		List<Maengel> maengel = null;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+ 		Maengel m = null ; 
+		boolean val = r.next();
+		if(val==false){
+			return maengel;
+		}
+		else {
+			maengel = new ArrayList<Maengel>();
+		    while (val) {
+		    	m = new Maengel();
+		    	m.setId(r.getInt(1));
+		    	m.setDln_id(r.getInt(2));
+		    	m.setDlr_id(r.getInt(3)); 
+		    	maengel.add(m);
+		    	val=r.next();
+		    }
+			con.close(); // Very important!
+		}
+		return maengel;
+	}
+
+	public List<Dienstleister> getDienstleister(String sql) throws ClassNotFoundException, SQLException{
+		List<Dienstleister> dlr = null;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Dienstleister d = null ;
+		boolean val = r.next();
+		if(val==false){
+			return dlr;
+		}
+		else {
+			dlr = new ArrayList<Dienstleister>();
+		    while (val) {
+		    	d = new Dienstleister();
+		    	d.setId(r.getInt(1));
+		    	d.setFirmaname(r.getString(2));
+		    	dlr.add(d);
+		    	val=r.next();
+		    }
+			con.close(); // Very important!
+		}
+		return dlr;
+	}
+
+	public int getLast(String sql) throws SQLException, ClassNotFoundException {
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		boolean val = r.next();
+		int ret = -1;
+		if(val== true) {
+			ret = r.getInt(1);
+			
+		}
+		con.close();
+		return ret;
 	}
 
 }

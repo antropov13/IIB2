@@ -5,10 +5,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Gebaeudemenegement - Dezernatmitarbeiter</title>
-	<link rel="stylesheet" href="styles/gmCSS.css">	
-	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Gebäude hinzufügen</title>
+<link rel="stylesheet" href="styles/gmCSS.css">	
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
 <script>
@@ -40,37 +39,11 @@ function startTime() {
     var t = setTimeout(startTime, 500);
 }
 
-function getParam(){
-	var params = window
-    .location
-    .search
-    .replace('?','')
-    .split('&')
-    .reduce(
-        function(p,e){
-            var a = e.split('=');
-            p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
-            return p;
-        },
-        {}
-    );
-	
-	if (params['gebId']!=-1){
-		x = document.getElementsByName("sel");
-		  for (i = 0; i < x.length; i++) {
-		     x[i].style.display = "none";
-		  }
-	}
-	
-	if (params['warning']==true){
-		alert("qwe")
-	}
-}
+ 
 
 function start(){
 	startTime();
 	openFunktion(event, 'Gebaeude', true);
-	getParam();
 }
 
 </script>
@@ -90,7 +63,7 @@ function start(){
 </div>
 
 <c:if test="${not empty submitDone}">
-  <script>alert("Alle Gebäude wurden hinzugefügt");
+  <script>alert("Die Gebäude wurde hinzugefügt");
 </script></c:if>
 
 
@@ -107,26 +80,17 @@ function start(){
 
   <div id="Gebaeude" class="w3-container city" style="display:none;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Gebäude ${gebToEdit.getId()}</div>
-			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit.getId()}">
-		
-			<table class="w3-table w3-bordered">
-					<tr>
-						<th>Strasse</th>
-						<th>Hausnr.</th>
-						<th>Ort</th>
-						<th>PLZ</th> 
-					</tr> 
-						<tr>
-							<td><input type="text" name="strasse" value="${gebToEdit.getStrasse()}"></td>
-	  						<td><input type="text" name="nr" value="${gebToEdit.getHausnummer()}"></td>
-	  						<td><input type="text" name="ort" value="${gebToEdit.getOrt()}"></td>
-	  						<td><input type="number" name="plz" value="${gebToEdit.getPlz()}"></td> 
-	  						<td> <button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
-	  						  &#10003; 
-							</button>
-	  						</tr> 
-					</table>
+			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Neues Gebäude</div>
+			<form method="POST" id="changes" action="${pageContext.request.contextPath}/hinzufuegenGebaeudeForm">
+			
+							  <label for="str">Straße: </label> <input id="str" type="text" name="strasse" value=""> 
+	  						  <label for="nr"> Nummer: </label> <input id="nr" type="text" name="nr" value=""> 
+	  						 <label for="ort"> Ort: </label> <input id="ort" type="text" name="ort" value=""> 
+	  						<label for="pz"> PLZ: </label> <input id="pz" type="number" name="plz" value=""> 
+	  					     <button id="id2" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
+	  						  Bestätigen
+							</button> 
+	  					 
 						</form>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">

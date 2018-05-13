@@ -69,7 +69,7 @@ function getParam(){
 
 function start(){
 	startTime();
-	openFunktion(event, 'Gebaeude', true);
+	openFunktion(event, 'Dienstleistung', true);
 	getParam();
 }
 
@@ -90,7 +90,7 @@ function start(){
 </div>
 
 <c:if test="${not empty submitDone}">
-  <script>alert("Alle Gebäude wurden hinzugefügt");
+  <script>alert("Alle Dienstleistungen wurden geändert");
 </script></c:if>
 
 
@@ -98,31 +98,29 @@ function start(){
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
-  <a href="<%=request.getContextPath() %>/gebaeude" class="w3-bar-item w3-button tablink w3-red">Gebäude</a>
+  <a href="<%=request.getContextPath() %>/dienstleistung" class="w3-bar-item w3-button tablink w3-red">Leistungen </a>
   <!-- <button class="w3-bar-item w3-button tablink" type="submit">Speichern</button>  -->
   <button class="w3-bar-item w3-button tablink" onclick="history.back()">Zurück</button>
   <a href="<%=request.getContextPath() %>/logout" class="w3-bar-item w3-button tablink">Logout</a>
   </div>
 
 
-  <div id="Gebaeude" class="w3-container city" style="display:none;">
+  <div id="Dienstleistung" class="w3-container city" style="display:none;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Gebäude ${gebToEdit.getId()}</div>
-			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit.getId()}">
+			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">DienstLeistung ${dlnToEdit.getName()}</div>
+			<form method="POST" id="changeDln" action="${pageContext.request.contextPath}/aenderungDienstleistungForm?dlnID=${dlnToEdit.getDlnId()}">
 		
 			<table class="w3-table w3-bordered">
 					<tr>
-						<th>Strasse</th>
-						<th>Hausnr.</th>
-						<th>Ort</th>
-						<th>PLZ</th> 
+						<th>Name</th>
+						<th>Beschreibung</th>
+						<th>Häufigkeit</th>
 					</tr> 
 						<tr>
-							<td><input type="text" name="strasse" value="${gebToEdit.getStrasse()}"></td>
-	  						<td><input type="text" name="nr" value="${gebToEdit.getHausnummer()}"></td>
-	  						<td><input type="text" name="ort" value="${gebToEdit.getOrt()}"></td>
-	  						<td><input type="number" name="plz" value="${gebToEdit.getPlz()}"></td> 
-	  						<td> <button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
+							<td><input type="text" name="name" value="${dlnToEdit.getName()}"></td>
+	  						<td><input type="text" name="bes" value="${dlnToEdit.getBeschreibung()}"></td>
+	  						<td><input type="text" name="hgk" value="${dlnToEdit.getHaeufigkeit()}"></td>  
+	  						<td> <button id="${dlntoEdit.getDlnId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
 	  						  &#10003; 
 							</button>
 	  						</tr> 
