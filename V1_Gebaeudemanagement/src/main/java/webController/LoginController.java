@@ -143,7 +143,7 @@ public class LoginController {
 				sql = "SELECT * from gebaeude;";
 				
 				gebAll = dbm.getGeb(sql);
-				 sql = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+				 sql = "SELECT * from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
 				 gebForID = dbm.getGeb(sql);
 
 				req.getSession().setAttribute("gebaeude", gebAll); // set session attribute

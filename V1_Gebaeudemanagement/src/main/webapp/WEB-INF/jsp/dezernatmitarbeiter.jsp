@@ -5,20 +5,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<<<<<<< HEAD
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Gebaeudemenegement - Dezernatmitarbeiter</title>
-	<link rel="stylesheet" href="styles/gmCSS.css">	
-	<link rel="stylesheet" href="styles/style.css">	
-	
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-=======
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gebaeudemenegement - Dezernatmitarbeiter</title>
-<link rel="stylesheet" href="styles/gmCSS.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
->>>>>>> feat/gebaeudeAnlegen
+<link rel="stylesheet" href="styles/gmCSS.css">	
+<link rel="stylesheet" href="styles/style.css">		
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 #gebs {
@@ -124,29 +118,6 @@
 			</div>
 		</div>
 	</div>
-<<<<<<< HEAD
-</div>
-
-<div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
-  <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
-  <h5 class="w3-bar-item">Menu</h5>
-  <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
-  <div class="w3-dropdown-hover">
-  	<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge &#9662;</i></button>
-  	<div class="w3-dropdown-content w3-bar-block">
-      <a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
-    </div>
-  </div>
-  <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
-</div>
-
-<div id="Gebaeude" class="w3-container city" style="display:none;">
-	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-		<button  style="margin-top:10px;" onclick="myFunction('1')" class="w3-btn w3-block w3-green w3-left-align w3-round">Gebäude 1</button>
-		<div id="1" class="w3-container w3-hide">
-		<a href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=1">&#9998;</a> 
-=======
 
 	<div class="w3-light-grey"
 		style="margin: 0 auto; width: 1000px; min-height: 100%; position: absolute !important; margin-left: auto; margin-right: auto; left: 0; right: 0;">
@@ -155,8 +126,12 @@
 			<h5 class="w3-bar-item">Menu</h5>
 			<button class="w3-bar-item w3-button tablink w3-red"
 				onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
-			<button class="w3-bar-item w3-button tablink"
-				onclick="openFunktion(event, 'Dienstleistungen')">Leistungen</button>
+				  <div class="w3-dropdown-hover">
+				  	<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge &#9662;</i></button>
+				  	<div class="w3-dropdown-content w3-bar-block">
+				      <a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
+				    </div>
+				  </div>
 			<button class="w3-bar-item w3-button tablink"
 				onclick="openFunktion(event, 'Auftraege')">Aufträge</button>
 				<button class="w3-bar-item w3-button tablink"
@@ -165,7 +140,6 @@
 				<input type="submit" value="Logout"
 					class="w3-bar-item w3-button tablink">
 			</form>
->>>>>>> feat/gebaeudeAnlegen
 		</div>
 
 		<div id="Gebaeude" class="w3-container city" style="display: none;">
@@ -277,7 +251,6 @@
 			</div>
 		</div>
 
-<<<<<<< HEAD
   <div id="Auftraege" class="w3-container city" style="display:none">
     <div style="width:870px; height: 100%; margin-left:130px">
 		<div class="container">
@@ -337,11 +310,8 @@
 	</div>
 	 
 </div>
-=======
-		<div id="Auftraege" class="w3-container city" style="display: none">
-			<h2>Auftraege</h2>
-		</div>
-		<div id="MaengelB" class="w3-container city"
+		
+	<div id="MaengelB" class="w3-container city"
 			style="display: none;">
 			<div
 				style="width: 810px; float: left; height: 100%; margin-left: 148px;">
@@ -374,16 +344,10 @@
 								</tr>
 							</table>
 						</div>
-
 					</c:forEach>
-
 				</div>
 			</div>
 		</div>
->>>>>>> feat/gebaeudeAnlegen
-
-		
-
 	</div>
 </body>
 </html>
