@@ -35,9 +35,16 @@ public class DienstleistungController {
 
 		sql = "SELECT * from dienstleistungen WHERE dln_dma_id = " + user.getId() + ";";
 		dlnForID = dbm.getDienstleistungen(sql);
-		model.addAttribute("distleistungen", dlnAll);
-		model.addAttribute("mDienstleistungen", dlnForID); 
-		return "redirect:/dezernatmitarbeiter.jsp";
+
+		req.getSession().setAttribute("dienstleistungen", dlnAll); 
+		model.addAttribute("dienstleistungen", dlnAll);
+
+		req.getSession().setAttribute("mDienstleistungen", dlnForID); 
+		model.addAttribute("mDienstleistungen", dlnForID);
+
+		req.getSession().setAttribute("user", user); // set session attribute
+		model.addAttribute("user", user);
+		return "redirect:/dezernatmitarbeiter";
 	}
 
 	@RequestMapping(value = "/aenderungDienstleistung", method = RequestMethod.GET)
@@ -69,7 +76,7 @@ public class DienstleistungController {
 	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
-		this.dienstleistungID = Integer.parseInt(req.getParameter("gebID"));
+		this.dienstleistungID = Integer.parseInt(req.getParameter("dlnID"));
 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		List<Dienstleistung> dlnAll = (List<Dienstleistung>) req.getSession().getAttribute("dienstleistungen");
@@ -80,7 +87,7 @@ public class DienstleistungController {
 		String hgk = req.getParameter("hgk"); 
 
 		for (Dienstleistung d : dlnAll) {
-			if (d.getId() == dienstleistungID) {
+			if (d.getDlnId() == dienstleistungID) {
 				d.setName(name);
 				d.setBeschreibung(bes);
 				d.setHaeufigkeit(hgk); 
@@ -115,7 +122,7 @@ public class DienstleistungController {
 		String sql = "";
 		DBManager dbm = new DBManager();
 
-		sql = "DELETE FROM dienstleistungen WHERE delnb_id = " + dienstleistungID + ";";
+		sql = "DELETE FROM dienstleistungen WHERE dln_id = " + dienstleistungID + ";";
 
 		dbm.update(sql);
 
@@ -124,8 +131,14 @@ public class DienstleistungController {
 
 		sql = "SELECT * from dienstleistungen WHERE dln_dma_id = " + user.getId() + ";";
 		dlnForID = dbm.getDienstleistungen(sql);
+		req.getSession().setAttribute("dienstleistungen", dlnAll); 
 		model.addAttribute("dienstleistungen", dlnAll);
+
+		req.getSession().setAttribute("mDienstleistungen", dlnForID); 
 		model.addAttribute("mDienstleistungen", dlnForID);
+
+		req.getSession().setAttribute("user", user); // set session attribute
+		model.addAttribute("user", user);
 		view = "redirect:/dezernatmitarbeiter.jsp";
 		return view;
 	}
@@ -133,9 +146,29 @@ public class DienstleistungController {
 	@RequestMapping(value = "/hinzufuegenDienstleistung", method = RequestMethod.GET)
 	public String hinzufuegenDienstleistung(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
+ 
+			Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+	 
+			List<Dienstleistung> dlnAll = new ArrayList<Dienstleistung>();
+			List<Dienstleistung> dlnForID = new ArrayList<Dienstleistung>();
 
-		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-		DBManager dbm = new DBManager();
+			DBManager dbm = new DBManager();
+
+			String sql = "SELECT * from dienstleistungen;";
+			//
+			dlnAll = dbm.getDienstleistungen(sql);
+
+			sql = "SELECT * from dienstleistungen WHERE dln_dma_id = " + user.getId() + ";";
+			dlnForID = dbm.getDienstleistungen(sql);
+
+			req.getSession().setAttribute("dienstleistungen", dlnAll); 
+			model.addAttribute("dienstleistungen", dlnAll);
+
+			req.getSession().setAttribute("mDienstleistungen", dlnForID); 
+			model.addAttribute("mDienstleistungen", dlnForID);
+
+			req.getSession().setAttribute("user", user); // set session attribute
+			model.addAttribute("user", user);
 		return "/hinzufuegenDienstleistung";
 	}
 
@@ -152,22 +185,23 @@ public class DienstleistungController {
 		String bes = req.getParameter("bes");
 		String hgk = req.getParameter("hgk"); 
 
-		String sql = "INSERT INTO dienstleistungen (dln_name, dln_bes, dln_hgk, dln_dma_id)  VALUES (\"" + name
+		String sql = "INSERT INTO dienstleistungen (dln_name, dln_beschreibung, dln_haefigkeit, dln_dma_id)  VALUES (\"" + name
 				+ "\", \"" + bes + "\", \"" + hgk + "\", " + user.getId() + ");";
-		dbm.update(sql);
-		Dienstleistung d = new Dienstleistung();
-		d.setName(name);
-		d.setBeschreibung(bes);
-		d.setHaeufigkeit(hgk); 
-		d.setDmaId(user.getId());
+		dbm.update(sql); 
 
 		sql = "SELECT * from dienstleistungen;";
 		dlnAll = dbm.getDienstleistungen(sql);
 
 		sql = "SELECT * from dienstleistungen WHERE dln_dma_id = " + user.getId() + ";";
 		dlnForID = dbm.getDienstleistungen(sql);
+		req.getSession().setAttribute("dienstleistungen", dlnAll); 
 		model.addAttribute("dienstleistungen", dlnAll);
+
+		req.getSession().setAttribute("mDienstleistungen", dlnForID); 
 		model.addAttribute("mDienstleistungen", dlnForID);
+
+		req.getSession().setAttribute("user", user); // set session attribute
+		model.addAttribute("user", user);
 		view = "redirect:/dezernatmitarbeiter.jsp";
 		return view;
 	}

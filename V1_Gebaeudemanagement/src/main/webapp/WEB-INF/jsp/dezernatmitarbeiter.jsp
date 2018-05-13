@@ -15,6 +15,7 @@
 #gebs {
 	margin-top: 40px;
 }
+
 #gebs td, #gebs th {
 	border: 1px solid #ddd;
 	padding: 8px;
@@ -31,6 +32,13 @@
 	text-align: center;
 	background-color: #4CAF50;
 	color: white;
+}
+
+.addItem {
+	text-align: center;
+	text-decoration: none;
+	background-color: #f2f2f2;
+	color: #42477F;
 }
 </style>
 <script type="text/javascript"
@@ -116,7 +124,7 @@
 			<button class="w3-bar-item w3-button tablink w3-red"
 				onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
 			<button class="w3-bar-item w3-button tablink"
-				onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
+				onclick="openFunktion(event, 'Dienstleistungen')">Leistungen</button>
 			<button class="w3-bar-item w3-button tablink"
 				onclick="openFunktion(event, 'Auftraege')">Aufträge</button>
 			<form action="logout">
@@ -128,7 +136,7 @@
 		<div id="Gebaeude" class="w3-container city" style="display: none;">
 			<div
 				style="width: 710px; float: left; height: 100%; margin-left: 148px">
-				
+
 				<table class="w3-table w3-bordered" id="gebs">
 					<tr>
 						<th>ID</th>
@@ -141,7 +149,7 @@
 						<th>Löschen</th>
 					</tr>
 					<c:forEach items="${gebaeude}" var="geb">
-						<div id="${geb.getId()}" class="w3-container w3-hide">
+						<div id="geb${geb.getId()}" class="w3-container w3-hide">
 
 							<tr>
 								<td>${geb.getId()}</td>
@@ -173,36 +181,57 @@
 			</div>
 			<div class="w3-sidebar w3-bar-block w3-light-grey w3-card"
 				style="width: 130px; float: right; margin-left: 870px;">
-				<a href="<%=request.getContextPath()%>/hinzufuegenGebaeude">
-					<i class="fa fa-home"></i>
-					Gebäude hinzufügen</a>
-					</div>
+				<a class="addItem"
+					href="<%=request.getContextPath()%>/hinzufuegenGebaeude" style="margin-top: 25px;"> <i
+					class="fa fa-building"></i> Gebäude hinzufügen
+				</a>
+			</div>
 		</div>
 
-		<div id="Leistungen" class="w3-container city" style="display: none;">
+		<div id="Dienstleistungen" class="w3-container city"
+			style="display: none;">
 			<div
-				style="width: 710px; float: left; height: 100%; margin-left: 148px">
+				style="width: 810px; float: left; height: 100%; margin-left: 148px;">
+				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
+					<a class="addItem" href="<%=request.getContextPath()%>/hinzufuegenDienstleistung"> <i
+						class="fa fa-tasks"></i> Dienstleistung hinzufügen
+					</a>
+				</div>
 				<div class="w3-container">
-					<c:forEach items="${leistungen}" var="ln">
+					<c:forEach items="${dienstleistungen}" var="dln">
 						<button style="margin-top: 10px;"
-							onclick="myFunction('${ln.getId()}')"
-							class="w3-btn w3-block w3-green w3-left-align w3-round">Gebaeude
-							${ln.getId()}</button>
-						<div id="${ln.getId()}" class="w3-container w3-hide">
+							onclick="myFunction('dln${dln.getName()}')"
+							class="w3-btn w3-block w3-green w3-left-align w3-round">Dienstleistung:
+							${dln.getName()}</button>
+						<div id="dln${dln.getName()}" class="w3-container w3-hide">
 							<table class="w3-table w3-bordered">
 								<tr>
-									<th>Strasse</th>
-									<th>Hausnr.</th>
-									<th>Ort</th>
-									<th>PLZ</th>
-									<th>Ersteller</th>
-									<th>
-										<button id="${ln.getId()}" class="w3-button w3-yellow"
-											title="Verändern Dienstleistung">
-											<a
-												href="<%=request.getContextPath() %>/aenderungGebaeude?GebaeudeID=${ln.getId()}">&#F1F8;</a>
-										</button>
-									</th>
+									<th>Beschreibung</th>
+									<th>Häufigkeit.</th>
+									<th>Ersteller ID</th>
+									<th>Edit</th>
+									<th>Los</th>
+								</tr>
+								<tr>
+									<td>${dln.getBeschreibung()}</td>
+									<td>${dln.getHaeufigkeit()}</td>
+									<td>${dln.getDmaId()}</td>
+									<td><c:if test="${dln.getDmaId() == user.getId()}">
+											<form method="POST">
+												<button type="submit"
+													formaction="${pageContext.request.contextPath}/aenderungDienstleistung?dlnID=${dln.getDlnId()}">
+													<i class="fa fa-edit"></i>
+												</button>
+											</form>
+										</c:if></td>
+									<td><c:if test="${dln.getDmaId() == user.getId()}">
+											<form method="POST">
+												<button type="submit"
+													formaction="${pageContext.request.contextPath}/loeschenDienstleistung?dlnID=${dln.getDlnId()}">
+													<i class="fa fa-trash"></i>
+												</button>
+											</form>
+										</c:if></td>
 								</tr>
 							</table>
 						</div>
@@ -210,27 +239,6 @@
 					</c:forEach>
 
 				</div>
-			</div>
-
-			<div class="w3-sidebar w3-bar-block w3-light-grey w3-card"
-				style="width: 130px; float: right; margin-left: 870px;">
-				<h5 class="w3-bar-item">
-					<p></p>
-				</h5>
-				<button class="w3-bar-item w3-button"
-					onclick="openCity(event, 'Loeschen')">
-					<a
-						href="<%=request.getContextPath()%>/loeschenLeistungsspektrum?LeistungsspektrumID=-1"
-						onclick="return confirm('Möchten Sie alle Leistungsspektren löschen?')">Löschen
-						alle</a>
-				</button>
-
-				<button class="w3-bar-item w3-button"
-					onclick="openCity(event, 'Hinzufuegen')">
-					<a
-						href="<%=request.getContextPath()%>/hinzufuegenLeistungsspektrum">Hinzufügen</a>
-				</button>
-
 			</div>
 		</div>
 

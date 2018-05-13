@@ -80,7 +80,6 @@ function start(){
 
   <div id="Gebaeude" class="w3-container city" style="display:none;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-  	HOLA
 			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Neues Gebäude</div>
 			<form method="POST" id="changes" action="${pageContext.request.contextPath}/hinzufuegenGebaeudeForm">
 			
@@ -90,10 +89,7 @@ function start(){
 	  						<label for="pz"> PLZ: </label> <input id="pz" type="number" name="plz" value=""> 
 	  					     <button id="id2" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
 	  						  Bestätigen
-							</button>
-							<button id="" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
-	  						  Abbrechen
-							</button>
+							</button> 
 	  					 
 						</form>
 	  

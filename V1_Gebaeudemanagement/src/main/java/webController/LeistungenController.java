@@ -208,7 +208,7 @@ public class LeistungenController {
 		//dlnnew.setId(leistungID);
 		dlnnew.setDlnId(leistungID);
 		dlnnew.setName(name);
-		dlnnew.setBescheibung(beschreibung);
+		dlnnew.setBeschreibung(beschreibung);
 		dlnnew.setHaeufigkeit(haeufigkeit);
 		dlnnew.setPreis(preis);
 		System.out.println("4 " + LeistungsspektrumID);

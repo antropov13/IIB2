@@ -13,11 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import beansDB.Dezernatmitarbeiter;
-import beansDB.Dienstleister;
-import beansDB.Dienstleistung;
-import beansDB.Gebaeude;
-import beansDB.Leistungsspektrum;
+import beansDB.Dezernatmitarbeiter; 
+import beansDB.Gebaeude; 
 import manage.DBManager;
 
 @Controller
@@ -156,7 +153,7 @@ public class GebaeudeController {
 	}
 
 	@RequestMapping(value = "/hinzufuegenGebaeudeForm", method = RequestMethod.POST)
-	public String hinzufuegennGebaeudeForm(HttpServletRequest req, HttpServletResponse res, Model model)
+	public String hinzufuegenGebaeudeForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		String view = "";
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");

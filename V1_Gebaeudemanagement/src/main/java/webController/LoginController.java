@@ -100,13 +100,10 @@ public class LoginController {
 				DBManager dbm = new DBManager();	
 
 				String sql = "SELECT * from gebaeude;";
-				//String sql2 = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
-				gebAll = dbm.getGeb(sql);
 				
-				for(Gebaeude g: gebAll) {
-					if(g.getDma_id() == dma.getId())
-						gebForID.add(g);
-				}
+				gebAll = dbm.getGeb(sql);
+				 sql = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+				 gebForID = dbm.getGeb(sql);
 
 				req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
 				model.addAttribute("gebaeude", gebAll);
@@ -116,8 +113,17 @@ public class LoginController {
 				sql = "SELECT * from dienstleistungen;";
 			    List<Dienstleistung> leistungen = new ArrayList<Dienstleistung>();
 				leistungen = dbm.getDienstleistungen(sql);
-				req.getSession().setAttribute("leistungen", leistungen); // set session attribute
-				model.addAttribute("leistungen", leistungen);
+				
+				sql = "SELECT * from dienstleistungen WHERE dln_dma_id = " + dma.getId() + ";";
+			    List<Dienstleistung> mLeistungen = new ArrayList<Dienstleistung>();
+				mLeistungen = dbm.getDienstleistungen(sql);
+				
+				req.getSession().setAttribute("dienstleistungen", leistungen); // set session attribute
+				model.addAttribute("dienstleistungen", leistungen);
+				
+
+				req.getSession().setAttribute("mDienstleistungen", mLeistungen); // set session attribute
+				model.addAttribute("mDienstleistungen", mLeistungen); 
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);
 				return "redirect:/" + dma.getFachrolle().toLowerCase() + ".jsp";
