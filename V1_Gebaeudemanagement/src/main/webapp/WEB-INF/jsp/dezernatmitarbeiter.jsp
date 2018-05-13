@@ -83,7 +83,12 @@ win = window.open("window.htm","win","height=300,width=300");
   <h5 class="w3-bar-item">Menu</h5>
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
   <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge</button>
+  <div class="w3-dropdown-hover">
+  	<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge &#9662;</i></button>
+  	<div class="w3-dropdown-content w3-bar-block">
+      <a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
+    </div>
+  </div>
   <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
 </div>
 

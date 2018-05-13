@@ -58,7 +58,7 @@ public class LoginController {
 				DBManager dbm = new DBManager();	
 				
 							
-				String sql = "SELECT lsp_id from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
+				String sql = "SELECT * from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
 				spektrum = dbm.getLeistungsspektren(sql);
 				dlr.setLeistungsspektren(spektrum);
 				

@@ -93,9 +93,9 @@ CREATE TABLE IF NOT EXISTS `auftraege` (
   `aft_dlr_id` int(11) DEFAULT NULL,
   `aft_dmadlr_id` int(11) DEFAULT NULL,
   `aft_dlrdma_id` int(11) DEFAULT NULL,
-  `aft_datum` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `aft_datum` DATE DEFAULT NULL,
   `aft_status` varchar(50) DEFAULT NULL,
-  `aft_geb_id` varchar(50) DEFAULT NULL,
+  `aft_geb_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`aft_id`),
   KEY `aft_d_id` (`aft_dma_id`),
   CONSTRAINT `aft_d_id`
@@ -125,6 +125,8 @@ CREATE TABLE IF NOT EXISTS `auftraege` (
   CONSTRAINT `a_g_id`
   FOREIGN KEY (`aft_geb_id`)
   REFERENCES `gebaeude`(`geb_id`)
+  	 ON DELETE SET NULL 
+     ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 

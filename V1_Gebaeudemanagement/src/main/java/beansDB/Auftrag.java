@@ -30,6 +30,11 @@ public class Auftrag {
 		SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
 		return formatForDateNow.format(date);
 	}
+	
+	public String getDateTagDB() {
+		SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
+		return formatForDateNow.format(date);
+	}
 	public void setDate(Date date) {
 		this.date = date;
 	}
@@ -78,5 +83,18 @@ public class Auftrag {
 	public void setDienstleistungList(List<Dienstleistung> dienstleistungList) {
 		this.dienstleistungList = dienstleistungList;
 	}
+	
+    public void delDienstleistung(int iddln, int idls) {
+    	for (Dienstleistung d : this.dienstleistungList)
+    	{
+    		if (d.getDlnId()==iddln && d.getLs_id()==idls)
+    		{
+    			System.out.println(iddln + " dln cls ls " + idls);
+    			this.dienstleistungList.remove(d);
+    			System.out.println(iddln + " dln cls2 ls " + idls);
+    			break;
+    		}
+    	}
+    }
 	
 }

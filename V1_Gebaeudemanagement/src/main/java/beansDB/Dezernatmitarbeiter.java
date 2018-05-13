@@ -96,6 +96,10 @@ public class Dezernatmitarbeiter {
 		this.auftraegeList = auftraegeList;
 	}
 	
+	public void setAuftraege(Auftrag auftrag) {
+		this.auftraegeList.add(auftrag);
+	}
+	
 	public Auftrag getAuftrag(int id) {
         for (Auftrag a : auftraegeList)
         {

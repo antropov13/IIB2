@@ -7,7 +7,36 @@ public class Dienstleistung {
     private int preis;
     private int dln_id;
     private int dma_id;
+    private int ls_id;
 	
+	public int getDln_id() {
+		return dln_id;
+	}
+
+	public void setDln_id(int dln_id) {
+		this.dln_id = dln_id;
+	}
+
+	public int getDma_id() {
+		return dma_id;
+	}
+
+	public void setDma_id(int dma_id) {
+		this.dma_id = dma_id;
+	}
+
+	public int getLs_id() {
+		return ls_id;
+	}
+
+	public void setLs_id(int ls_id) {
+		this.ls_id = ls_id;
+	}
+
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
+	}
+
 	/**
      * @return the vorname
      */

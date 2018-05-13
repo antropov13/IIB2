@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
@@ -36,7 +37,7 @@ public class LeistungenController {
 		DBManager dbm = new DBManager();	
 		
 					
-		String sql = "SELECT lsp_id from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
+		String sql = "SELECT * from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
 		spektrum = dbm.getLeistungsspektren(sql);
 		dlr.setLeistungsspektren(spektrum);
 		
@@ -54,6 +55,15 @@ public class LeistungenController {
 		model.addAttribute("user", dlr);
 		//return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
 		return "dienstleister";
+	}
+	
+	@RequestMapping(value = { "/", "leistungendma" })
+	public String homedma(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		
+		Dezernatmitarbeiter dma = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		
+		return "dezernatmitarbeiter";
 	}
 
 	@RequestMapping(value = "/aenderungLeistung", method = RequestMethod.GET)
