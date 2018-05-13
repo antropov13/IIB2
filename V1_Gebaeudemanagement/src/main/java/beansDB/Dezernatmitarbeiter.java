@@ -1,11 +1,14 @@
 package beansDB;
 
+import java.util.List;
+
 public class Dezernatmitarbeiter {
 	private String vorname;
     private String nachname;
     private String username;
     private String passwort;
     private String fachrolle = "Dezernatmitarbeiter";
+    private List<Auftrag> auftraegeList;
     private int id;
     
     /**
@@ -15,7 +18,7 @@ public class Dezernatmitarbeiter {
         return vorname;
     }
 
-    /**
+	/**
      * @param vorname the vorname to set
      */
     public void setVorname(String vorname) {
@@ -83,5 +86,36 @@ public class Dezernatmitarbeiter {
      */
     public String getFachrolle() {
         return fachrolle;
+    }
+    
+    public List<Auftrag> getAuftraegeList() {
+		return auftraegeList;
+	}
+
+	public void setAuftraegeList(List<Auftrag> auftraegeList) {
+		this.auftraegeList = auftraegeList;
+	}
+	
+	public void setAuftraege(Auftrag auftrag) {
+		this.auftraegeList.add(auftrag);
+	}
+	
+	public Auftrag getAuftrag(int id) {
+        for (Auftrag a : auftraegeList)
+        {
+        	if (a.getId()==id) return a;
+        }
+        return null;
+    }
+    
+    public void delAuftrag(int id) {
+        for (Auftrag a : auftraegeList)
+        {
+        	if (a.getId()==id) 
+        	{
+        		auftraegeList.remove(a);
+        		break;
+        	}
+        }
     }
 }

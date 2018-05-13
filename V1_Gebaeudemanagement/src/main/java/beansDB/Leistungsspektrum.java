@@ -7,8 +7,17 @@ public class Leistungsspektrum {
 	private String name;
 	private List<Dienstleistung> dienstleistungen;
 	private int id;
+	private int DlrId;
   
-    /**
+    public int getDlrId() {
+		return DlrId;
+	}
+
+	public void setDlrId(int dlrId) {
+		DlrId = dlrId;
+	}
+
+	/**
      * @return the vorname
      */
     public String getName() {

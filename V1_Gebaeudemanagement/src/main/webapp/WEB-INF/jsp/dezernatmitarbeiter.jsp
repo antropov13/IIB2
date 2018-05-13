@@ -5,11 +5,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gebaeudemenegement - Dezernatmitarbeiter</title>
-<link rel="stylesheet" href="styles/gmCSS.css">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="styles/gmCSS.css">	
+<link rel="stylesheet" href="styles/style.css">		
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 #gebs {
@@ -123,8 +126,12 @@
 			<h5 class="w3-bar-item">Menu</h5>
 			<button class="w3-bar-item w3-button tablink w3-red"
 				onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
-			<button class="w3-bar-item w3-button tablink"
-				onclick="openFunktion(event, 'Dienstleistungen')">Leistungen</button>
+				  <div class="w3-dropdown-hover">
+				  	<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge &#9662;</i></button>
+				  	<div class="w3-dropdown-content w3-bar-block">
+				      <a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
+				    </div>
+				  </div>
 			<button class="w3-bar-item w3-button tablink"
 				onclick="openFunktion(event, 'Auftraege')">Aufträge</button>
 				<button class="w3-bar-item w3-button tablink"
@@ -244,10 +251,67 @@
 			</div>
 		</div>
 
-		<div id="Auftraege" class="w3-container city" style="display: none">
-			<h2>Auftraege</h2>
+  <div id="Auftraege" class="w3-container city" style="display:none">
+    <div style="width:870px; height: 100%; margin-left:130px">
+		<div class="container">
+			<div class="catalog">
+			<c:forEach items="${auftraege}" var="at">
+			<div class="w3-card-4 item" style="margin-top: 10px;">
+    			<header class="w3-container w3-green">
+      				<h5>Auftrag ${at.getId()}</h5>
+    			</header>
+    			    <div class="w3-container w3-white">
+	    			    <div style="width:40%; float:left;">
+	    			    <figure style:="text-align: center;" style="margin: 10px;">
+	  						<img src="img/6.jpg" class="w3-circle" style="width:60px;">
+					    	<figcaption>${at.getDienstleister()}</figcaption>
+					    </figure>
+					    </div>
+					  
+					<div style="width:60%; float:right; margin-top:20px;">
+					<c:set var = "status" value = "${at.getStatus()}"/>
+					<c:choose>
+					<c:when test = "${status == 'Ausfuehrung' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#0066ff; float:right; margin-right:5px;">Ausführung</div>
+					</c:when>
+					<c:when test = "${status == 'Erledigt' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#009933; float:right; margin-right:5px;">Erledigt</div>
+					</c:when>
+					<c:when test = "${status == 'Warte auf eine Antwort' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#ffcc00; float:right; margin-right:5px;">Warte auf eine Antwort</div>
+					</c:when>
+					<c:when test = "${status == 'Abgelehnt' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#ff0000; float:right; margin-right:5px;">Abgelehnt</div>
+					</c:when>
+					</c:choose>
+					<br>
+					<div>
+					<div style="float:left;">Ort:</div>
+					<div style="float:right; margin-right:5px;">${at.getGebaeude().getOrt()}</div>
+					</div>
+					<br>
+					<div>
+					<div style="float:left;">Datum:</div>
+					<div style="float:right;  margin-right:5px;">${at.getDateTag()}</div>
+					</div>
+				</div>
+					
+				    </div>    
+				    <a href="<%=request.getContextPath() %>/oeffnenAuftragDMA?AuftragID=${at.getId()}" class="w3-button w3-block w3-dark-grey">Öffnen</a> 
+
+		    </div>
+			</c:forEach>
+			</div>
 		</div>
-		<div id="MaengelB" class="w3-container city"
+	</div>
+	 
+</div>
+		
+	<div id="MaengelB" class="w3-container city"
 			style="display: none;">
 			<div
 				style="width: 810px; float: left; height: 100%; margin-left: 148px;">
@@ -280,15 +344,10 @@
 								</tr>
 							</table>
 						</div>
-
 					</c:forEach>
-
 				</div>
 			</div>
 		</div>
-
-		
-
 	</div>
 </body>
 </html>

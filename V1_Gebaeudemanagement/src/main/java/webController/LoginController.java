@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 
+import beansDB.Auftrag;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
@@ -34,9 +35,12 @@ public class LoginController {
 	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
+		System.out.println("1");
+		
 		Dienstleister dlr = new Dienstleister();
 		Dezernatmitarbeiter dma = new Dezernatmitarbeiter();
 
+		System.out.println("2");
 		if (req.getParameter("fachrolle")==null) {
 			dlr.setUsername(req.getParameter("username"));
 			dlr.setPass(req.getParameter("password"));
@@ -45,7 +49,7 @@ public class LoginController {
 				model.addAttribute("warning", "Geben Sie bitte alle Daten ein");
 				return "index";
 			}
-			
+			System.out.println("3");
 			dlr = loginDLR(dlr);
 			
 			if (dlr==null) {
@@ -55,13 +59,13 @@ public class LoginController {
 			
 			else {
 
-				
+				System.out.println("4");
 				List<Leistungsspektrum> spektrum = new ArrayList<Leistungsspektrum>();
 				
 				DBManager dbm = new DBManager();	
 				
 							
-				String sql = "SELECT lsp_id from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
+				String sql = "SELECT * from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
 				spektrum = dbm.getLeistungsspektren(sql);
 				dlr.setLeistungsspektren(spektrum);
 				
@@ -71,13 +75,39 @@ public class LoginController {
 
 				spektrum = dbm.getLeistungen(sql, dlr);
 				dlr.setLeistungsspektren(spektrum);
-				
+				System.out.println("5");
 				req.getSession().setAttribute("leistungen", spektrum); // set session attribute
 				model.addAttribute("leistungen", spektrum);
 				
+				List<Auftrag> auftragList = new ArrayList<Auftrag>();
+				sql = "SELECT * from auftraege where aft_dlr_id = " + dlr.getId() + ";";
+				auftragList = dbm.getAuftraege(sql);
+				dlr.setAuftraegeList(auftragList);
+				
+				int auftrag_warte = 0;
+				String warte_auftrag = ""; 
+				
+				for (Auftrag at : dlr.getAuftraegeList())
+				{
+					if (at.getStatus().equals("Warte auf eine Antwort"))
+					{
+					auftrag_warte ++;
+					};
+				}
+				System.out.println("6");
+				if (auftrag_warte!=0) warte_auftrag = String.valueOf(auftrag_warte);
+				
+				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
+				model.addAttribute("auftraege", auftragList);
+				
+				req.getSession().setAttribute("warte_auftrag", warte_auftrag); // set session attribute
+				model.addAttribute("warte_auftrag", warte_auftrag);
+				
 				req.getSession().setAttribute("user", dlr); // set session attribute
 				model.addAttribute("user", dlr);
+				System.out.println("7");
 				return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
+				
 			}
 		}
 		else {
@@ -96,15 +126,24 @@ public class LoginController {
 			}
 			
 			else {
+				
+				DBManager dbm = new DBManager();
+				List<Auftrag> auftragList = new ArrayList<Auftrag>();
+				String sql = "SELECT * from auftraege where aft_dma_id = " + dma.getId() + ";";
+				auftragList = dbm.getAuftraege(sql);
+				dma.setAuftraegeList(auftragList);
+				
+				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
+				model.addAttribute("auftraege", auftragList);
 
 				List<Gebaeude> gebAll = new ArrayList<Gebaeude>();
 				List<Gebaeude> gebForID = new ArrayList<Gebaeude>();
-				DBManager dbm = new DBManager();	
+				dbm = new DBManager();	
 
-				String sql = "SELECT * from gebaeude;";
+				sql = "SELECT * from gebaeude;";
 				
 				gebAll = dbm.getGeb(sql);
-				 sql = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
+				 sql = "SELECT * from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
 				 gebForID = dbm.getGeb(sql);
 
 				req.getSession().setAttribute("gebaeude", gebAll); // set session attribute

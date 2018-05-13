@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
@@ -36,7 +37,7 @@ public class LeistungenController {
 		DBManager dbm = new DBManager();	
 		
 					
-		String sql = "SELECT lsp_id from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
+		String sql = "SELECT * from leistungsspektren where lsp_dlr_id = " + dlr.getId() + ";";
 		spektrum = dbm.getLeistungsspektren(sql);
 		dlr.setLeistungsspektren(spektrum);
 		
@@ -54,6 +55,15 @@ public class LeistungenController {
 		model.addAttribute("user", dlr);
 		//return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
 		return "dienstleister";
+	}
+	
+	@RequestMapping(value = { "/", "leistungendma" })
+	public String homedma(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		
+		Dezernatmitarbeiter dma = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		
+		return "dezernatmitarbeiter";
 	}
 
 	@RequestMapping(value = "/aenderungLeistung", method = RequestMethod.GET)
@@ -266,41 +276,4 @@ public class LeistungenController {
 		}
 		return "dienstleister";
 	}
-/*
- * 
-	@RequestMapping(value = "/gebaeudeEingeben", method = RequestMethod.GET)
-	public String gebaeudeeingeben(HttpServletRequest req, HttpServletResponse res, Model model)
-			throws ClassNotFoundException, SQLException {
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
-		model.addAttribute("user", user);
-		return "gebaeudeEingeben";
-	}
-
-	@RequestMapping(value = "/insertGeb", method = RequestMethod.POST)
-	public String eingeben(HttpServletRequest req, HttpServletResponse res, Model model)
-			throws ClassNotFoundException, SQLException {
-		String view;
-		Fachrolle user = (Fachrolle) req.getSession().getAttribute("user");
-		if (user == null) {
-			model.addAttribute("error", "Bitte loggen Sie sich als Gutachter ein, um auf diese Seite zu kommen.");
-			view = "error";
-
-		} else {
-
-			Gebaeude geb = new Gebaeude();
-			geb.setGuid(req.getParameter("guid"));
-			geb.setStrasse(req.getParameter("strasse"));
-			geb.setHausnummer(req.getParameter("hausnummer"));
-			geb.setPlz(Integer.parseInt(req.getParameter("plz")));
-			geb.setOrt(req.getParameter("ort"));
-
-			geb.setBlt_id(user.getId());
-			DBManager.eingebenGeb(geb);
-			model.addAttribute("feedback", "erfolgreich eingegeben!");
-			view = user.getFachrolle().toLowerCase();
-			view = "redirect:/" + view + ".jsp";
-		}
-		return view;
-	}
-*/
 }

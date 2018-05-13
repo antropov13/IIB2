@@ -57,7 +57,7 @@ a{background-color:transparent;-webkit-text-decoration-skip:objects}
 a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}
 dfn{font-style:italic}mark{background:#ff0;color:#000}
 small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
-sub{bottom:-0.25em}sup{top:-0.5em}figure{margin:1em 40px}img{border-style:none}svg:not(:root){overflow:hidden}
+sub{bottom:-0.25em}sup{top:-0.5em}img{border-style:none}svg:not(:root){overflow:hidden}
 code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}hr{box-sizing:content-box;height:0;overflow:visible}
 button,input,select,textarea{font:inherit;margin:0}optgroup{font-weight:bold}
 button,input{overflow:visible}button,select{text-transform:none}
@@ -278,7 +278,6 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-border-pale-red,.w3-hover-border-pale-red:hover{border-color:#ffe7e7!important}.w3-border-pale-green,.w3-hover-border-pale-green:hover{border-color:#e7ffe7!important}
 .w3-border-pale-yellow,.w3-hover-border-pale-yellow:hover{border-color:#ffffcc!important}.w3-border-pale-blue,.w3-hover-border-pale-blue:hover{border-color:#e7ffff!important}
 
-.container{overflow:hidden;width:200px}
 .box{white-space:nowrap}
 .box div{width:90px;display:inline-block;border:1px solid black}
 

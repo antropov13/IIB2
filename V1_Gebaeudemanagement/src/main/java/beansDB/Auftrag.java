@@ -1,21 +1,41 @@
 package beansDB;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 public class Auftrag {
 	private int id;
-	private String date;
+	private Date date;
 	private String status;
 	private int dlr_id;
 	private int dma_idl;
+	private Gebaeude gebaeude;
+	private String auftragsersteller;
+	private String dienstleister;
+	private List<Dienstleistung> dienstleistungList;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDate() {
+
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	
+	public String getDateTag() {
+		SimpleDateFormat formatForDateNow = new SimpleDateFormat("dd.MM.yyyy");
+		return formatForDateNow.format(date);
+	}
+	
+	public String getDateTagDB() {
+		SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy-MM-dd");
+		return formatForDateNow.format(date);
+	}
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getStatus() {
@@ -36,5 +56,45 @@ public class Auftrag {
 	public void setDma_idl(int dma_idl) {
 		this.dma_idl = dma_idl;
 	}
+	
+	public Gebaeude getGebaeude() {
+		return gebaeude;
+	}
+	public void setGebaeude(Gebaeude gebaeude) {
+		this.gebaeude = gebaeude;
+	}
+	public String getAuftragsersteller() {
+		return auftragsersteller;
+	}
+	public void setAuftragsersteller(String auftragsersteller) {
+		this.auftragsersteller = auftragsersteller;
+	}
+	
+	public String getDienstleister() {
+		return dienstleister;
+	}
+	public void setDienstleister(String dienstleister) {
+		this.dienstleister = dienstleister;
+	}
+	
+	public List<Dienstleistung> getDienstleistungList() {
+		return dienstleistungList;
+	}
+	public void setDienstleistungList(List<Dienstleistung> dienstleistungList) {
+		this.dienstleistungList = dienstleistungList;
+	}
+	
+    public void delDienstleistung(int iddln, int idls) {
+    	for (Dienstleistung d : this.dienstleistungList)
+    	{
+    		if (d.getDlnId()==iddln && d.getLs_id()==idls)
+    		{
+    			System.out.println(iddln + " dln cls ls " + idls);
+    			this.dienstleistungList.remove(d);
+    			System.out.println(iddln + " dln cls2 ls " + idls);
+    			break;
+    		}
+    	}
+    }
 	
 }

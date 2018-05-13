@@ -1,23 +1,27 @@
 package beansDB;
 
 public class Gebaeude {
-
+	
 	private int id;	
 	private String strasse;
 	private String hausnummer;
 	private String guid;
 	private String ort;
 	private int plz;
-	private int blt_id;
 	private int dma_id;
+	
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	private int blt_id;
+
 	
 	public int getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getStrasse() {
 		return strasse;
 	}

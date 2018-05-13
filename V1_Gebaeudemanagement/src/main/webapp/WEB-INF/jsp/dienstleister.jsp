@@ -8,6 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Gebaeudemenegement - Dienstleister</title>
 	<link rel="stylesheet" href="styles/gmCSS.css">	
+	<link rel="stylesheet" href="styles/style.css">	
 	
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
@@ -80,8 +81,21 @@ win = window.open("window.htm","win","height=300,width=300");
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
+  
+  <c:set var = "warte_auftrag" value = "0"/>
+  <c:forEach items="${auftraege}" var="at">
+  <c:set var = "status" value = "${at.getStatus()}"/>
+  <c:choose>
+	<c:when test = "${status == 'Warte auf eine Antwort' }">
+		 <c:set var = "warte_auftrag" value = "${warte_auftrag + 1}"/>
+	</c:when>
+  </c:choose>
+  </c:forEach>
+  <c:if test="${warte_auftrag == 0}"><c:set var = "warte_auftrag" value = ""/></c:if>
+  
+  
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
-  <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge</button>
+  <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge ${warte_auftrag}</button>
   <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
 </div>
 
@@ -113,19 +127,6 @@ win = window.open("window.htm","win","height=300,width=300");
 					</c:forEach>
  				</table>
 			</div>
-						<!-- 
-						<tr>
-							<td>
-							 <button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspektrumID=${ln.getId()}">&#9998;</a> 
-							</button>
-							
-							<button id="${ln.getId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">
-							<a href="<%=request.getContextPath() %>/loeschenLeistung?LeistungID=${ln.getId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
-							</button>
-							</td>
-						</tr>
-						 -->
 			</c:forEach>
 		</div>
 	</div>
@@ -139,12 +140,67 @@ win = window.open("window.htm","win","height=300,width=300");
   	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">
 	<a href="<%=request.getContextPath() %>/hinzufuegenLeistungsspektrum">Hinzufügen</a>
 	</button>
-	
 	</div>
   </div>
 
   <div id="Auftraege" class="w3-container city" style="display:none">
-    <h2>Auftraege</h2>
+    <div style="width:870px; height: 100%; margin-left:130px">
+		<div class="container">
+			<div class="catalog">
+			<c:forEach items="${auftraege}" var="at">
+			<div class="w3-card-4 item" style="margin-top: 10px;">
+    			<header class="w3-container w3-green">
+      				<h5>Auftrag ${at.getId()}</h5>
+    			</header>
+    			    <div class="w3-container w3-white">
+	    			    <div style="width:40%; float:left;">
+	    			    <figure style:="text-align: center;" style="margin: 10px;">
+	  						<img src="img/6.jpg" class="w3-circle" style="width:60px;">
+					    	<figcaption>${at.getAuftragsersteller()}</figcaption>
+					    </figure>
+					    </div>
+					  
+					<div style="width:60%; float:right; margin-top:20px;">
+					<c:set var = "status" value = "${at.getStatus()}"/>
+					<c:choose>
+					<c:when test = "${status == 'Ausfuehrung' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#0066ff; float:right; margin-right:5px;">Ausführung</div>
+					</c:when>
+					<c:when test = "${status == 'Erledigt' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#009933; float:right; margin-right:5px;">Erledigt</div>
+					</c:when>
+					<c:when test = "${status == 'Warte auf eine Antwort' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#ffcc00; float:right; margin-right:5px;">Warte auf eine Antwort</div>
+					</c:when>
+					<c:when test = "${status == 'Abgelehnt' }">
+						<div style="float:left;">Status:</div>
+						<div style="color:#ff0000; float:right; margin-right:5px;">Abgelehnt</div>
+					</c:when>
+					</c:choose>
+					<br>
+					<div>
+					<div style="float:left;">Ort:</div>
+					<div style="float:right; margin-right:5px;">${at.getGebaeude().getOrt()}</div>
+					</div>
+					<br>
+					<div>
+					<div style="float:left;">Datum:</div>
+					<div style="float:right;  margin-right:5px;">${at.getDateTag()}</div>
+					</div>
+				</div>
+					
+				    </div>    
+				    <a href="<%=request.getContextPath() %>/oeffnenAuftragDLR?AuftragID=${at.getId()}" class="w3-button w3-block w3-dark-grey">Öffnen</a> 
+
+		    </div>
+			</c:forEach>
+			</div>
+		</div>
+	</div>
+	 
 </div>
 
 </div>
