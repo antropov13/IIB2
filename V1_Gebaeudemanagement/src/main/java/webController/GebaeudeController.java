@@ -68,9 +68,16 @@ public class GebaeudeController {
 
 		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
 		gebForID = dbm.getGeb(sql);
+		Gebaeude gebToEdit = null;
+		for(Gebaeude g: gebAll) {  
+			if(g.getId() == GebaeudeID) {
+				gebToEdit= g;
+				break;
+			}
+		}
 		model.addAttribute("gebaeude", gebAll);
 		model.addAttribute("mGebaeude", gebForID);
-		model.addAttribute("gebToEdit", GebaeudeID);
+		model.addAttribute("gebToEdit", gebToEdit);
 		view = "/aenderungGebaeude";
 		return view;
 

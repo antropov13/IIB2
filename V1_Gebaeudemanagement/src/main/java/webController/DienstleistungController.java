@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import beansDB.Dezernatmitarbeiter;
-import beansDB.Dienstleistung; 
+import beansDB.Dienstleistung;
+import beansDB.Gebaeude;
 import manage.DBManager;
 
 @Controller
@@ -47,7 +48,7 @@ public class DienstleistungController {
 		return "redirect:/dezernatmitarbeiter";
 	}
 
-	@RequestMapping(value = "/aenderungDienstleistung", method = RequestMethod.GET)
+	@RequestMapping(value = "/aenderungDienstleistung", method = RequestMethod.POST)
 	public String aenderungDienstleistung(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		this.dienstleistungID = Integer.parseInt(req.getParameter("dlnID"));
@@ -61,12 +62,18 @@ public class DienstleistungController {
 		String sql = "SELECT * from dienstleistungen;";
 		//
 		dlnAll = dbm.getDienstleistungen(sql);
-
+		Dienstleistung dlnToEdit = null;
+		for(Dienstleistung d: dlnAll) {  
+			if(d.getDlnId() == dienstleistungID) {
+				dlnToEdit= d;
+				break;
+			}
+		}
 		sql = "SELECT * from dienstleistungen WHERE dln_dma_id = " + user.getId() + ";";
 		dlnForID = dbm.getDienstleistungen(sql);
 		model.addAttribute("distleistungen", dlnAll);
 		model.addAttribute("mDienstleistungen", dlnForID);
-		model.addAttribute("dlnToEdit", dienstleistungID);
+		model.addAttribute("dlnToEdit", dlnToEdit);
 		view = "/aenderungDienstleistung";
 		return view;
 
@@ -75,8 +82,8 @@ public class DienstleistungController {
 	@RequestMapping(value = "/aenderungDienstleistungForm", method = RequestMethod.POST)
 	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-
-		this.dienstleistungID = Integer.parseInt(req.getParameter("dlnID"));
+		String r= req.getParameter("dlnID");
+		this.dienstleistungID = Integer.parseInt(r) ;
 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		List<Dienstleistung> dlnAll = (List<Dienstleistung>) req.getSession().getAttribute("dienstleistungen");
@@ -94,8 +101,8 @@ public class DienstleistungController {
 			}
 		}
 
-		String sql = "UPDATE dienstleistungen SET dln_name = \" " + name + "\" , dln_bes = \"" + bes + "\" , dln_hgk = \""
-				+ hgk + "\" where geb_id = " + dienstleistungID + ";";
+		String sql = "UPDATE dienstleistungen SET dln_name = \" " + name + "\" , dln_beschreibung = \"" + bes + "\" , dln_haefigkeit = \""
+				+ hgk + "\" where dln_id = " + dienstleistungID + ";";
 		dbm.update(sql);
 
 		sql = "SELECT * from dienstleistungen;";

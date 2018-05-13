@@ -33,7 +33,7 @@ public class Dienstleistung {
     /**
      * @param nachname the nachname to set
      */
-    public void setBescheibung(String beschreibung) {
+    public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
     }
     
@@ -86,14 +86,6 @@ public class Dienstleistung {
     public void setDmaId(int id) {
         this.dma_id = id;
     }
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
+ 
 	
 }

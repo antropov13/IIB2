@@ -107,29 +107,25 @@ function start(){
 
   <div id="Gebaeude" class="w3-container city" style="display:none;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Gebäude ${gebToEdit}</div>
-			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit}">
+			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Gebäude ${gebToEdit.getId()}</div>
+			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit.getId()}">
 		
 			<table class="w3-table w3-bordered">
 					<tr>
 						<th>Strasse</th>
 						<th>Hausnr.</th>
 						<th>Ort</th>
-						<th>PLZ</th>
-						<th> Ersteller </th>
-					</tr>
-					<c:forEach items="${mGebaeude}" var="geb">
+						<th>PLZ</th> 
+					</tr> 
 						<tr>
-							<td><input type="text" name="strasse" value="${geb.getStrasse()}"></td>
-	  						<td><input type="text" name="nr" value="${geb.getHausnummer()}"></td>
-	  						<td><input type="text" name="ort" value="${geb.getOrt()}"></td>
-	  						<td><input type="number" name="plz" value="${geb.getPlz()}"></td>
-	  						<td> User ID</td>
+							<td><input type="text" name="strasse" value="${gebToEdit.getStrasse()}"></td>
+	  						<td><input type="text" name="nr" value="${gebToEdit.getHausnummer()}"></td>
+	  						<td><input type="text" name="ort" value="${gebToEdit.getOrt()}"></td>
+	  						<td><input type="number" name="plz" value="${gebToEdit.getPlz()}"></td> 
 	  						<td> <button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
 	  						  &#10003; 
 							</button>
-	  						</tr>
-					</c:forEach>
+	  						</tr> 
 					</table>
 						</form>
 	  
