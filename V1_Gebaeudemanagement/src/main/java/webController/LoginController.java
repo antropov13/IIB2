@@ -122,7 +122,6 @@ public class LoginController {
 			}
 			
 			else {
-<<<<<<< HEAD
 				
 				DBManager dbm = new DBManager();
 				List<Auftrag> auftragList = new ArrayList<Auftrag>();
@@ -132,13 +131,12 @@ public class LoginController {
 				
 				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
 				model.addAttribute("auftraege", auftragList);
-=======
 
 				List<Gebaeude> gebAll = new ArrayList<Gebaeude>();
 				List<Gebaeude> gebForID = new ArrayList<Gebaeude>();
-				DBManager dbm = new DBManager();	
+				dbm = new DBManager();	
 
-				String sql = "SELECT * from gebaeude;";
+				sql = "SELECT * from gebaeude;";
 				
 				gebAll = dbm.getGeb(sql);
 				 sql = "SELECT geb_id from gebaeude WHERE geb_dma_id = " + dma.getId() + ";";
@@ -186,7 +184,6 @@ public class LoginController {
 
 				req.getSession().setAttribute("maengel", maengel); // set session attribute
 				model.addAttribute("maengel", maengel); 
->>>>>>> feat/gebaeudeAnlegen
 				
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);

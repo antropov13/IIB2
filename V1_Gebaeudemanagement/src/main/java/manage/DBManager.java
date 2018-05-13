@@ -18,13 +18,10 @@ import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
 import beansDB.Gebaeude;
 import beansDB.Leistungsspektrum;
-<<<<<<< HEAD
 import beansDB.LnAuftragDln;
 import beansDB.Lnlspdln;
-=======
 import beansDB.LnDokumentiert;
 import beansDB.Maengel;
->>>>>>> feat/gebaeudeAnlegen
 import manage.start;
 import beansDB.Gebaeude;
 
@@ -275,7 +272,7 @@ public class DBManager {
 		    	dln = new Dienstleistung();
 		    	dln.setDlnId(r.getInt(1));
 		    	dln.setName(r.getString(2));
-		    	dln.setBescheibung(r.getString(3));
+		    	dln.setBeschreibung(r.getString(3));
 		    	dln.setHaeufigkeit(r.getString(4));
 		    	dln.setDmaId(r.getInt(5));
 		    	val=r.next();

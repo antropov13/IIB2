@@ -59,14 +59,16 @@ public class Dienstleistung {
         return beschreibung;
     }
 
-    /**
-     * @param nachname the nachname to set
-     */
-    public void setBeschreibung(String beschreibung) {
-        this.beschreibung = beschreibung;
-    }
     
-    /**
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
      * @return the nachname
      */
     public String getHaeufigkeit() {
