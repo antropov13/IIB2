@@ -13,9 +13,9 @@
 
 
 -- Exportiere Datenbank Struktur für gebaeudemanagement
-DROP DATABASE IF EXISTS `gebaeudemanagement`;
-CREATE DATABASE IF NOT EXISTS `gebaeudemanagement` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `gebaeudemanagement`;
+DROP DATABASE IF EXISTS `IIB2_UE1_Gruppe09`;
+CREATE DATABASE IF NOT EXISTS `IIB2_UE1_Gruppe09` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `IIB2_UE1_Gruppe09`;
 
 -- Exportiere Struktur von Tabelle gebaeudemanagement.dienstleister
 DROP TABLE IF EXISTS `dienstleister`;
