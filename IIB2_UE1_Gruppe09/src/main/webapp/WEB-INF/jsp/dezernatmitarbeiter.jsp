@@ -167,7 +167,7 @@
 								<td>${geb.getOrt()}</td>
 								<td>${geb.getPlz()}</td>
 								<td>${geb.getDma_id()}</td>
-								<td><c:if test="${mGebaeude.contains(geb)}">
+								<td><c:if test="${geb.getDma_id() == sessionScope.user.getId() }">
 										<form method="POST">
 											<button type="submit"
 												formaction="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">
@@ -175,7 +175,7 @@
 											</button>
 										</form>
 									</c:if></td>
-								<td><c:if test="${mGebaeude.contains(geb)}">
+								<td><c:if test="${geb.getDma_id() == sessionScope.user.getId() }">
 										<form method="POST">
 											<button type="submit"
 												formaction="${pageContext.request.contextPath}/loeschenGebaeude?gebID=${geb.getId()}">
