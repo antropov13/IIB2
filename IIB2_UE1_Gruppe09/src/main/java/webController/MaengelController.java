@@ -50,9 +50,7 @@ public class MaengelController {
 
 		req.getSession().setAttribute("maengel", maengel); // set session attribute
 		model.addAttribute("maengel", maengel);
-		req.getSession().setAttribute("berichte", berichte); // set session attribute for my buildings
-		model.addAttribute("mGebaeude", berichte);
-
+		req.getSession().setAttribute("berichte", berichte); // set session attribute for reports
 		req.getSession().setAttribute("dienstleister", dienstleistern); // set session attribute for my buildings
 		model.addAttribute("dienstleister", dienstleistern);
  
@@ -95,8 +93,7 @@ public class MaengelController {
 		req.getSession().setAttribute("maengel", maengel); // set session attribute
 		model.addAttribute("maengel", maengel);
 		req.getSession().setAttribute("berichte", berichte); // set session attribute for my buildings
-		model.addAttribute("mGebaeude", berichte);
-
+ 
 		req.getSession().setAttribute("dienstleister", dienstleistern); // set session attribute for my buildings
 		model.addAttribute("dienstleister", dienstleistern); 
  
@@ -136,7 +133,7 @@ public class MaengelController {
 		req.getSession().setAttribute("maengel", i); // set session attribute
 		model.addAttribute("maengel", i);
 		req.getSession().setAttribute("berichte", berichte); // set session attribute for my buildings
-		model.addAttribute("mGebaeude", berichte);
+ 
 		req.getSession().setAttribute("user", user); // set session attribute
 		model.addAttribute("user", user);
 		

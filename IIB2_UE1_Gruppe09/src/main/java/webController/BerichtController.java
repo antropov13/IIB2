@@ -22,6 +22,8 @@ import manage.DBManager;
 
 @Controller
 public class BerichtController { 
+
+
 	@RequestMapping(value = { "/", "maengelBericht" })
 	public String home(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
@@ -68,18 +70,34 @@ public class BerichtController {
 	@RequestMapping(value = "/hinzufuegenBerichtForm", method = RequestMethod.POST)
 	public String hinzufuegenBerichtForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-		String view = "";
-		int mglID = Integer.parseInt(req.getParameter("mglID"));
+		String view = ""; 
 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		DBManager dbm = new DBManager();
 		String titel = req.getParameter("titel");
 		String bes = req.getParameter("bes");
-		String date = req.getParameter("date"); 
-
-		String sql = "INSERT INTO lndokumentiert (ldo_dma_id, ldo_mgl_id, ldo_titel, ldo_bes)  VALUES (" + user.getId()
-				+ "," + mglID + ", \"" + titel + "\", \"" + bes + "\");";
+		String date = req.getParameter("date");
+		int auftrag_id = Integer.parseInt(req.getParameter("auftrag"));
+		int dlrID = Integer.parseInt(req.getParameter("dienstleister"));
+		String[] dlnAr = req.getParameterValues("dienstleistungen");
+		String sql = "";
+		int dlnID = -1;
+		int[] mglIDs = new int[dlnAr.length];
+		int mglID;
+		String d;
+		for(int i = 0; i < dlnAr.length; i++) {
+			dlnID = Integer.parseInt(dlnAr[i]);
+			sql = "INSERT INTO maengel (mgl_dln_id, mgl_dlr_id)  VALUES (" + dlnID
+					+ ", " + dlrID + ");";
+			 mglIDs[i] = dbm.setMaengel(sql);
+			
+		}
+		for(int j = 0; j < mglIDs.length; j++) {
+		sql = "INSERT INTO lndokumentiert (ldo_dma_id, ldo_mgl_id, ldo_titel, ldo_bes)  VALUES (" + user.getId()
+				+ "," + mglIDs[j] + ", \"" + titel + "\", \"" + bes + "\");";
 		dbm.update(sql);
+		}
+
 		sql = "SELECT * from lndokumentiert;";
 		List<LnDokumentiert> berichte = dbm.getBerichte(sql);
  

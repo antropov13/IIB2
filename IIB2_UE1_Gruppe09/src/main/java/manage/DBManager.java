@@ -37,7 +37,7 @@ public class DBManager {
 	    String p = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //das ist notwendig wegen Fehler "time zone"
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "Caramelo2");    		
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "0000");    		
 		    		
 		} 
 		catch (SQLException ex) {
@@ -309,6 +309,22 @@ public class DBManager {
 	}
 	
 	public int setAuftrag(String sql) throws ClassNotFoundException, SQLException {
+		Integer id=-1;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		
+		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.next()){
+		    id=rs.getInt(1);
+		}
+		System.out.println("id " + id);
+
+		con.close(); // Very important!
+		return id;
+	}
+	public int setMaengel(String sql) throws ClassNotFoundException, SQLException {
 		Integer id=-1;
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
