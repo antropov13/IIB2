@@ -40,10 +40,7 @@ public class GebaeudeController {
 		gebForID = dbm.getGeb(sql);
 
 		req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
-		model.addAttribute("gebaeude", gebAll);
-		req.getSession().setAttribute("mGebaude", gebForID); // set session attribute for my buildings
-		model.addAttribute("mGebaeude", gebForID);
-
+		model.addAttribute("gebaeude", gebAll); 
 		req.getSession().setAttribute("user", dma); // set session attribute
 		model.addAttribute("user", dma);
 		// return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
@@ -75,8 +72,7 @@ public class GebaeudeController {
 				break;
 			}
 		}
-		model.addAttribute("gebaeude", gebAll);
-		model.addAttribute("mGebaeude", gebForID);
+		model.addAttribute("gebaeude", gebAll); 
 		model.addAttribute("gebToEdit", gebToEdit);
 		view = "/aenderungGebaeude";
 		return view;
@@ -90,8 +86,7 @@ public class GebaeudeController {
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("gebaeude");
-		List<Gebaeude> mGebaeude = new ArrayList<Gebaeude>();
+		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("gebaeude"); 
 		DBManager dbm = new DBManager();
 		String str = req.getParameter("strasse");
 		String nr = req.getParameter("nr");
@@ -112,12 +107,7 @@ public class GebaeudeController {
 		dbm.update(sql);
 
 		sql = "SELECT * from gebaeude;";
-		gebaeude = dbm.getGeb(sql);
-
-		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
-		mGebaeude = dbm.getGeb(sql);
-		model.addAttribute("gebaeude", gebaeude);
-		model.addAttribute("mGebaeude", mGebaeude);
+		gebaeude = dbm.getGeb(sql); 
 
 		return "redirect:/dezernatmitarbeiter.jsp";
 
@@ -128,8 +118,7 @@ public class GebaeudeController {
 			throws ClassNotFoundException, SQLException {
 		String view = "";
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
-		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-		List<Gebaeude> mGebaeude = new ArrayList<Gebaeude>();
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user"); 
 		List<Gebaeude> gebaeude = new ArrayList<Gebaeude>();
 
 		String sql = "";
@@ -141,11 +130,8 @@ public class GebaeudeController {
 
 		sql = "SELECT * from gebaeude;";
 		gebaeude = dbm.getGeb(sql);
-
-		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
-		mGebaeude = dbm.getGeb(sql);
-		model.addAttribute("gebaeude", gebaeude);
-		model.addAttribute("mGebaeude", mGebaeude);
+ 
+		model.addAttribute("gebaeude", gebaeude); 
 		view = "redirect:/dezernatmitarbeiter.jsp";
 		return view;
 	}
@@ -182,11 +168,8 @@ public class GebaeudeController {
 
 		sql = "SELECT * from gebaeude;";
 		List<Gebaeude> gebaeude = dbm.getGeb(sql);
-
-		sql = "SELECT * from gebaeude WHERE geb_dma_id = " + user.getId() + ";";
-		List<Gebaeude> mGebaeude = dbm.getGeb(sql);
-		model.addAttribute("gebaeude", gebaeude);
-		model.addAttribute("mGebaeude", mGebaeude);
+ 
+		model.addAttribute("gebaeude", gebaeude); 
 		view = "redirect:/dezernatmitarbeiter.jsp";
 		return view;
 	}

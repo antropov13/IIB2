@@ -49,8 +49,7 @@ public class BerichtController {
 
 		req.getSession().setAttribute("maengel", maengel); // set session attribute
 		model.addAttribute("maengel", maengel);
-		req.getSession().setAttribute("berichte", berichte); // set session attribute for my buildings
-		model.addAttribute("mGebaeude", berichte);
+		req.getSession().setAttribute("berichte", berichte); // set session attribute for my buildings 
 
 		req.getSession().setAttribute("dienstleister", dienstleistern); // set session attribute for my buildings
 		model.addAttribute("dienstleister", dienstleistern);

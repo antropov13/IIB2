@@ -11,7 +11,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.dienstleister: ~10 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.dienstleister: ~10 rows (ungefähr)
 /*!40000 ALTER TABLE `dienstleister` DISABLE KEYS */;
 INSERT INTO `dienstleister` (`dlr_id`, `dlr_firmaname`, `dlr_username`, `dlr_passwort`) VALUES
 	(1, 'SGG', 'sgg', 1111),
@@ -26,7 +26,7 @@ INSERT INTO `dienstleister` (`dlr_id`, `dlr_firmaname`, `dlr_username`, `dlr_pas
     (10, 'Eko', 'eko', 14258);
 /*!40000 ALTER TABLE `dienstleister` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.dienstleister: ~12 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.dienstleistungen: ~12 rows (ungefähr)
 /*!40000 ALTER TABLE `dienstleistungen` DISABLE KEYS */;
 INSERT INTO `dienstleistungen` (`dln_id`, `dln_name`, `dln_beschreibung`, `dln_haefigkeit`, `dln_dma_id`) VALUES
 	(1, 'Gebäudereinigung', 
@@ -60,7 +60,7 @@ INSERT INTO `dienstleistungen` (`dln_id`, `dln_name`, `dln_beschreibung`, `dln_h
       (12,'Catering für 30 Personen', NULL, '3 mal am Tag', 4);
 /*!40000 ALTER TABLE `dienstleistungen` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.dezernatmitarbeiter: ~10 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.dezernatmitarbeiter: ~10 rows (ungefähr)
 /*!40000 ALTER TABLE `dezernatmitarbeiter` DISABLE KEYS */;
 INSERT INTO `dezernatmitarbeiter` (`dma_id`, `dma_vorname`, `dma_name`, `dma_username`, `dma_passwort`) VALUES
 	(1, 'Emila', 'Wagner', 'wag', 2222),
@@ -75,7 +75,7 @@ INSERT INTO `dezernatmitarbeiter` (`dma_id`, `dma_vorname`, `dma_name`, `dma_use
     (10, 'John', 'Hofmann', 'hofmann', 45782);
 /*!40000 ALTER TABLE `dezernatmitarbeiter` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.leistungsspektren: ~10 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.leistungsspektren: ~10 rows (ungefähr)
 /*!40000 ALTER TABLE `leistungsspektren` DISABLE KEYS */;
 INSERT INTO `leistungsspektren` (`lsp_id`, `lsp_dlr_id`) VALUES
     (1, 1), 
@@ -96,7 +96,7 @@ INSERT INTO `leistungsspektren` (`lsp_id`, `lsp_dlr_id`) VALUES
 /*!40000 ALTER TABLE `leistungsspektren` ENABLE KEYS */;
 
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.lnLspDln: ~29 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.lnLspDln: ~29 rows (ungefähr)
 /*!40000 ALTER TABLE `lnLspDln` DISABLE KEYS */;
 INSERT INTO `lnLspDln` (`lld_id`, `lld_lsp_id`, `lld_dln_id`, `lld_preis`) VALUES
     (1, 1, 1, 200), 
@@ -130,7 +130,7 @@ INSERT INTO `lnLspDln` (`lld_id`, `lld_lsp_id`, `lld_dln_id`, `lld_preis`) VALUE
     (29, 15, 12, 1500);  
 /*!40000 ALTER TABLE `lnLspDln` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.auftraege: ~4 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.auftraege: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `auftraege` DISABLE KEYS */;
 INSERT INTO `auftraege`(`aft_id`, `aft_dma_id`, `aft_dlr_id`, `aft_dmadlr_id`, `aft_dlrdma_id`, `aft_datum`, `aft_status`, `aft_geb_id`) VALUES
     (1, 1,1,1,1,'2018-01-01','Ausfuehrung', 1),
@@ -140,7 +140,7 @@ INSERT INTO `auftraege`(`aft_id`, `aft_dma_id`, `aft_dlr_id`, `aft_dmadlr_id`, `
 /*!40000 ALTER TABLE `auftraege` ENABLE KEYS */;
 
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.auftraege: ~4 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.auftraege: ~4 rows (ungefähr)
 /*!40000 ALTER TABLE `auftraege` DISABLE KEYS */;
 
 INSERT INTO `auftraege` (`aft_id`,`aft_dma_id`, `aft_dlr_id`, `aft_dmadlr_id`, `aft_dlrdma_id`, `aft_datum`, `aft_status`,  `aft_geb_id`) VALUES
@@ -152,7 +152,7 @@ INSERT INTO `auftraege` (`aft_id`,`aft_dma_id`, `aft_dlr_id`, `aft_dmadlr_id`, `
 /*!40000 ALTER TABLE `auftraege` ENABLE KEYS */;
 
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.lnAftDln: ~13 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.lnAftDln: ~13 rows (ungefähr)
 /*!40000 ALTER TABLE `lnAftDln` DISABLE KEYS */;
 INSERT INTO `lnAftDln` (`lad_id`, `lad_aft_id`,`lad_dln_id`) VALUES
     (1, 1,1), (2, 1,2), (3, 1,3),
@@ -164,20 +164,20 @@ INSERT INTO `lnAftDln` (`lad_id`, `lad_aft_id`,`lad_dln_id`) VALUES
 /*!40000 ALTER TABLE `lnAftDln` ENABLE KEYS */;
 
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.maengel: ~2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.maengel: ~2 rows (ungefähr)
 /*!40000 ALTER TABLE `maengel` DISABLE KEYS */;
 INSERT INTO `maengel`(`mgl_id`, `mgl_dln_id`, `mgl_dlr_id`) VALUES
     (1, 2,1), (2, 4,4);
 /*!40000 ALTER TABLE `maengel` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.lndokumentiert: ~2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.lndokumentiert: ~2 rows (ungefähr)
 /*!40000 ALTER TABLE `lndokumentiert` DISABLE KEYS */;
 INSERT INTO `lndokumentiert`(`ldo_dma_id`,`ldo_mgl_id`, `ldo_titel`, `ldo_bes`) VALUES
     (2,1, 'Gebäudereinigung wurde nicht richtig durchgeführt', 'Zwei Räume wurden nicht sauber gemacht'),
     (3,2, 'Graffiti im Ausgang wurde nicht entfernt', 'Siehe Titel');
 /*!40000 ALTER TABLE `lndokumentiert` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.wand: ~27 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.wand: ~27 rows (ungefähr)
 /*!40000 ALTER TABLE `wand` DISABLE KEYS */;
 INSERT INTO `wand`(`wan_id`) VALUES
     (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12), 
@@ -186,7 +186,7 @@ INSERT INTO `wand`(`wan_id`) VALUES
 /*!40000 ALTER TABLE `wand` ENABLE KEYS */;
 
 
--- Exportiere Daten aus Tabelle gebaeudemanagement.gebaeude: ~ 2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.gebaeude: ~ 2 rows (ungefähr)
 /*!40000 ALTER TABLE `wand` DISABLE KEYS */;
 INSERT INTO `gebaeude`(`geb_id`, `geb_strasse`, `geb_hausnr`, `geb_ort`,
             `geb_plz`, `geb_dma_id`) VALUES
@@ -202,14 +202,14 @@ INSERT INTO `gebaeude`(`geb_id`, `geb_strasse`, `geb_hausnr`, `geb_ort`,
 /*!40000 ALTER TABLE `gebaeude` ENABLE KEYS */;
 
 
--- Exportiere Daten aus Tabelle gebaeudemanagment.stockwewrk: ~2 rows
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.stockwewrk: ~2 rows
 /*!40000 ALTER TABLE `stockwerk` DISABLE KEYS */;
 INSERT INTO `stockwerk`(`stw_id`, `stw_bezeichnung`,`stw_geb_id`) VALUES
     (1, 'EG', 1),  (2, '1.OG', 1),(3, '2.OG', 1),
     (4, 'EG', 2),  (5, '1.OG', 2),(6, '2.OG', 2);
      /*!40000 ALTER TABLE `stockwerk` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagment.raum: ~9 rows
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.raum: ~9 rows
 /*!40000 ALTER TABLE `raum` DISABLE KEYS */;
 INSERT INTO `raum`(`rau_id`, `rau_nummer`, `rau_bezeichnung`, `rau_stw_id`) VALUES
     (1, '0', 'H1/00', 1), (2, '1', 'H1/10', 2), (3, '2', 'H1/21', 3), (4, '3', 'H1/22', 3),
@@ -217,7 +217,7 @@ INSERT INTO `raum`(`rau_id`, `rau_nummer`, `rau_bezeichnung`, `rau_stw_id`) VALU
     (9, '4', 'H2/20', 6) ;
 /*!40000 ALTER TABLE `raum` ENABLE KEYS */;
 
--- Exportiere Daten aus Tabelle gebaeudemanagment.lnraumwand: ~20 rows (ungefähr)
+-- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.lnraumwand: ~20 rows (ungefähr)
 /*!40000 ALTER TABLE `lnraumwand` DISABLE KEYS */;
 INSERT INTO `lnraumwand`(`lrw_id`, `lrw_rau_id`, `lrw_wan_id`) VALUES
     (1, 1, 1), (2, 1, 2), (3, 1, 3), (4, 1, 4),

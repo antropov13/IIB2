@@ -29,7 +29,7 @@ import beansDB.Gebaeude;
 public class DBManager {
 
 	
-	private static String datenbankname = "gebaeudemanagement";
+	private static String datenbankname = "IIB2_UE1_Gruppe09";
 
 	private static java.sql.Connection getDBConnection(String dbName) throws ClassNotFoundException, SQLException {
 	    	
@@ -37,7 +37,7 @@ public class DBManager {
 	    String p = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //das ist notwendig wegen Fehler "time zone"
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "0000");    		
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "Caramelo2");    		
 		    		
 		} 
 		catch (SQLException ex) {

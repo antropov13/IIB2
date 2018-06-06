@@ -147,10 +147,7 @@ public class LoginController {
 				 gebForID = dbm.getGeb(sql);
 
 				req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
-				model.addAttribute("gebaeude", gebAll);
-				req.getSession().setAttribute("mGebaeude", gebForID); // set session attribute for my buildings
-				model.addAttribute("mGebaeude", gebForID);
-				
+				model.addAttribute("gebaeude", gebAll); 
 				sql = "SELECT * from dienstleistungen;";
 			    List<Dienstleistung> leistungen = new ArrayList<Dienstleistung>();
 				leistungen = dbm.getDienstleistungen(sql);
