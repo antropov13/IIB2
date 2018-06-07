@@ -37,7 +37,7 @@ public class DBManager {
 	    String p = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"; //das ist notwendig wegen Fehler "time zone"
 		try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "0000");    		
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + dbName + p, "root", "Caramelo2");    		
 		    		
 		} 
 		catch (SQLException ex) {
@@ -589,8 +589,7 @@ public class DBManager {
 		    while (val) {
 		    	m = new Maengel();
 		    	m.setId(r.getInt(1));
-		    	m.setDln_id(r.getInt(2));
-		    	m.setDlr_id(r.getInt(3)); 
+		    	m.setAuftrag(r.getInt(2));
 		    	maengel.add(m);
 		    	val=r.next();
 		    }
@@ -635,6 +634,15 @@ public class DBManager {
 		}
 		con.close();
 		return ret;
+	}
+
+	public int getMaengelID(String sql) throws ClassNotFoundException, SQLException {
+		List<LnDokumentiert> mL = getBerichte(sql);
+		int id = -1;
+		if(mL.size() == 1)
+			id = mL.get(0).getMgl_id();
+
+		return id;
 	}
 
 }

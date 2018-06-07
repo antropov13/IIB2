@@ -1,7 +1,10 @@
 package webController;
 
+import java.util.Date;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList; 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,41 +72,139 @@ public class BerichtController {
 
 	@RequestMapping(value = "/hinzufuegenBerichtForm", method = RequestMethod.POST)
 	public String hinzufuegenBerichtForm(HttpServletRequest req, HttpServletResponse res, Model model)
-			throws ClassNotFoundException, SQLException {
-		String view = ""; 
-
+			throws ClassNotFoundException, SQLException, ParseException {
+		
+		SimpleDateFormat f1 = new SimpleDateFormat("dd.MM.yyyy");
+		Date date1 = new Date( );
+		date1 = f1.parse(req.getParameter("date"));
+		SimpleDateFormat f2 = new SimpleDateFormat("yyyy-MM-dd");
+		java.sql.Date dateDB = java.sql.Date.valueOf(f2.format(date1));
+		
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		DBManager dbm = new DBManager();
 		String titel = req.getParameter("titel");
 		String bes = req.getParameter("bes");
-		String date = req.getParameter("date");
+		 
 		int auftrag_id = Integer.parseInt(req.getParameter("auftrag"));
-		int dlrID = Integer.parseInt(req.getParameter("dienstleister"));
+		int dlrID = 0;
 		String[] dlnAr = req.getParameterValues("dienstleistungen");
-		String sql = "";
-		int dlnID = -1;
-		int[] mglIDs = new int[dlnAr.length];
-		int mglID;
-		String d;
-		for(int i = 0; i < dlnAr.length; i++) {
-			dlnID = Integer.parseInt(dlnAr[i]);
-			sql = "INSERT INTO maengel (mgl_dln_id, mgl_dlr_id)  VALUES (" + dlnID
-					+ ", " + dlrID + ");";
-			 mglIDs[i] = dbm.setMaengel(sql);
-			
-		}
-		for(int j = 0; j < mglIDs.length; j++) {
-		sql = "INSERT INTO lndokumentiert (ldo_dma_id, ldo_mgl_id, ldo_titel, ldo_bes)  VALUES (" + user.getId()
-				+ "," + mglIDs[j] + ", \"" + titel + "\", \"" + bes + "\");";
-		dbm.update(sql);
-		}
+		String sql = ""; 
+		int mglID; 
+		
+		sql = "INSERT INTO maengel (mgl_aft_id)  VALUES (" + auftrag_id + ");";
+		mglID = dbm.setMaengel(sql);  
+		sql = "INSERT INTO lndokumentiert (ldo_dma_id, ldo_mgl_id, ldo_date, ldo_titel, ldo_bes)  VALUES (" + user.getId()
+				+ "," + mglID + ", \"" + dateDB + "\", \"" + titel + "\", \"" + bes + "\");";
+		dbm.update(sql); 
 
 		sql = "SELECT * from lndokumentiert;";
 		List<LnDokumentiert> berichte = dbm.getBerichte(sql);
  
 		model.addAttribute("berichte", berichte);
-		view = "redirect:/dezernatmitarbeiter.jsp";
+		//view = "dezernatmitarbeiter";
+		return "dezernatmitarbeiter";
+	}
+	@RequestMapping(value="/loeschenBericht", method = RequestMethod.POST)
+	public String loeschenBericht(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException{ 
+		int ldoID = Integer.parseInt(req.getParameter("ldoID"));
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user"); 
+		List<LnDokumentiert> berichte = new ArrayList<LnDokumentiert>();
+
+		String sql = "";
+		DBManager dbm = new DBManager();
+		sql="SELECT * from ldokumentiert WHERE ldo_id = " + ldoID + ";";
+		int mglID = dbm.getMaengelID(sql);
+
+		sql = "DELETE FROM lndokumentiert WHERE ldo_id = " + ldoID + ";";
+		dbm.update(sql);
+
+		sql = "DELETE FROM maengel WHERE mgl_id = " + mglID + ";";
+		dbm.update(sql);
+
+		sql = "SELECT * from lndokumentiert;";
+		berichte = dbm.getBerichte(sql);
+
+		model.addAttribute("berichte", berichte); 
+		return "dezernatmitarbeiter";
+	}
+	@RequestMapping(value = "/aenderungBericht", method = RequestMethod.POST)
+	public String aenderungGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException {
+		int ldoID = Integer.parseInt(req.getParameter("ldoID"));
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		String view;
+		List<LnDokumentiert> berichte = new ArrayList<LnDokumentiert>(); 
+		DBManager dbm = new DBManager();
+
+		String sql = "SELECT * from lndokumentiert;";
+		//
+		berichte = dbm.getBerichte(sql);
+ 
+		LnDokumentiert ldoToEdit = null;
+		for(LnDokumentiert ld: berichte) {  
+			if(ld.getId() == ldoID) {
+				ldoToEdit= ld;
+				break;
+			}
+		}
+		model.addAttribute("berichte", berichte); 
+		model.addAttribute("ldoToEdit", ldoToEdit);
+		view = "/aenderungBericht";
 		return view;
+
+	}
+
+	@RequestMapping(value = "/aenderungBerichtForm", method = RequestMethod.POST)
+	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ClassNotFoundException, SQLException, ParseException {
+
+		int ldoID = Integer.parseInt(req.getParameter("ldoID"));
+
+		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user"); 
+		DBManager dbm = new DBManager();
+		SimpleDateFormat f1 = new SimpleDateFormat("dd.MM.yyyy");
+		Date date1 = new Date( );
+		date1 = f1.parse(req.getParameter("date"));
+		SimpleDateFormat f2 = new SimpleDateFormat("yyyy-MM-dd");
+		java.sql.Date dateDB = java.sql.Date.valueOf(f2.format(date1));
+		  
+		String titel = req.getParameter("titel");
+		String bes = req.getParameter("bes");
+		int aft_id = Integer.parseInt(req.getParameter("auftrag"));
+		String sql = "SELECT * from lndokumentiert;";
+		//
+		List<LnDokumentiert>berichte = dbm.getBerichte(sql);
+ 
+		LnDokumentiert ldoToEdit = null;
+		for(LnDokumentiert ld: berichte) {  
+			if(ld.getId() == ldoID) {
+				ldoToEdit= ld;
+				break;
+			}
+		}
+		
+		List<Maengel> mL = dbm.getMaengel("SELECT * from maengel WHERE mgl_id = " + ldoToEdit.getMgl_id());
+		
+		
+		if(mL.size() == 1 && mL.get(0).getAuftrag() != aft_id) {
+			
+		}
+		else if(mL.isEmpty()) {
+			System.out.println("Hola");
+		}
+		
+
+		String sql = "UPDATE lndokumentiert SET ldo_titel = \" " + titel + "\" , ldo_date = \"" + dateDB + "\" , ldo_bes = \""
+				+ bes + "\" ;";
+		dbm.update(sql);
+
+		sql = "SELECT * from lndokumentiert;";
+		List<LnDokumentiert> berichte = dbm.getBerichte(sql);
+		model.addAttribute("berichte", berichte); 
+
+		return "redirect:/dezernatmitarbeiter.jsp";
+
 	}
 
 }

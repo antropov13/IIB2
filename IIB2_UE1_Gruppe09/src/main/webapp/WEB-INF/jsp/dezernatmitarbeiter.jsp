@@ -126,25 +126,23 @@
 		<div class="w3-sidebar w3-bar-block w3-light-grey w3-card"
 			style="width: 130px">
 			<h5 class="w3-bar-item">Menu</h5>
-			<button class="w3-bar-item w3-button tablink w3-red"
-				onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
-				  <div class="w3-dropdown-hover">
-				  	<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge &#9662;</i></button>
-				  	<div class="w3-dropdown-content w3-bar-block">
-				      <a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
-				    </div>
-				  </div>
+			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
+			<div class="w3-dropdown-hover">
+			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Auftraege')"><i>Aufträge &#9662;</i></button> </a>
+			<div class="w3-dropdown-content w3-bar-block">
+			<a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
+			</div>
+			</div>
+			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Dienstleistungen')">Dienstleistungen</button>
+			
+			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
 			<button class="w3-bar-item w3-button tablink"
-				onclick="openFunktion(event, 'Dienstleistungen')">Dienstleistungen</button>
-				<button class="w3-bar-item w3-button tablink"
-				onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
-			<form action="logout">
-				<input type="submit" value="Logout"
-					class="w3-bar-item w3-button tablink">
-			</form>
+				onclick="history.back()">Zurück</button>
+			<a href="<%=request.getContextPath()%>/logout"
+				class="w3-bar-item w3-button tablink">Logout</a>
 		</div>
-
-		<div id="Gebaeude" class="w3-container city" style="display: none;">
+		
+		<div id="Gebaeude" class="w3-container city" style="display:none">
 			<div
 				style="width: 710px; float: left; height: 100%; margin-left: 148px">
 
@@ -199,8 +197,7 @@
 			</div>
 		</div>
 
-		<div id="Dienstleistungen" class="w3-container city"
-			style="display: none;">
+		<div id="Dienstleistungen" class="w3-container city" style="display:none">
 			<div
 				style="width: 810px; float: left; height: 100%; margin-left: 148px;">
 				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
@@ -336,13 +333,31 @@
 									<th>Dienstleistung</th>
 									<th>Beschreibung</th>
 									<th>Ersteller ID</th>
+									<th>Bearbeiten</th>
+									<th>Löschen</th>
 								</tr>
 								<tr>
 									<td>${dok.getTitel()}</td>
 									<td>${dok.getDate()}</td>
 									<td>${dok.getMgl_id()}</td>
 									<td>${dok.getBeschreibung()}</td> 
-									<td>${dok.getDma_id()}</td> 
+									<td>${dok.getDma_id()}</td>
+									<td><c:if test="${dok.getDma_id() == sessionScope.user.getId() }">
+										<form method="POST">
+											<button type="submit"
+												formaction="${pageContext.request.contextPath}/aenderungBericht?ldoID=${dok.getId()}">
+												<i class="fa fa-edit"></i>
+											</button>
+										</form>
+									</c:if></td>
+								<td><c:if test="${dok.getDma_id() == sessionScope.user.getId() }">
+										<form method="POST">
+											<button type="submit"
+												formaction="${pageContext.request.contextPath}/loeschenBericht?ldoID=${dok.getId()}">
+												<i class="fa fa-trash"></i>
+											</button>
+										</form>
+									</c:if></td>
 								</tr>
 							</table>
 						</div>
