@@ -197,21 +197,14 @@ CREATE TABLE IF NOT EXISTS `lnraumwand` (
 DROP TABLE IF EXISTS `maengel`;
 CREATE TABLE IF NOT EXISTS `maengel` (
   `mgl_id` int(11) NOT NULL AUTO_INCREMENT,
-  `mgl_dln_id` int(11) DEFAULT NULL,
-  `mgl_dlr_id` int(11) DEFAULT NULL,
+  `mgl_aft_id` int(11) DEFAULT NULL, 
   PRIMARY KEY (`mgl_id`),
-  KEY `dn_id` (`mgl_dln_id`),
-  KEY `dr_id` (`mgl_dlr_id`),
-  CONSTRAINT `dn_id` 
-  FOREIGN KEY (`mgl_dln_id`) 
-   REFERENCES `dienstleistungen` (`dln_id`)
+  KEY `mgl_a_id` (`mgl_aft_id`), 
+  CONSTRAINT `mgl_a_id` 
+  FOREIGN KEY (`mgl_aft_id`) 
+   REFERENCES `auftraege` (`aft_id`)
     ON DELETE SET NULL 
-    ON UPDATE CASCADE,
-  CONSTRAINT `dr_id` 
-  FOREIGN KEY (`mgl_dlr_id`) 
-   REFERENCES `dienstleister` (`dlr_id`)
-    ON DELETE SET NULL 
-    ON UPDATE CASCADE
+    ON UPDATE CASCADE 
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 

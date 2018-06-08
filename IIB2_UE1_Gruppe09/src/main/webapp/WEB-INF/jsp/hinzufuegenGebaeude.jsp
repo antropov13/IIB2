@@ -7,9 +7,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gebäude hinzufügen</title>
-<link rel="stylesheet" href="styles/gmCSS.css">	
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="styles/gmCSS.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script>
 function openFunktion(evt, funktion, flag) {
   var i, x, tablinks;
@@ -78,19 +80,32 @@ function start(){
   </div>
 
 
-  <div id="Gebaeude" class="w3-container city" style="display:none;">
+  <div id="Gebaeude" class="w3-container city" style="display:block;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Neues Gebäude</div>
+  			<div style="text-align:center; margin-top:10px; margin-bottom:10px;"> Neues Gebäude </div>
 			<form method="POST" id="changes" action="${pageContext.request.contextPath}/hinzufuegenGebaeudeForm">
-			
-							  <label for="str">Straße: </label> <input id="str" type="text" name="strasse" value=""> 
-	  						  <label for="nr"> Nummer: </label> <input id="nr" type="text" name="nr" value=""> 
-	  						 <label for="ort"> Ort: </label> <input id="ort" type="text" name="ort" value=""> 
-	  						<label for="pz"> PLZ: </label> <input id="pz" type="number" name="plz" value=""> 
-	  					     <button id="id2" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
+				<div class="form-group">
+				<label for="str">Straße: </label>
+				<input id="str" type="text" name="strasse" value="" class="form-control"> 
+				</div>
+				<div class="form-group">
+				<label for="nr"> Nummer: </label>
+				<input id="nr" type="text" name="nr" value="" class="form-control">
+				</div>
+				<div class="form-group">
+				<label for="ort"> Ort: </label>
+				<input id="ort" type="text" name="ort" value="" class="form-control">
+				</div>
+				<div class="form-group">
+				<label for="pz"> PLZ: </label>
+				<input id="pz" type="number" name="plz" value="" class="form-control"> 
+				</div>
+				<div class="form-group">
+				<button id="id2" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
 	  						  Bestätigen
 							</button> 
 	  					 
+	  			</div>
 						</form>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">

@@ -166,8 +166,8 @@ INSERT INTO `lnAftDln` (`lad_id`, `lad_aft_id`,`lad_dln_id`) VALUES
 
 -- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.maengel: ~2 rows (ungefähr)
 /*!40000 ALTER TABLE `maengel` DISABLE KEYS */;
-INSERT INTO `maengel`(`mgl_id`, `mgl_dln_id`, `mgl_dlr_id`) VALUES
-    (1, 2,1), (2, 4,4);
+INSERT INTO `maengel`(`mgl_id`, `mgl_aft_id`) VALUES
+    (1, 1), (2, 2);
 /*!40000 ALTER TABLE `maengel` ENABLE KEYS */;
 
 -- Exportiere Daten aus Tabelle IIB2_UE1_Gruppe09.lndokumentiert: ~2 rows (ungefähr)

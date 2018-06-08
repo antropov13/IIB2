@@ -324,6 +324,22 @@ public class DBManager {
 		con.close(); // Very important!
 		return id;
 	}
+	public int setMaengel(String sql) throws ClassNotFoundException, SQLException {
+		Integer id=-1;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		
+		stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+		
+		ResultSet rs = stmt.getGeneratedKeys();
+		if (rs.next()){
+		    id=rs.getInt(1);
+		}
+		System.out.println("id " + id);
+
+		con.close(); // Very important!
+		return id;
+	}
 	
 	public int setSpektrum(String sql) throws ClassNotFoundException, SQLException {
 		Integer id=-1;
@@ -573,8 +589,7 @@ public class DBManager {
 		    while (val) {
 		    	m = new Maengel();
 		    	m.setId(r.getInt(1));
-		    	m.setDln_id(r.getInt(2));
-		    	m.setDlr_id(r.getInt(3)); 
+		    	m.setAuftrag(r.getInt(2));
 		    	maengel.add(m);
 		    	val=r.next();
 		    }
@@ -619,6 +634,15 @@ public class DBManager {
 		}
 		con.close();
 		return ret;
+	}
+
+	public int getMaengelID(String sql) throws ClassNotFoundException, SQLException {
+		List<LnDokumentiert> mL = getBerichte(sql);
+		int id = -1;
+		if(mL.size() == 1)
+			id = mL.get(0).getMgl_id();
+
+		return id;
 	}
 
 }

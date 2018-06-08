@@ -37,17 +37,11 @@ public class Dienstleistung {
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
-
-	/**
-     * @return the vorname
-     */
+ 
     public String getName() {
         return name;
     }
-
-    /**
-     * @param vorname the vorname to set
-     */
+ 
     public void setName(String name) {
         this.name = name;
     }
