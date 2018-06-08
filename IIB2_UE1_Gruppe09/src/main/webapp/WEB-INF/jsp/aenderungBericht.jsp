@@ -55,6 +55,22 @@
 		startTime();
 		openFunktion(event, 'Maengel', true);
 	}
+	function populateInput(s1, s2){
+		var s1= document.getElementById(s1);
+		var s2 = document.getElementById(s2);
+		var j, id;
+		var v1; 
+		s2.innerHTML = "";
+		var l = ${auftraege.size()};
+		<c:forEach items="${auftraege}" var="item">
+		v1 = ${item.getId()}
+	    if (v1==s1.value){
+	    	 j = '${item.getDienstleister()}';
+	    	 id = ${item.getDlr_id()};
+	    	 s2.value = j;
+	    }
+		</c:forEach> 	
+	}  
 </script>
 
 </head>
@@ -103,39 +119,31 @@
 					<label for="titel"
 						style="display: block; width: 70px;  margin-top: 10px">Titel:
 					</label>
-					<input id="titel" type="text" name="titel" value="" style="display: block; width: 400px; margin-top: 10px" class="form-control"> 
+					<input id="titel" type="text" name="titel" value="${ldoToEdit.getTitel()}" style="display: block; width: 400px; margin-top: 10px" class="form-control"> 
 					</div>
 					<div class="form-group row">
 						<label for="auftrag" class="col-3 col-form-label "> Für den Auftrag:
 						</label> 
-						<select class="form-control col-1" name="auftrag" id="auftrag"> 
+						<select class="form-control col-1" name="auftrag" id="auftrag" onchange="populateInput('auftrag', 'dienstleister'); populateD('auftrag', 'dienstleistungen')"> 
+						<option value = "${mglToEdit.getAuftrag() }"> ${mglToEdit.getAuftrag()}</option>
 						<c:forEach items="${auftraege}" var="aft">
-							<option value="${aft.getId()}"> ${aft.getId()}
+							<c:if test="${mglToEdit.getAuftrag() != aft.getId() }">
+										 <option value="${aft.getId()}"> ${aft.getId()}
 							</option>
+									</c:if>
 						</c:forEach>
 						</select>
-						<label for="dienstleister" class="col-3 col-form-label" style="margin-left: 30px" > Der Dienstleister:
+						<label for="dienstleister" class="col-3 col-form-label" style="margin-left: 30px"> Der Dienstleister:
 						</label> 
-						<input type="text" readonly class="form-control-plaintext col-2" name="dienstlesiter" id="dienstlesiter" value="${auftraege.get(0).getDienstleister()}">
-					</div> 
-					<div class="form-group">
-					<label for="dienstleistungen"> hat folgende Dienstleistungen
-					</label> 
-						<select multiple class="form-control" name="distleistungen" id="dienstleistungen"> 
-						<c:forEach items="${auftraege.get(0).getDienstleistungList()}" var="dln">
-							<option value="${dln.getId()}"> Hola
-							</option>
-						</c:forEach>
-						</select>
-						<input type="text" readonly class="form-control-plaintext" id="nA" value="nicht wie erwartet durchgeführt.">
-					</div>
+						<input type="text" readonly class="form-control-plaintext col-2" name="dienstleister" id="dienstleister" value="${aft_mgl.getDienstleister()}" >
+					</div>  
 					<div class="form-group">
 					<label for="date" style="display: block;  margin-top: 10px">
-						Datum: </label> <input id="date" type="date" name="date" value="" style="display: block; width: 400px;"></div>
+						Datum: </label> <input id="date" type="date" name="date" value="${ldoToEdit.getDate()}" style="display: block; width: 400px;"></div>
 					<div class="form-group">
 						<label for="comment"> Weitere Kommentare:
 						</label> 
-						<textarea id="bes" type="text" name="bes" value="" style="display: block; width: 400px; height: 150px; margin-top: 10px">
+						<textarea id="bes" name="bes"  style="display: block; width: 400px; height: 150px; margin-top: 10px"> ${ldoToEdit.getBeschreibung()}
 						</textarea>
 					</div>
 					  

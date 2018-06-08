@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import beansDB.Auftrag;
 import beansDB.Dezernatmitarbeiter;
 import beansDB.Dienstleister;
 import beansDB.Dienstleistung;
@@ -36,7 +37,7 @@ public class BerichtController {
 		List<LnDokumentiert> berichte = new ArrayList<LnDokumentiert>();
 		List<Dienstleister> dienstleistern = new ArrayList<Dienstleister>();
 		List<Dienstleistung> dienstleistungen = new ArrayList<Dienstleistung>();
-
+		
 		DBManager dbm = new DBManager();
 
 		String sql = "SELECT * from maengel;";
@@ -148,8 +149,13 @@ public class BerichtController {
 				break;
 			}
 		}
+		int mglID = ldoToEdit.getMgl_id();
+		List<Maengel> mL = dbm.getMaengel("SELECT * from maengel WHERE mgl_id = " + mglID + ";");
+		List<Auftrag> aL = dbm.getAuftraege("SELECT * from auftraege WHERE aft_id = " + mL.get(0).getAuftrag() + ";");
 		model.addAttribute("berichte", berichte); 
 		model.addAttribute("ldoToEdit", ldoToEdit);
+		model.addAttribute("mglToEdit", mL.get(0));
+		model.addAttribute("aft_mgl", aL.get(0));
 		view = "/aenderungBericht";
 		return view;
 
@@ -183,28 +189,27 @@ public class BerichtController {
 				break;
 			}
 		}
-		
-		List<Maengel> mL = dbm.getMaengel("SELECT * from maengel WHERE mgl_id = " + ldoToEdit.getMgl_id());
+		int mglID = ldoToEdit.getMgl_id();
+		List<Maengel> mL = dbm.getMaengel("SELECT * from maengel WHERE mgl_id = " + mglID + ";");
 		
 		
 		if(mL.size() == 1 && mL.get(0).getAuftrag() != aft_id) {
-			
+			sql = "UPDATE maengel SET mgl_aft_id = \" " + aft_id + "\" WHERE mgl_id = " + mglID + ";";
+			dbm.update(sql);
 		}
 		else if(mL.isEmpty()) {
 			System.out.println("Hola");
 		}
 		
 
-		String sql = "UPDATE lndokumentiert SET ldo_titel = \" " + titel + "\" , ldo_date = \"" + dateDB + "\" , ldo_bes = \""
-				+ bes + "\" ;";
+		 sql = "UPDATE lndokumentiert SET ldo_titel = \" " + titel + "\" , ldo_date = \"" + dateDB + "\" , ldo_bes = \""
+				+ bes + "\" WHERE ldo_id = " + ldoID + ";";
 		dbm.update(sql);
 
 		sql = "SELECT * from lndokumentiert;";
-		List<LnDokumentiert> berichte = dbm.getBerichte(sql);
+		berichte = dbm.getBerichte(sql);
 		model.addAttribute("berichte", berichte); 
-
-		return "redirect:/dezernatmitarbeiter.jsp";
-
+		return "dezernatmitarbeiter";
 	}
 
 }
