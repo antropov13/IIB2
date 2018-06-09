@@ -253,3 +253,39 @@ CREATE TABLE IF NOT EXISTS `lnAftDln` (
         REFERENCES `dienstleistungen` (`dln_id`)
         ON DELETE SET NULL ON UPDATE CASCADE
 )  ENGINE=INNODB AUTO_INCREMENT=14 DEFAULT CHARSET=UTF8;
+
+
+
+DROP ROLE IF EXISTS  'IIB2_UE1_Gruppe09_dma'; 
+CREATE ROLE 'IIB2_UE1_Gruppe09_dma';
+
+GRANT SELECT ON iib2_ue2_gruppe09.* TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.gebaeude TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.stockwerk TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.raum TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.wand TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.maengel TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.lnraumwand TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.lndokumentiert TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.lnAftDln TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.dienstleistungen TO  'IIB2_UE1_Gruppe09_dma';
+GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.auftraege TO  'IIB2_UE1_Gruppe09_dma';
+
+DROP ROLE IF EXISTS  'IIB2_UE1_Gruppe09_dlr'@'localhost' ; 
+CREATE ROLE 'IIB2_UE1_Gruppe09_dlr'@'localhost'; 
+
+
+GRANT SELECT ON IIB2_UE2_Gruppe09.dienstleistungen TO  'IIB2_UE1_Gruppe09_dlr';
+GRANT SELECT, INSERT, UPDATE, DELETE ON IIB2_UE2_Gruppe09.leistungsspektren TO  'IIB2_UE1_Gruppe09_dlr';
+GRANT SELECT, INSERT, UPDATE, DELETE ON IIB2_UE2_Gruppe09.lnLspDln TO  'IIB2_UE1_Gruppe09_dlr';
+GRANT SELECT, UPDATE ON IIB2_UE2_Gruppe09.auftraege TO  'IIB2_UE1_Gruppe09_dlr';
+
+
+CREATE USER 'IIB2_UE1_Gruppe09_dma_wag'@'localhost' IDENTIFIED BY '2222';
+GRANT 'IIB2_UE1_Gruppe09_dma' TO 'IIB2_UE1_Gruppe09_dma_wag'@'localhost' ;
+CREATE USER 'IIB2_UE1_Gruppe09_dma_neu'@'localhost' IDENTIFIED BY '3333';
+GRANT 'IIB2_UE1_Gruppe09_dma' TO 'IIB2_UE1_Gruppe09_dma_neu'@'localhost' ;
+CREATE USER 'IIB2_UE1_Gruppe09_dlr_clou'@'localhost' IDENTIFIED BY '3232';
+GRANT 'IIB2_UE1_Gruppe09_dlr' TO 'IIB2_UE1_Gruppe09_dlr_clou'@'localhost' ;
+CREATE USER 'IIB2_UE1_Gruppe09_dlr_sgg'@'localhost' IDENTIFIED BY '1111';
+GRANT 'IIB2_UE1_Gruppe09_dlr'@'localhost' TO 'IIB2_UE1_Gruppe09_dlr_sgg'@'localhost' ;
