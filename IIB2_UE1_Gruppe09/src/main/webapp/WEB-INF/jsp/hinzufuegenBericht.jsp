@@ -50,6 +50,23 @@
 		startTime();
 		openFunktion(event, 'MaengelBericht', true);
 	}
+
+	function populateInput(s1, s2){
+		var s1= document.getElementById(s1);
+		var s2 = document.getElementById(s2);
+		var j, id;
+		var v1; 
+		s2.innerHTML = "";
+		var l = ${auftraege.size()};
+		<c:forEach items="${auftraege}" var="item">
+		v1 = ${item.getId()}
+	    if (v1==s1.value){
+	    	 j = '${item.getDienstleister()}';
+	    	 id = ${item.getDlr_id()};
+	    	 s2.value = j;
+	    }
+		</c:forEach> 	
+	}  
 </script>
 
 </head>

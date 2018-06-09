@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class start {
 	private static Scanner sc;
 	private static java.sql.Connection con;
-	private static String datenbankname = "IIB2_UE1_Gruppe09";
+	private static String datenbankname = "IIB2_UE2_Gruppe09";
 	
     public static void main( String[] args ) throws ClassNotFoundException, SQLException
     {
