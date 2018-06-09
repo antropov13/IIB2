@@ -124,7 +124,7 @@
 					<div class="form-group row">
 						<label for="auftrag" class="col-3 col-form-label "> Für den Auftrag:
 						</label> 
-						<select class="form-control col-1" name="auftrag" id="auftrag" onchange="populateInput('auftrag', 'dienstleister'); populateD('auftrag', 'dienstleistungen')"> 
+						<select class="form-control col-1" name="auftrag" id="auftrag" onchange="populateInput('auftrag', 'dienstleister');"> 
 						<option value = "${mglToEdit.getAuftrag() }"> ${mglToEdit.getAuftrag()}</option>
 						<c:forEach items="${auftraege}" var="aft">
 							<c:if test="${mglToEdit.getAuftrag() != aft.getId() }">
