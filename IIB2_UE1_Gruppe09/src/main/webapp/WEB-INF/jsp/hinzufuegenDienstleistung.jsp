@@ -90,7 +90,7 @@
 		</div>
 
 
-		<div id="Dienstleistung" class="w3-container city" style="display: none;">
+		<div id="Dienstleistung" class="w3-container city" style="display: block;">
 			<div
 				style="width: 710px; float: left; height: 100%; margin-left: 148px">
 				<div style="margin-top: 10px; height: 30px; padding: 5px;"

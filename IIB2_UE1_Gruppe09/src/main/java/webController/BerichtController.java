@@ -114,7 +114,7 @@ public class BerichtController {
 
 		String sql = "";
 		DBManager dbm = new DBManager();
-		sql="SELECT * from ldokumentiert WHERE ldo_id = " + ldoID + ";";
+		sql="SELECT * from lndokumentiert WHERE ldo_id = " + ldoID + ";";
 		int mglID = dbm.getMaengelID(sql);
 
 		sql = "DELETE FROM lndokumentiert WHERE ldo_id = " + ldoID + ";";

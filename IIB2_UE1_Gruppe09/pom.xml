@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   
   <groupId>IIB2_UE1_Gruppe09</groupId>
-  <artifactId>V1_Gebaeudemanagement</artifactId>
+  <artifactId>IIB2_UE1_Gruppe09</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
   
-  <name>V1_Gebaeudemanagement Maven Webapp</name>
+  <name>IIB2_UE1_Gruppe09 Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
   <dependencies>
@@ -62,21 +62,10 @@
 			<version>1.2</version>
 		</dependency>
 		
-		<dependency>
-		   <groupId>com.apstex</groupId>
-		   <artifactId>com.apstex.ifc4toolbox</artifactId>
-		   <version>4.3.1_20180417</version>
-	    </dependency>
-	    
-	    <dependency>
-		   <groupId>com.apstex</groupId>
-		   <artifactId>com.apstex.stepparser</artifactId>
-		   <version>4.3.1_20180417</version>
-	    </dependency>
   </dependencies>
   
   
   <build>
-    <finalName>V1_Gebaeudemanagement</finalName>
+    <finalName>IIB2_UE1_Gruppe09</finalName>
   </build>
 </project>

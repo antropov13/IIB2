@@ -122,9 +122,9 @@
 	</div>
 
 	<div class="w3-light-grey"
-		style="margin: 0 auto; width: 1000px; min-height: 100%; position: absolute !important; margin-left: auto; margin-right: auto; left: 0; right: 0;">
+		style="margin: 0 auto; width: 1000px; min-height: 100%; position: absolute !important; margin-left: auto; margin-right: auto; left: 0; right: 0; ">
 		<div class="w3-sidebar w3-bar-block w3-light-grey w3-card"
-			style="width: 130px">
+			style="width: auto">
 			<h5 class="w3-bar-item">Menu</h5>
 			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
 			<div class="w3-dropdown-hover">
@@ -144,7 +144,13 @@
 		
 		<div id="Gebaeude" class="w3-container city" style="display:none">
 			<div
-				style="width: 710px; float: left; height: 100%; margin-left: 148px">
+				style="width: 800px; float: right; height: 100%; padding:15px;">
+				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
+					<a class="addItem"
+					href="<%=request.getContextPath()%>/hinzufuegenGebaeude" style="margin-top: 25px;"> <i
+					class="fa fa-building"></i> Gebäude hinzufügen
+				</a>
+				</div>
 
 				<table class="w3-table w3-bordered" id="gebs">
 					<tr>
@@ -187,19 +193,12 @@
 						</div>
 					</c:forEach>
 				</table>
-			</div>
-			<div class="w3-sidebar w3-bar-block w3-light-grey w3-card"
-				style="width: 130px; float: right; margin-left: 870px;">
-				<a class="addItem"
-					href="<%=request.getContextPath()%>/hinzufuegenGebaeude" style="margin-top: 25px;"> <i
-					class="fa fa-building"></i> Gebäude hinzufügen
-				</a>
-			</div>
+			</div> 
 		</div>
 
 		<div id="Dienstleistungen" class="w3-container city" style="display:none">
 			<div
-				style="width: 810px; float: left; height: 100%; margin-left: 148px;">
+				style="width: 800px; float: right; height: 100%; padding:15px;">
 				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
 					<a class="addItem" href="<%=request.getContextPath()%>/hinzufuegenDienstleistung"> <i
 						class="fa fa-tasks"></i> Dienstleistung hinzufügen
@@ -312,8 +311,8 @@
 		
 	<div id="MaengelB" class="w3-container city"
 			style="display: none;">
-			<div
-				style="width: 810px; float: left; height: 100%; margin-left: 148px;">
+				<div
+				style="width: 800px; float: right; height: 100%; padding:15px;">
 				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
 					<a class="addItem" href="<%=request.getContextPath()%>/hinzufuegenMaengel"> <i
 						class="fa fa-clipboard"></i> Mängelbericht erstellen
@@ -330,7 +329,7 @@
 								<tr>
 									<th>Titel</th>
 									<th>Datum</th>
-									<th>Dienstleistung</th>
+									<th>Auftrag</th>
 									<th>Beschreibung</th>
 									<th>Ersteller ID</th>
 									<th>Bearbeiten</th>
@@ -338,7 +337,7 @@
 								</tr>
 								<tr>
 									<td>${dok.getTitel()}</td>
-									<td>${dok.getDate()}</td>
+									<td>${dok.getFormatDate()}</td>
 									<td>${dok.getMgl_id()}</td>
 									<td>${dok.getBeschreibung()}</td> 
 									<td>${dok.getDma_id()}</td>

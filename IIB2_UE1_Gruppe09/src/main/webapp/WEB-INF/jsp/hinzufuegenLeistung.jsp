@@ -113,7 +113,7 @@ var Msg ='<%=session.getAttribute("warning")%>';
   </div>
 
 
-  <div id="Leistungen" class="w3-container city" style="display:none;">
+  <div id="Leistungen" class="w3-container city" style="display:block;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
 	 
 			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">${spektrum.getName()}</div>

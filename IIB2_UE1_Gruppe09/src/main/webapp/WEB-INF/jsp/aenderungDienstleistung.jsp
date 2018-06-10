@@ -96,16 +96,16 @@ function start(){
 
 <!--  <form class="w3-container w3-card-1 w3-white" method="POST" action="aenderungLeistungForm"> --> 
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
-  <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
+  <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:auto">
   <h5 class="w3-bar-item">Menu</h5>
-  <a href="<%=request.getContextPath() %>/dienstleistung" class="w3-bar-item w3-button tablink w3-red">Leistungen </a>
+  <h5  class="w3-bar-item w3-button tablink w3-red">Leistungen </h5>
   <!-- <button class="w3-bar-item w3-button tablink" type="submit">Speichern</button>  -->
   <button class="w3-bar-item w3-button tablink" onclick="history.back()">Zurück</button>
   <a href="<%=request.getContextPath() %>/logout" class="w3-bar-item w3-button tablink">Logout</a>
   </div>
 
 
-  <div id="Dienstleistung" class="w3-container city" style="display:none;">
+  <div id="Dienstleistung" class="w3-container city"">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
 			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">DienstLeistung ${dlnToEdit.getName()}</div>
 			<form method="POST" id="changeDln" action="${pageContext.request.contextPath}/aenderungDienstleistungForm?dlnID=${dlnToEdit.getDlnId()}">
@@ -127,9 +127,6 @@ function start(){
 					</table>
 						</form>
 	  
-	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
-		<h5 class="w3-bar-item"><p></p></h5>
-	  	</div>
 	</div>
 	<!-- </form>  -->
 </div>

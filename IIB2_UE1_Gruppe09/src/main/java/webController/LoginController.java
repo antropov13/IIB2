@@ -39,8 +39,6 @@ public class LoginController {
 		
 		Dienstleister dlr = new Dienstleister();
 		Dezernatmitarbeiter dma = new Dezernatmitarbeiter();
-
-		System.out.println("2");
 		if (req.getParameter("fachrolle")==null) {
 			dlr.setUsername(req.getParameter("username"));
 			dlr.setPass(req.getParameter("password"));
@@ -49,7 +47,6 @@ public class LoginController {
 				model.addAttribute("warning", "Geben Sie bitte alle Daten ein");
 				return "index";
 			}
-			System.out.println("3");
 			dlr = loginDLR(dlr);
 			
 			if (dlr==null) {
@@ -74,8 +71,7 @@ public class LoginController {
 						+ "AND lsp_id = lld_lsp_id AND lld_dln_id = dln_id";
 
 				spektrum = dbm.getLeistungen(sql, dlr);
-				dlr.setLeistungsspektren(spektrum);
-				System.out.println("5");
+				dlr.setLeistungsspektren(spektrum); 
 				req.getSession().setAttribute("leistungen", spektrum); // set session attribute
 				model.addAttribute("leistungen", spektrum);
 				
@@ -104,8 +100,7 @@ public class LoginController {
 				model.addAttribute("warte_auftrag", warte_auftrag);
 				
 				req.getSession().setAttribute("user", dlr); // set session attribute
-				model.addAttribute("user", dlr);
-				System.out.println("7");
+				model.addAttribute("user", dlr); 
 				return "redirect:/" + dlr.getFachrolle().toLowerCase() + ".jsp";
 				
 			}
@@ -214,8 +209,8 @@ public class LoginController {
 			HttpServletResponse res) {
 		status.setComplete();
 		session.setAttribute("user", null);
-		// session.invalidate();
-		return "index";
+		session.invalidate();
+		return "redirect:/index.jsp";
 	}
 
 }

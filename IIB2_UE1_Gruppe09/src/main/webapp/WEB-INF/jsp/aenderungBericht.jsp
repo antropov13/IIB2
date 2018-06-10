@@ -109,7 +109,7 @@
 		</div>
 
 
-		<div id="Maengel" style="margin-left:25%;"> 
+		<div id="Maengel" style="margin-left:25%; padding:15px"> 
 				<div style="margin-top: 10px; height: 30px; padding: 5px;  text-align: center;" >
 				 Mängelbericht ändern</div>
 				<div> 
@@ -119,12 +119,12 @@
 					<label for="titel"
 						style="display: block; width: 70px;  margin-top: 10px">Titel:
 					</label>
-					<input id="titel" type="text" name="titel" value="${ldoToEdit.getTitel()}" style="display: block; width: 400px; margin-top: 10px" class="form-control"> 
+					<input id="titel" type="text" name="titel" value="${ldoToEdit.getTitel()}" style="display: block; width: 400px; margin-top: 10px" class="form-control" required> 
 					</div>
 					<div class="form-group row">
 						<label for="auftrag" class="col-3 col-form-label "> Für den Auftrag:
 						</label> 
-						<select class="form-control col-1" name="auftrag" id="auftrag" onchange="populateInput('auftrag', 'dienstleister');"> 
+						<select class="form-control col-1" name="auftrag" id="auftrag" onchange="populateInput('auftrag', 'dienstleister');" required > 
 						<option value = "${mglToEdit.getAuftrag() }"> ${mglToEdit.getAuftrag()}</option>
 						<c:forEach items="${auftraege}" var="aft">
 							<c:if test="${mglToEdit.getAuftrag() != aft.getId() }">
@@ -139,7 +139,7 @@
 					</div>  
 					<div class="form-group">
 					<label for="date" style="display: block;  margin-top: 10px">
-						Datum: </label> <input id="date" type="date" name="date" value="${ldoToEdit.getDate()}" style="display: block; width: 400px;"></div>
+						Datum: </label> <input id="date" type="date" name="date" value="${ldoToEdit.getFormatDate()}" style="display: block; width: 400px;" required pattern="([0-2][0-9]|3[0-1]).(0[1-9]|1[0-2]).([0-9]{4})"></div>
 					<div class="form-group">
 						<label for="comment"> Weitere Kommentare:
 						</label> 
@@ -148,7 +148,7 @@
 					</div>
 					  
 					<button id="id4" class="w3-button w3-yellow"
-						title="Änderung speichern" type="submit" style="display: block; margin-top: 10px">Speichern und fortfahren</button>
+						title="Änderung speichern" type="submit" style="display: block; margin-top: 10px;">Speichern und fortfahren</button>
 
 				</form>
 				

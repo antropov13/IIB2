@@ -49,7 +49,7 @@ function start(){
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
-  <a href="<%=request.getContextPath() %>/leistungen" class="w3-bar-item w3-button tablink w3-red">Leistungen</a>
+  <a href="<%=request.getContextPath() %>/dienstleister.jsp" class="w3-bar-item w3-button tablink w3-red">Leistungen</a>
   <button class="w3-bar-item w3-button tablink" onclick="history.back()">Zurück</button>
   <a href="<%=request.getContextPath() %>/logout" class="w3-bar-item w3-button tablink">Logout</a>
   </div>

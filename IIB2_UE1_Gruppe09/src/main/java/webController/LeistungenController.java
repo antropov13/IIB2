@@ -109,13 +109,10 @@ public class LeistungenController {
 		
 		for (Dienstleistung d : dlnList)
 		{
-			String preis = req.getParameter("Preis " + d.getDlnId());
-			System.out.println(preis);
+			String preis = req.getParameter("Preis " + d.getDlnId()); 
 			d.setPreis(Integer.parseInt(preis));
-			
 			String sql = "UPDATE lnlspdln SET lld_preis = " + preis + " where lld_id = " + d.getDlnId() +" AND lld_lsp_id = " + LeistungsspektrumID + ";";
-			dbm.update(sql);
-			System.out.println(preis + " " + d.getDlnId());
+			dbm.update(sql);  
 		}
 		model.addAttribute("spektrum", ls);
 		return "dienstleister";

@@ -79,7 +79,7 @@ win = window.open("window.htm","win","height=300,width=300");
 </div>
 
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
-  <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
+  <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:auto">
   <h5 class="w3-bar-item">Menu</h5>
   
   <c:set var = "warte_auftrag" value = "0"/>
@@ -96,12 +96,16 @@ win = window.open("window.htm","win","height=300,width=300");
   
   <button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Leistungen')">Leistungen</button>
   <button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')">Aufträge ${warte_auftrag}</button>
-  <form action="logout"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
+  <form action="logout" method="get"><input type="submit" value="Logout" class="w3-bar-item w3-button tablink"></form>
 </div>
 
-  <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-		<div class="w3-container">
+  <div id="Leistungen" class="w3-container city" style="display:block;">
+  		<div style="width: 800px; float: right; height: 100%; padding:15px;">
+				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
+					<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=-1" onclick="return confirm('Möchten Sie alle Leistungsspektren löschen?')">Alle Löschen</a>
+  			 		<a href="<%=request.getContextPath()%>/hinzufuegenLeistungsspektrum">Hinzufügen</a> 
+				</div>
+		<div class="w3-container" style="margin-right: 30px;">
 			<c:forEach items="${leistungen}" var="ln">
 			<button  style="margin-top:10px;" onclick="myFunction('${ln.getName()}')" class="w3-btn w3-block w3-green w3-left-align w3-round">Leistungsspektrum ${ln.getName()}</button>
 			<div id="${ln.getName()}" class="w3-container w3-hide">
@@ -112,9 +116,7 @@ win = window.open("window.htm","win","height=300,width=300");
 						<th>Häufigkeit</th>
 						<th>Preis</th>
 						<th>
-							<button id="${ln.getId()}" class="w3-button w3-yellow" title="Verändern Dienstleistung">
-								<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspektrumID=${ln.getId()}">&#9998;</a> 
-							</button>
+							<a href="<%=request.getContextPath() %>/aenderungLeistung?LeistungsspektrumID=${ln.getId()}">&#9998;</a> 
 						</th>
 					</tr>
 					<c:forEach items="${ln.getDienstleistungen()}" var="dln">
@@ -129,18 +131,7 @@ win = window.open("window.htm","win","height=300,width=300");
 			</div>
 			</c:forEach>
 		</div>
-	</div>
-	
-	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
-	<h5 class="w3-bar-item"><p></p></h5>
-  	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Loeschen')">
-  	<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=-1" onclick="return confirm('Möchten Sie alle Leistungsspektren löschen?')">Löschen alle</a>
-  	</button>
-  	
-  	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">
-	<a href="<%=request.getContextPath() %>/hinzufuegenLeistungsspektrum">Hinzufügen</a>
-	</button>
-	</div>
+	</div> 
   </div>
 
   <div id="Auftraege" class="w3-container city" style="display:none">

@@ -119,7 +119,7 @@
 		</div>
 
 
-		<div id="Maengel" style="margin-left:25%;"> 
+		<div id="Maengel" style="margin-left:25%; padding:15px"> 
 				<div style="margin-top: 10px; height: 30px; padding: 5px;  text-align: center;" >
 				Neues Mängelbericht erstellen</div>
 				<div> 
@@ -129,8 +129,7 @@
 					<label for="titel"
 						style="display: block; width: 70px;  margin-top: 10px">Titel:
 					</label>
-					<input id="titel" type="text" name="titel" value="" style="display: block; width: 400px; margin-top: 10px" class="form-control" required>
-					 <span class="error" aria-live="polite"></span>
+					<input id="titel" type="text" name="titel" value="" style="display: block; width: 400px; margin-top: 10px" class="form-control" required> 
 					</div>
 					<div class="form-group row">
 						<label for="auftrag" class="col-3 col-form-label "> Für den Auftrag:

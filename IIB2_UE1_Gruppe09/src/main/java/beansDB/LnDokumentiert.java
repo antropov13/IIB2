@@ -1,5 +1,6 @@
 package beansDB;
  
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LnDokumentiert {
@@ -23,6 +24,10 @@ public class LnDokumentiert {
 	}
 	public Date getDate() {
 		return date;
+	}
+	public String getFormatDate() {
+		SimpleDateFormat f = new SimpleDateFormat("dd.MM.yyyy");
+		return f.format(this.date);
 	}
 	public void setDate(Date date) {
 		this.date = date;

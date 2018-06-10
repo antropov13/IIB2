@@ -7,8 +7,13 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Gebaeudemenegement - Dienstleister</title>
-	<link rel="stylesheet" href="styles/gmCSS.css">	
-	
+<link rel="stylesheet" href="styles/gmCSS.css">	
+<link rel="stylesheet" href="styles/style.css">	
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
 <script>
@@ -104,10 +109,15 @@ function start(){
   </div>
 
 
-  <div id="Leistungen" class="w3-container city" style="display:none;">
-  	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-	
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Leistungsspektrum ${spektrum.getName()}</div>
+  <div id="Leistungen" class="w3-container city" style="display:block;">
+  	<div style="width: 800px; float: right; height: 100%; padding:15px; display: block;">
+		<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
+			<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=${spektrum.getId()}" onclick="return confirm('Möchten Sie den Leistungsspektrum löschen?')" style="text-decoration: none;">
+			<i class="fa fa-trash"></i>Löschen</a>
+	  		<a href="<%=request.getContextPath() %>/hinzufuegenLeistung?LeistungID=-1" style="text-decoration: none; margin-left:15px;">Leistung hinzufügen</a>
+		</div>
+		<div class="w3-container" style="margin-right: 30px;">
+		<div style="height:30px; padding: 5px;" class=" w3-green w3-left-align w3-round">Leistungsspektrum ${spektrum.getName()}</div>
 			<table class="w3-table w3-bordered">
 					<tr>
 						<th>Name</th>
@@ -122,28 +132,17 @@ function start(){
 	  						<input id="${dln.getDlnId()}" name="Preis ${dln.getDlnId()}" type="number" min="0" value="${dln.getPreis()}" style="width: 60px"> &#8364;</input >
 	  						</td>
 	  						<th>
-							<button id="${dln.getDlnId()}" class="w3-button w3-red" style="color: #000!important;" title="Löschen Dienstleistung">
-							<a href="<%=request.getContextPath() %>/loeschenLeistung?DnlID=${dln.getDlnId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
-							</button>
+	  						<a href="<%=request.getContextPath() %>/loeschenLeistung?DnlID=${dln.getDlnId()}" onclick="return confirm('Möchten Sie die Leistung löschen?')">&#10005;</a> 
+ 
 							</th>
 	  					</tr>
 					</c:forEach>
  			</table>
-	  </div>
-	  
-	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
-		<h5 class="w3-bar-item"><p></p></h5>
-	  	<button class="w3-medium w3-bar-item w3-button">
-	  	<a href="<%=request.getContextPath() %>/loeschenLeistungsspektrum?LeistungsspektrumID=${spektrum.getId()}" onclick="return confirm('Möchten Sie den Leistungsspektrum löschen?')" style="text-decoration: none;">Löschen</a>
-	  	</button>
-	  	
-	  	<button class="w3-bar-item w3-button" onclick="openCity(event, 'Hinzufuegen')">
-		<a href="<%=request.getContextPath() %>/hinzufuegenLeistung?LeistungID=-1">Hinzufügen Leistung</a>
-		</button>
-	  	</div>
-	</div>
-	</form>
+	  </div> 
+	</div> 	
 </div>
+</div> 
+	</form>
 
 </body>
 </html>
