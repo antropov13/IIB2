@@ -5,6 +5,8 @@ public class Raum {
 	private String nr;
 	private String bezeichnung;
 	private int stw_id;
+	private String guid;
+	
 	public int getStw_id() {
 		return stw_id;
 	}
@@ -29,5 +31,12 @@ public class Raum {
 	public void setBezeichnung(String bezeichnung) {
 		this.bezeichnung = bezeichnung;
 	}
+	public String getGuid() {
+		return guid;
+	}
+	public void setGuid(String guid) {
+		this.guid = guid;
+	}
+	
 	
 }

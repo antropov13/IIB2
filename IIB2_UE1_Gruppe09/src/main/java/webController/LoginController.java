@@ -180,6 +180,10 @@ public class LoginController {
 
 				req.getSession().setAttribute("maengel", maengel); // set session attribute
 				model.addAttribute("maengel", maengel); 
+
+				Boolean ifcCreated = false;
+				req.getSession().setAttribute("ifcCreated", ifcCreated); 
+				model.addAttribute("ifcCreated", ifcCreated);
 				
 				req.getSession().setAttribute("user", dma); // set session attribute
 				model.addAttribute("user", dma);

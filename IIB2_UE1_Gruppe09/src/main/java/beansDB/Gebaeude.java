@@ -8,7 +8,7 @@ public class Gebaeude {
 	private String guid;
 	private String ort;
 	private int plz;
-	private int dma_id;
+	private int dma_id; 
 	
 
 	public void setId(int id) {

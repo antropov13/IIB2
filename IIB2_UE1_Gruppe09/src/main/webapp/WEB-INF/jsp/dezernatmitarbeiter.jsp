@@ -8,13 +8,22 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gebaeudemenegement - Dezernatmitarbeiter</title>
-<link rel="stylesheet" href="styles/gmCSS.css">	
-<link rel="stylesheet" href="styles/style.css">	
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="styles/gmCSS.css">
+<link rel="stylesheet" href="styles/style.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <style>
 #gebs {
@@ -122,34 +131,44 @@
 	</div>
 
 	<div class="w3-light-grey"
-		style="margin: 0 auto; width: 1000px; min-height: 100%; position: absolute !important; margin-left: auto; margin-right: auto; left: 0; right: 0; ">
+		style="margin: 0 auto; width: 1000px; min-height: 100%; position: absolute !important; margin-left: auto; margin-right: auto; left: 0; right: 0;">
 		<div class="w3-sidebar w3-bar-block w3-light-grey w3-card"
 			style="width: auto">
 			<h5 class="w3-bar-item">Menu</h5>
-			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
+			<button class="w3-bar-item w3-button tablink w3-red"
+				onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
 			<div class="w3-dropdown-hover">
-			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Auftraege')"><i>Aufträge &#9662;</i></button> </a>
-			<div class="w3-dropdown-content w3-bar-block">
-			<a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
+				<button class="w3-bar-item w3-button tablink w3-red"
+					onclick="openFunktion(event, 'Auftraege')">
+					<i>Aufträge &#9662;</i>
+				</button>
+				</a>
+				<div class="w3-dropdown-content w3-bar-block">
+					<a href="<%=request.getContextPath()%>/erstellenAuftragDMA"
+						class="w3-bar-item w3-button">Erstellen</a>
+				</div>
 			</div>
-			</div>
-			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Dienstleistungen')">Dienstleistungen</button>
-			
-			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
+			<button class="w3-bar-item w3-button tablink w3-red"
+				onclick="openFunktion(event, 'Dienstleistungen')">Dienstleistungen</button>
+
+			<button class="w3-bar-item w3-button tablink w3-red"
+				onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
+			<button class="w3-bar-item w3-button tablink w3-red"
+				onclick="openFunktion(event, 'IFCModell')">IFC Modell</button>
 			<button class="w3-bar-item w3-button tablink"
 				onclick="history.back()">Zurück</button>
 			<a href="<%=request.getContextPath()%>/logout"
 				class="w3-bar-item w3-button tablink">Logout</a>
 		</div>
-		
-		<div id="Gebaeude" class="w3-container city" style="display:none">
-			<div
-				style="width: 800px; float: right; height: 100%; padding:15px;">
-				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
+
+		<div id="Gebaeude" class="w3-container city" style="display: none">
+			<div style="width: 800px; float: right; height: 100%; padding: 15px;">
+				<div style="float: right; margin-top: 20px; margin-bottom: 15px;">
 					<a class="addItem"
-					href="<%=request.getContextPath()%>/hinzufuegenGebaeude" style="margin-top: 25px;"> <i
-					class="fa fa-building"></i> Gebäude hinzufügen
-				</a>
+						href="<%=request.getContextPath()%>/hinzufuegenGebaeude"
+						style="margin-top: 25px;"> <i class="fa fa-building"></i>
+						Gebäude hinzufügen
+					</a>
 				</div>
 
 				<table class="w3-table w3-bordered" id="gebs">
@@ -173,7 +192,8 @@
 								<td>${geb.getOrt()}</td>
 								<td>${geb.getPlz()}</td>
 								<td>${geb.getDma_id()}</td>
-								<td><c:if test="${geb.getDma_id() == sessionScope.user.getId() }">
+								<td><c:if
+										test="${geb.getDma_id() == sessionScope.user.getId() }">
 										<form method="POST">
 											<button type="submit"
 												formaction="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">
@@ -181,7 +201,8 @@
 											</button>
 										</form>
 									</c:if></td>
-								<td><c:if test="${geb.getDma_id() == sessionScope.user.getId() }">
+								<td><c:if
+										test="${geb.getDma_id() == sessionScope.user.getId() }">
 										<form method="POST">
 											<button type="submit"
 												formaction="${pageContext.request.contextPath}/loeschenGebaeude?gebID=${geb.getId()}">
@@ -193,15 +214,16 @@
 						</div>
 					</c:forEach>
 				</table>
-			</div> 
+			</div>
 		</div>
 
-		<div id="Dienstleistungen" class="w3-container city" style="display:none">
-			<div
-				style="width: 800px; float: right; height: 100%; padding:15px;">
-				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
-					<a class="addItem" href="<%=request.getContextPath()%>/hinzufuegenDienstleistung"> <i
-						class="fa fa-tasks"></i> Dienstleistung hinzufügen
+		<div id="Dienstleistungen" class="w3-container city"
+			style="display: none">
+			<div style="width: 800px; float: right; height: 100%; padding: 15px;">
+				<div style="float: right; margin-top: 20px; margin-bottom: 15px;">
+					<a class="addItem"
+						href="<%=request.getContextPath()%>/hinzufuegenDienstleistung">
+						<i class="fa fa-tasks"></i> Dienstleistung hinzufügen
 					</a>
 				</div>
 				<div class="w3-container">
@@ -249,72 +271,78 @@
 			</div>
 		</div>
 
-  <div id="Auftraege" class="w3-container city" style="display:none">
-    <div style="width:870px; height: 100%; margin-left:130px">
-		<div class="container">
-			<div class="catalog">
-			<c:forEach items="${auftraege}" var="at">
-			<div class="w3-card-4 item" style="margin-top: 10px;">
-    			<header class="w3-container w3-green">
-      				<h5>Auftrag ${at.getId()}</h5>
-    			</header>
-    			    <div class="w3-container w3-white">
-	    			    <div style="width:40%; float:left;">
-	    			    <figure style:="text-align: center;" style="margin: 10px;">
-	  						<img src="img/6.jpg" class="w3-circle" style="width:60px;">
-					    	<figcaption>${at.getDienstleister()}</figcaption>
-					    </figure>
-					    </div>
-					  
-					<div style="width:60%; float:right; margin-top:20px;">
-					<c:set var = "status" value = "${at.getStatus()}"/>
-					<c:choose>
-					<c:when test = "${status == 'Ausfuehrung' }">
-						<div style="float:left;">Status:</div>
-						<div style="color:#0066ff; float:right; margin-right:5px;">Ausführung</div>
-					</c:when>
-					<c:when test = "${status == 'Erledigt' }">
-						<div style="float:left;">Status:</div>
-						<div style="color:#009933; float:right; margin-right:5px;">Erledigt</div>
-					</c:when>
-					<c:when test = "${status == 'Warte auf eine Antwort' }">
-						<div style="float:left;">Status:</div>
-						<div style="color:#ffcc00; float:right; margin-right:5px;">Warte auf eine Antwort</div>
-					</c:when>
-					<c:when test = "${status == 'Abgelehnt' }">
-						<div style="float:left;">Status:</div>
-						<div style="color:#ff0000; float:right; margin-right:5px;">Abgelehnt</div>
-					</c:when>
-					</c:choose>
-					<br>
-					<div>
-					<div style="float:left;">Ort:</div>
-					<div style="float:right; margin-right:5px;">${at.getGebaeude().getOrt()}</div>
-					</div>
-					<br>
-					<div>
-					<div style="float:left;">Datum:</div>
-					<div style="float:right;  margin-right:5px;">${at.getDateTag()}</div>
+		<div id="Auftraege" class="w3-container city" style="display: none">
+			<div style="width: 870px; height: 100%; margin-left: 130px">
+				<div class="container">
+					<div class="catalog">
+						<c:forEach items="${auftraege}" var="at">
+							<div class="w3-card-4 item" style="margin-top: 10px;">
+								<header class="w3-container w3-green">
+									<h5>Auftrag ${at.getId()}</h5>
+								</header>
+								<div class="w3-container w3-white">
+									<div style="width: 40%; float: left;">
+										<figure style:="text-align: center;" style="margin: 10px;">
+											<img src="img/6.jpg" class="w3-circle" style="width: 60px;">
+											<figcaption>${at.getDienstleister()}</figcaption>
+										</figure>
+									</div>
+
+									<div style="width: 60%; float: right; margin-top: 20px;">
+										<c:set var="status" value="${at.getStatus()}" />
+										<c:choose>
+											<c:when test="${status == 'Ausfuehrung' }">
+												<div style="float: left;">Status:</div>
+												<div
+													style="color: #0066ff; float: right; margin-right: 5px;">Ausführung</div>
+											</c:when>
+											<c:when test="${status == 'Erledigt' }">
+												<div style="float: left;">Status:</div>
+												<div
+													style="color: #009933; float: right; margin-right: 5px;">Erledigt</div>
+											</c:when>
+											<c:when test="${status == 'Warte auf eine Antwort' }">
+												<div style="float: left;">Status:</div>
+												<div
+													style="color: #ffcc00; float: right; margin-right: 5px;">Warte
+													auf eine Antwort</div>
+											</c:when>
+											<c:when test="${status == 'Abgelehnt' }">
+												<div style="float: left;">Status:</div>
+												<div
+													style="color: #ff0000; float: right; margin-right: 5px;">Abgelehnt</div>
+											</c:when>
+										</c:choose>
+										<br>
+										<div>
+											<div style="float: left;">Ort:</div>
+											<div style="float: right; margin-right: 5px;">${at.getGebaeude().getOrt()}</div>
+										</div>
+										<br>
+										<div>
+											<div style="float: left;">Datum:</div>
+											<div style="float: right; margin-right: 5px;">${at.getDateTag()}</div>
+										</div>
+									</div>
+
+								</div>
+								<a
+									href="<%=request.getContextPath() %>/oeffnenAuftragDMA?AuftragID=${at.getId()}"
+									class="w3-button w3-block w3-dark-grey">Öffnen</a>
+
+							</div>
+						</c:forEach>
 					</div>
 				</div>
-					
-				    </div>    
-				    <a href="<%=request.getContextPath() %>/oeffnenAuftragDMA?AuftragID=${at.getId()}" class="w3-button w3-block w3-dark-grey">Öffnen</a> 
-
-		    </div>
-			</c:forEach>
 			</div>
+
 		</div>
-	</div>
-	 
-</div>
-		
-	<div id="MaengelB" class="w3-container city"
-			style="display: none;">
-				<div
-				style="width: 800px; float: right; height: 100%; padding:15px;">
-				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
-					<a class="addItem" href="<%=request.getContextPath()%>/hinzufuegenMaengel"> <i
+
+		<div id="MaengelB" class="w3-container city" style="display: none;">
+			<div style="width: 800px; float: right; height: 100%; padding: 15px;">
+				<div style="float: right; margin-top: 20px; margin-bottom: 15px;">
+					<a class="addItem"
+						href="<%=request.getContextPath()%>/hinzufuegenMaengel"> <i
 						class="fa fa-clipboard"></i> Mängelbericht erstellen
 					</a>
 				</div>
@@ -339,24 +367,26 @@
 									<td>${dok.getTitel()}</td>
 									<td>${dok.getFormatDate()}</td>
 									<td>${dok.getMgl_id()}</td>
-									<td>${dok.getBeschreibung()}</td> 
+									<td>${dok.getBeschreibung()}</td>
 									<td>${dok.getDma_id()}</td>
-									<td><c:if test="${dok.getDma_id() == sessionScope.user.getId() }">
-										<form method="POST">
-											<button type="submit"
-												formaction="${pageContext.request.contextPath}/aenderungBericht?ldoID=${dok.getId()}">
-												<i class="fa fa-edit"></i>
-											</button>
-										</form>
-									</c:if></td>
-								<td><c:if test="${dok.getDma_id() == sessionScope.user.getId() }">
-										<form method="POST">
-											<button type="submit"
-												formaction="${pageContext.request.contextPath}/loeschenBericht?ldoID=${dok.getId()}">
-												<i class="fa fa-trash"></i>
-											</button>
-										</form>
-									</c:if></td>
+									<td><c:if
+											test="${dok.getDma_id() == sessionScope.user.getId() }">
+											<form method="POST">
+												<button type="submit"
+													formaction="${pageContext.request.contextPath}/aenderungBericht?ldoID=${dok.getId()}">
+													<i class="fa fa-edit"></i>
+												</button>
+											</form>
+										</c:if></td>
+									<td><c:if
+											test="${dok.getDma_id() == sessionScope.user.getId() }">
+											<form method="POST">
+												<button type="submit"
+													formaction="${pageContext.request.contextPath}/loeschenBericht?ldoID=${dok.getId()}">
+													<i class="fa fa-trash"></i>
+												</button>
+											</form>
+										</c:if></td>
 								</tr>
 							</table>
 						</div>
@@ -364,6 +394,35 @@
 				</div>
 			</div>
 		</div>
+		<div id="IFCModell" class="w3-container city" style="display:none">
+			<div
+				style="width: 800px; float: right; height: 100%; padding:15px;">
+				<div  style="float: right; margin-top: 20px; margin-bottom: 15px;">
+					<form method="POST" action="${pageContext.request.contextPath}/readIfcModel">
+						<label for="file">Wählen Sie eine Datei aus: </label>
+						<input type="file" name="file" id="file"></input>
+						<button type="submit"> IFC Datei lesen
+						</button>
+						<button type="reset"> Reset
+						</button>
+					
+					</form>
+					<form method="POST" action="${pageContext.request.contextPath}/exportIfcModel">
+						<button type="submit"> IFC Datei erstellen
+						</button> 
+						${ifcCreated} 
+					</form>
+					<c:if test="${ifcCreated}">
+					<a href="<%=request.getContextPath()%>/downloadServlet"> IFC Herunterladen</a>
+					</c:if>
+				</div>
+				<div class="w3-container">
+					
+				</div>
+			</div>
+		</div>
+
+ 
 	</div>
 </body>
 </html>
