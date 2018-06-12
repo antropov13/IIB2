@@ -128,18 +128,16 @@
 			<h5 class="w3-bar-item">Menu</h5>
 			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
 			<div class="w3-dropdown-hover">
-			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Auftraege')"><i>Aufträge &#9662;</i></button> </a>
+			<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Auftraege')"><i>Aufträge &#9662;</i></button> </a>
 			<div class="w3-dropdown-content w3-bar-block">
 			<a href="<%=request.getContextPath() %>/erstellenAuftragDMA" class="w3-bar-item w3-button">Erstellen</a>
 			</div>
 			</div>
-			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'Dienstleistungen')">Dienstleistungen</button>
+			<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'Dienstleistungen')">Dienstleistungen</button>
 			
-			<button class="w3-bar-item w3-button tablink w3-red" onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
-			<button class="w3-bar-item w3-button tablink"
-				onclick="history.back()">Zurück</button>
-			<a href="<%=request.getContextPath()%>/logout"
-				class="w3-bar-item w3-button tablink">Logout</a>
+			<button class="w3-bar-item w3-button tablink" onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
+			<button class="w3-bar-item w3-button tablink" onclick="history.back()">Zurück</button>
+			<a href="<%=request.getContextPath()%>/logout" class="w3-bar-item w3-button tablink">Logout</a>
 		</div>
 		
 		<div id="Gebaeude" class="w3-container city" style="display:none">
