@@ -271,8 +271,8 @@ GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.lnAftDln TO  'IIB2_UE1_Gruppe
 GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.dienstleistungen TO  'IIB2_UE1_Gruppe09_dma';
 GRANT INSERT, UPDATE, DELETE  ON IIB2_UE2_Gruppe09.auftraege TO  'IIB2_UE1_Gruppe09_dma';
 
-DROP ROLE IF EXISTS  'IIB2_UE1_Gruppe09_dlr'@'localhost' ; 
-CREATE ROLE 'IIB2_UE1_Gruppe09_dlr'@'localhost'; 
+DROP ROLE IF EXISTS  'IIB2_UE1_Gruppe09_dlr';
+CREATE ROLE 'IIB2_UE1_Gruppe09_dlr'; 
 
 
 GRANT SELECT ON IIB2_UE2_Gruppe09.dienstleistungen TO  'IIB2_UE1_Gruppe09_dlr';
@@ -288,4 +288,4 @@ GRANT 'IIB2_UE1_Gruppe09_dma' TO 'IIB2_UE1_Gruppe09_dma_neu'@'localhost' ;
 CREATE USER 'IIB2_UE1_Gruppe09_dlr_clou'@'localhost' IDENTIFIED BY '3232';
 GRANT 'IIB2_UE1_Gruppe09_dlr' TO 'IIB2_UE1_Gruppe09_dlr_clou'@'localhost' ;
 CREATE USER 'IIB2_UE1_Gruppe09_dlr_sgg'@'localhost' IDENTIFIED BY '1111';
-GRANT 'IIB2_UE1_Gruppe09_dlr'@'localhost' TO 'IIB2_UE1_Gruppe09_dlr_sgg'@'localhost' ;
+GRANT 'IIB2_UE1_Gruppe09_dlr' TO 'IIB2_UE1_Gruppe09_dlr_sgg'@'localhost' ;

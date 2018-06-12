@@ -138,7 +138,7 @@
 			<button class="w3-bar-item w3-button tablink w3-red"
 				onclick="openFunktion(event, 'Gebaeude')">Gebäude</button>
 			<div class="w3-dropdown-hover">
-				<button class="w3-bar-item w3-button tablink w3-red"
+				<button class="w3-bar-item w3-button tablink"
 					onclick="openFunktion(event, 'Auftraege')">
 					<i>Aufträge &#9662;</i>
 				</button>
@@ -148,12 +148,12 @@
 						class="w3-bar-item w3-button">Erstellen</a>
 				</div>
 			</div>
-			<button class="w3-bar-item w3-button tablink w3-red"
+			<button class="w3-bar-item w3-button tablink"
 				onclick="openFunktion(event, 'Dienstleistungen')">Dienstleistungen</button>
 
-			<button class="w3-bar-item w3-button tablink w3-red"
+			<button class="w3-bar-item w3-button tablink"
 				onclick="openFunktion(event, 'MaengelB')">Mängelberichte</button>
-			<button class="w3-bar-item w3-button tablink w3-red"
+			<button class="w3-bar-item w3-button tablink"
 				onclick="openFunktion(event, 'IFCModell')">IFC Modell</button>
 			<button class="w3-bar-item w3-button tablink"
 				onclick="history.back()">Zurück</button>
