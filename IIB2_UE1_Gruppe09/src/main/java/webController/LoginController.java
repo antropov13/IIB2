@@ -35,8 +35,6 @@ public class LoginController {
 	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
-		System.out.println("1");
-		
 		Dienstleister dlr = new Dienstleister();
 		Dezernatmitarbeiter dma = new Dezernatmitarbeiter();
 		if (req.getParameter("fachrolle")==null) {
@@ -56,7 +54,6 @@ public class LoginController {
 			
 			else {
 
-				System.out.println("4");
 				List<Leistungsspektrum> spektrum = new ArrayList<Leistungsspektrum>();
 				
 				DBManager dbm = new DBManager();	
@@ -90,7 +87,6 @@ public class LoginController {
 					auftrag_warte ++;
 					};
 				}
-				System.out.println("6");
 				if (auftrag_warte!=0) warte_auftrag = String.valueOf(auftrag_warte);
 				
 				req.getSession().setAttribute("auftraege", auftragList); // set session attribute
