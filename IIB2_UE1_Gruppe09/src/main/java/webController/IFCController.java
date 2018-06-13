@@ -1,5 +1,6 @@
 package webController;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,8 @@ public class IFCController {
 		DBManager dbm = new DBManager();
 
 		String sql = "SELECT * from gebaeude;";
-		String path = "/out/ifcM.ifc";
+		String path = req.getContextPath() + File.separator + "2012-03-23-Duplex-Programming.ifc";
+ 
 		gebL = dbm.getGeb(sql);
 		ifcModel.createGebaeude(gebL);
 		ifcModel.getFile(path);

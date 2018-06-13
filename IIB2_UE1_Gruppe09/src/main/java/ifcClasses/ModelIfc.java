@@ -39,7 +39,7 @@ public class ModelIfc {
 	}
 
 	public ModelIfc(String filePath) {
-		File ifcFile = new File("ifc.ifc");
+		File ifcFile = new File(filePath);
 		this.ifcModel = new IfcModel();
 
 		try {
@@ -48,8 +48,9 @@ public class ModelIfc {
 
 		}
 
-		Collection<IfcWall> waende = ifcModel.getCollection(IfcWall.class);
-		this.waendeL = createWandFromIfc(waende);
+		Collection<IfcBuilding> waende = ifcModel.getCollection(IfcBuilding.class);
+		System.out.println("Empty" + waende.isEmpty());
+		//this.waendeL = createWandFromIfc(waende);
 
 	}
 
@@ -65,6 +66,7 @@ public class ModelIfc {
 			IfcPostalAddress pA = new IfcPostalAddress(null, null, null, null, addL, null, new IfcLabel(g.getOrt()), null,
 					new IfcLabel(String.valueOf(g.getPlz())), null);
 			gebIfc.setBuildingAddress(pA);
+			this.ifcModel.addObject(gebIfc);
 			String pgDMAName = "dma_id";
 			String pgDMADesc = "ID des ersteller DMA";
 			String pgDMAValue = String.valueOf(g.getDma_id());
@@ -82,14 +84,14 @@ public class ModelIfc {
 			IfcPropertySetDefinition pgDMASet = new IfcPropertySet(propSetGuid, ownerHistory, name, description, s);
 			((IfcPropertySet) pgDMASet).addHasProperties(pgDMA);
 			System.out.print(ifcModel.toString());
-			ifcModel.addObject(pgDMA);
-			ifcModel.addObject(pgDMASet);
+			this.ifcModel.addObject(pgDMA);
+			this.ifcModel.addObject(pgDMASet);
 			IfcRelDefinesByProperties ifcRelDefProp = new IfcRelDefinesByProperties();
 			ifcRelDefProp.setRelatingPropertyDefinition(pgDMASet);
 			SET<IfcObjectDefinition> tempSet = new SET<IfcObjectDefinition>();
 			tempSet.add(gebIfc);
 			ifcRelDefProp.addAllRelatedObjects(tempSet);
-			ifcModel.addObject(ifcRelDefProp);
+			this.ifcModel.addObject(ifcRelDefProp);
 		}
 	}
 
@@ -124,7 +126,7 @@ public class ModelIfc {
 		URL url = getClass().getResource("export/out/test.ifc");
 		String path1 = "export/out/test.ifc"; 
 		try {
-			this.ifcModel.writeStepFile(new File(url.getPath()));
+			this.ifcModel.writeStepFile(new File(path));
 			System.out.println("Hola");
 		} catch (Exception e){
 			System.out.println("Error with export "+ e.getMessage());
