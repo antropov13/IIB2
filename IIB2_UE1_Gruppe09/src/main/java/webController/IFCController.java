@@ -55,7 +55,7 @@ public class IFCController {
 	@RequestMapping(value = "/exportIfcModel", method=RequestMethod.POST)
 	public String getModelfromDB(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 	 
-		String path = req.getSession().getServletContext().getRealPath("") + File.separator + "2012-03-23-Duplex-Programming.ifc";
+		String path = req.getSession().getServletContext().getRealPath("") + File.separator + "example.ifc";
 		IfcModel ifcModel = new IfcModel( );
 		ifcModel.readStepFile(new File(path));
 		System.out.println(ifcModel.toString());
