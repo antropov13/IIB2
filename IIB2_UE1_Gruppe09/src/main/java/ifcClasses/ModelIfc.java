@@ -7,10 +7,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
-import com.apstex.ifc4toolbox.ifc4.*;
-import com.apstex.ifc4toolbox.ifcmodel.*;
-import com.apstex.step.core.*;
+import com.apstex.ifc4toolbox.*;
+import com.apstex.ifc4toolbox.ifc4.IfcBuilding;
+import com.apstex.ifc4toolbox.ifc4.IfcGloballyUniqueId;
+import com.apstex.ifc4toolbox.ifc4.IfcIdentifier;
+import com.apstex.ifc4toolbox.ifc4.IfcLabel;
+import com.apstex.ifc4toolbox.ifc4.IfcObjectDefinition;
+import com.apstex.ifc4toolbox.ifc4.IfcOwnerHistory;
+import com.apstex.ifc4toolbox.ifc4.IfcPostalAddress;
+import com.apstex.ifc4toolbox.ifc4.IfcProperty;
+import com.apstex.ifc4toolbox.ifc4.IfcPropertySet;
+import com.apstex.ifc4toolbox.ifc4.IfcPropertySetDefinition;
+import com.apstex.ifc4toolbox.ifc4.IfcPropertySingleValue;
+import com.apstex.ifc4toolbox.ifc4.IfcRelDefinesByProperties;
+import com.apstex.ifc4toolbox.ifc4.IfcText;
+import com.apstex.ifc4toolbox.ifc4.IfcValue;
+import com.apstex.ifc4toolbox.ifc4.IfcWall;
+import com.apstex.ifc4toolbox.ifcmodel.IfcModel;
+import com.apstex.step.core.LIST;
+import com.apstex.step.core.SET;
 
 import beansDB.Gebaeude;
 import beansDB.Wand;
@@ -63,7 +78,8 @@ public class ModelIfc {
 			IfcOwnerHistory ownerHistory = new IfcOwnerHistory();
 			IfcLabel name = new IfcLabel( "geb_dma", false);
 			IfcText description = new IfcText("Enthält Information der Ersteller des Gebäudes", false);
-			IfcPropertySetDefinition pgDMASet = new IfcPropertySet(propSetGuid, ownerHistory, name, description, new SET<IfcProperty>());
+			SET<IfcProperty> s= new SET<IfcProperty>();
+			IfcPropertySetDefinition pgDMASet = new IfcPropertySet(propSetGuid, ownerHistory, name, description, s);
 			((IfcPropertySet) pgDMASet).addHasProperties(pgDMA);
 			System.out.print(ifcModel.toString());
 			ifcModel.addObject(pgDMA);

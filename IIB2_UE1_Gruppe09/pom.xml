@@ -62,6 +62,16 @@
 			<version>1.2</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>com.apstex</groupId>
+			<artifactId>com.apstex.ifc4toolbox</artifactId>
+			<version>4.3.1_20180417</version>
+		</dependency>
+		<dependency>
+			<groupId>com.apstex</groupId>
+			<artifactId>com.apstex.stepparser</artifactId>
+			<version>4.3.1_20180417</version>
+		</dependency>
 		
   </dependencies>
   
