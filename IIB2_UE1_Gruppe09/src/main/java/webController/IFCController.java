@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
+
+import com.apstex.ifc4toolbox.ifcmodel.IfcModel;
+
 import org.springframework.stereotype.Controller;  
 
 import beansDB.Dezernatmitarbeiter;
@@ -50,17 +53,19 @@ public class IFCController {
 	}
 	
 	@RequestMapping(value = "/exportIfcModel", method=RequestMethod.POST)
-	public String getModelfromDB(HttpServletRequest req, HttpServletResponse res, Model model) throws ClassNotFoundException, SQLException {
-		ModelIfc ifcModel = new ModelIfc();
+	public String getModelfromDB(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
+	 
+		String path = req.getSession().getServletContext().getRealPath("") + File.separator + "2012-03-23-Duplex-Programming.ifc";
+		IfcModel ifcModel = new IfcModel( );
+		ifcModel.readStepFile(new File(path));
+		System.out.println(ifcModel.toString());
 		List<Gebaeude> gebL = new ArrayList<Gebaeude>(); 
 		DBManager dbm = new DBManager();
 
 		String sql = "SELECT * from gebaeude;";
-		String path = req.getContextPath() + File.separator + "2012-03-23-Duplex-Programming.ifc";
+		
  
-		gebL = dbm.getGeb(sql);
-		ifcModel.createGebaeude(gebL);
-		ifcModel.getFile(path);
+		gebL = dbm.getGeb(sql);  
 		Boolean ifcCreated = true;
 		model.addAttribute("ifcCreated", ifcCreated);
 		return "dezernatmitarbeiter";
