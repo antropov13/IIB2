@@ -27,7 +27,7 @@ public class FileDownloadServlet extends HttpServlet {
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		/***** Get The Absolute Path Of The File To Be Downloaded *****/
-		String fileName = "test.png";
+		String fileName = "example.ifc";
 		String filePath = getServletContext().getRealPath("") + File.separator + fileName;
 
 		File file = new File(filePath);

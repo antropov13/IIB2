@@ -48,28 +48,25 @@ public class IFCController {
 	}
 	@RequestMapping(value = "/readIfcModel", method=RequestMethod.POST)
 	public String addModelfromFile(HttpServletRequest req, HttpServletResponse res, Model model) {
-		 
+		String path = req.getSession().getServletContext().getRealPath("") + File.separator + "example.ifc";
+		ModelIfc mI = new ModelIfc(path);
 		return "redirect:/index.jsp";
 	}
 	
 	@RequestMapping(value = "/exportIfcModel", method=RequestMethod.POST)
 	public String getModelfromDB(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 	 
-		String path = req.getSession().getServletContext().getRealPath("") + File.separator + "example.ifc";
-		IfcModel ifcModel = new IfcModel( );
-		ifcModel.readStepFile(new File(path));
-		System.out.println(ifcModel.toString());
-		List<Gebaeude> gebL = new ArrayList<Gebaeude>(); 
-		DBManager dbm = new DBManager();
 
+		String path = req.getSession().getServletContext().getRealPath("") + File.separator + "example.ifc";
+		ModelIfc mI = new ModelIfc(); 
+		List<Gebaeude> gebL = new ArrayList<Gebaeude>(); 
+		DBManager dbm = new DBManager(); 
 		String sql = "SELECT * from gebaeude;";
-		
- 
-		gebL = dbm.getGeb(sql);  
+		gebL = dbm.getGeb(sql);
+		mI.createGebaeude(gebL);
+		mI.getFile(path);
 		Boolean ifcCreated = true;
 		model.addAttribute("ifcCreated", ifcCreated);
 		return "dezernatmitarbeiter";
 	}
-	
-
 }
