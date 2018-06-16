@@ -505,6 +505,25 @@ public class DBManager {
 		return stw;
 	}
 
+	public Raum getRaum_(String sql) throws ClassNotFoundException, SQLException {
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		Raum raum = null;
+		boolean val = rs.next();
+		if (val == false) {
+			return null;
+		} else {
+			raum = new Raum();
+			raum.setId(rs.getInt(1));
+			raum.setNr(rs.getString(2));
+			raum.setBezeichnung(rs.getString(3));
+			raum.setGuid(rs.getString(4));
+			raum.setStw_id(rs.getInt(5));
+			val = rs.next();
+		}
+		return raum;
+	}
 	public List<Raum> getRaum(String sql) throws ClassNotFoundException, SQLException {
 		Connection con = getDBConnection(datenbankname);
 		Statement stmt = con.createStatement();
@@ -528,6 +547,7 @@ public class DBManager {
 		}
 		return rL;
 	}
+	
 
 	public List<Wand> getWand(String sql) throws ClassNotFoundException, SQLException {
 		Connection con = getDBConnection(datenbankname);
@@ -650,32 +670,6 @@ public class DBManager {
 			con.close(); // Very important!
 		}
 		return stwList;
-	}
-	
-	public List<Raum> getRaumList(String sql) throws ClassNotFoundException, SQLException {
-		List<Raum> raumList = null;
-		Connection con = getDBConnection(datenbankname);
-		Statement stmt = con.createStatement();
-		ResultSet r = stmt.executeQuery(sql);
-		Raum raum = null;
-		boolean val = r.next();
-		if (val == false) {
-			return raumList;
-		} else {
-			raumList = new ArrayList<Raum>();
-			while (val) {
-				raum = new Raum();
-				raum.setId(r.getInt(1));
-				raum.setNr(r.getString(2));
-				raum.setBezeichnung(r.getString(3));
-				raum.setGuid(r.getString(4));
-				raum.setStw_id(r.getInt(5));
-				raumList.add(raum);
-				val = r.next();
-			}
-			con.close(); // Very important!
-		}
-		return raumList;
 	}
 
 	public List<LnDokumentiert> getBerichte(String sql) throws ClassNotFoundException, SQLException {

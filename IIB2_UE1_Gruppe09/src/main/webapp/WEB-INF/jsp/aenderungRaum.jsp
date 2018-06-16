@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Stockwerk ändern</title>
+<title>Wand ändern</title>
 <link rel="stylesheet" href="styles/gmCSS.css">
 <link rel="stylesheet" href="styles/style.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -123,18 +123,25 @@ function start(){
 
   <div id="Gebaeude" class="w3-container city" style="display:block;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Stockwerk ${stockwerk.getBezeichnung()}</div>
-			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungStockwerkForm?gebID=${gebId}">
+  	
+			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Raum ${raum.getBezeichnung()}</div>
+			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungRaumForm?raumID=${raum.getId()}">
 					<div class="form-group">
-					<label for="str">Bezeichnung: </label>
-					<input required id="Bezeichnung" type="text" name="Bezeichnung" value="${stockwerk.getBezeichnung()}" class="form-control"> 
+					<label for="str">Nummer: </label>
+					<input required id="Nummer" type="text" name="Nummer" value="${raum.getNr()}" class="form-control"> 
 					</div>
 					<div class="form-group">
-					<button id="${stockwerk.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">&#10003;</button> 		 
+					<label for="str">Bezeichnung: </label>
+					<input required id="Bezeichnung" type="text" name="Bezeichnung" value="${raum.getBezeichnung()}" class="form-control"> 
+					</div>
+					<div class="form-group">
+					<button id="${raum.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">&#10003;</button> 		 
 	  				</div>
 	  		</form>
-	  		
-			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Räume</div>
+	  		 
+			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Wände</div>
+			
+			<!-- 
 			<c:forEach items="${raeume}" var="raum">
 			
 			<div>
@@ -154,8 +161,8 @@ function start(){
 			</div>
 			
 			</c:forEach>
-			
-			 
+			 -->
+			 <!-- 
 			<br>
 			<form action="${pageContext.request.contextPath}/hinzufuegenRaum?gebID=${gebId}&stwID=${stockwerk.getId()}" method="POST">
 			<div >
@@ -166,7 +173,7 @@ function start(){
 				<div><button class="w3-button w3-block w3-green">Raum hinzufügen</button></div>
 			</div>
 			</form>
-			
+			 -->
 	</div>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">

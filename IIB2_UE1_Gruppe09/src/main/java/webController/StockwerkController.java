@@ -43,7 +43,7 @@ public class StockwerkController {
 		
 		List<Raum> raumList = new ArrayList<Raum>();
 		sql = "SELECT * FROM raum where rau_stw_id = " + StockwerkID + ";";
-		raumList = dbm.getRaumList(sql);
+		raumList = dbm.getRaum(sql);
 		if (raumList!=null) {
 		for(Raum r : raumList) {
 			System.out.println(r.getBezeichnung());

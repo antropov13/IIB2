@@ -33,29 +33,31 @@ public class RaumController {
 		
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
 		this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
+		this.RaumID = Integer.parseInt(req.getParameter("raumID"));
 		//Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		String view;
 		//List<Gebaeude> gebAll = new ArrayList<Gebaeude>(); 
 		DBManager dbm = new DBManager();
-		Stockwerk stw = new Stockwerk();
-		String sql = "SELECT * from stockwerk where stw_id = " + StockwerkID +";";
-		stw = dbm.getStockwerk_(sql);
-		System.out.println(GebaeudeID + " " + StockwerkID);
+		Raum raum = new Raum();
+		String sql = "SELECT * from raum where rau_id = " + RaumID +";";
+		raum = dbm.getRaum_(sql);
+		System.out.println(GebaeudeID + " " + StockwerkID + " " + raum.getBezeichnung());
 		
-		List<Raum> raumList = new ArrayList<Raum>();
-		sql = "SELECT * FROM raum where rau_stw_id = " + StockwerkID + ";";
-		raumList = dbm.getRaumList(sql);
+		//List<Raum> raumList = new ArrayList<Raum>();
+		//sql = "SELECT * FROM raum where rau_stw_id = " + StockwerkID + ";";
+		//raumList = dbm.getRaumList(sql);
 		
-		for(Raum r : raumList) {
-			System.out.println(r.getBezeichnung());
-		}
+		//for(Raum r : raumList) {
+		//	System.out.println(r.getBezeichnung());
+		//}
 		
-		model.addAttribute("raeume", raumList);
-		req.setAttribute("raeume", raumList);
+		model.addAttribute("raum", raum);
+		req.setAttribute("raum", raum);
 		
-		model.addAttribute("stockwerk", stw); 
-		model.addAttribute("gebId", GebaeudeID);
-		view = "/aenderungStockwerk";
+		//req.setAttribute("stock", StockwerkID); 
+		//req.setAttribute("geb", GebaeudeID);
+		
+		view = "/aenderungRaum";
 		return view;
 
 	}
@@ -64,15 +66,15 @@ public class RaumController {
 	public String aenderungRaumForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
-		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
+		this.RaumID = Integer.parseInt(req.getParameter("raumID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		String bezeichnung = req.getParameter("Bezeichnung");
-		System.out.println(GebaeudeID + " " + StockwerkID + " " + bezeichnung);
+		String nummer = req.getParameter("Nummer");
 		DBManager dbm = new DBManager();
-		String sql = "UPDATE stockwerk SET stw_bezeichnung = \"" + bezeichnung + "\" WHERE stw_id = " + StockwerkID + ";";
+		String sql = "UPDATE raum SET rau_nummer = \" " + nummer + "\", rau_bezeichnung = \"" + bezeichnung + "\" WHERE rau_id = " + RaumID + ";";
 		dbm.update(sql);
 		
-		return "redirect:/aenderungGebaeude?gebID="+GebaeudeID;
+		return "redirect:/aenderungStockwerk?gebID="+GebaeudeID+"&stwID="+StockwerkID;
 
 	}
 
@@ -99,8 +101,6 @@ public class RaumController {
 	@RequestMapping(value = "/hinzufuegenRaum", method = RequestMethod.POST)
 	public String hinzufuegenRaum(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-		
-		System.out.println("1234");
 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		DBManager dbm = new DBManager();
