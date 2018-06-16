@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import beansDB.Dezernatmitarbeiter; 
-import beansDB.Gebaeude;
-import beansDB.Stockwerk;
+import beansDB.Gebaeude; 
 import manage.DBManager;
 
 @Controller
-public class GebaeudeController {
+public class StockwerkController {
 
 	public int GebaeudeID = 0;
+	private String aenderungGebaeude;
 
-	@RequestMapping(value = { "/", "gebaeude" })
+	@RequestMapping(value = { "/", "stockwerk" })
 	public String home(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		Dezernatmitarbeiter dma = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
@@ -45,8 +45,8 @@ public class GebaeudeController {
 		return "dezernatmitarbeiter";
 	}
 
-	@RequestMapping(value = "/aenderungGebaeude", method = RequestMethod.GET)
-	public String aenderungGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/aenderungStockwerk", method = RequestMethod.POST)
+	public String aenderungStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
@@ -65,19 +65,6 @@ public class GebaeudeController {
 				break;
 			}
 		}
-		
-		sql = "SELECT * from stockwerk where stw_geb_id = " + GebaeudeID;
-		List<Stockwerk> stwList = dbm.getStw(sql);
-		if (stwList!=null) 
-		{
-			gebToEdit.setStwList(stwList);
-			for(Stockwerk stw : gebToEdit.getStwList())
-			{
-				System.out.println("Stockwerk: " + stw.getBezeichnung());
-			}
-			
-		}
-		model.addAttribute("stwListGeb", stwList);
 		model.addAttribute("gebaeude", gebAll); 
 		model.addAttribute("gebToEdit", gebToEdit);
 		view = "/aenderungGebaeude";
@@ -85,8 +72,8 @@ public class GebaeudeController {
 
 	}
 
-	@RequestMapping(value = "/aenderungGebaeudeForm", method = RequestMethod.POST)
-	public String verifying(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/aenderungStockwerkForm", method = RequestMethod.POST)
+	public String aenderungStockwerkForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
@@ -119,8 +106,8 @@ public class GebaeudeController {
 
 	}
 
-	@RequestMapping(value = "/loeschenGebaeude", method = RequestMethod.POST)
-	public String loeschenGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/loeschenStockwerk", method = RequestMethod.POST)
+	public String loeschenStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		String view = "";
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
@@ -140,25 +127,24 @@ public class GebaeudeController {
 		return "dezernatmitarbeiter";
 	}
 
-	@RequestMapping(value = "/hinzufuegenGebaeude", method = RequestMethod.GET)
-	public String hinzufuegenGebaeude(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/hinzufuegenStockwerk", method = RequestMethod.POST)
+	public String hinzufuegenStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		DBManager dbm = new DBManager();
-
-		String sql = "SELECT * from gebaeude;";
-		List<Gebaeude> gebaeude = dbm.getGeb(sql);
-
-		System.out.println("GebL " + gebaeude.size());
+		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
+		String newStockwerk = req.getParameter("bezeichnungStw");
+		
+		String sql = "INSERT INTO stockwerk (stw_bezeichnung, stw_geb_id) VALUES (\"" + newStockwerk + "\", " + GebaeudeID +")";
+		dbm.update(sql);
  
-		model.addAttribute("gebaeude", gebaeude);
-		req.setAttribute("gebaeude", gebaeude);
-		return "/hinzufuegenGebaeude";
+		return "redirect:/aenderungGebaeude?gebID="+GebaeudeID;
+		
 	}
 
-	@RequestMapping(value = "/hinzufuegenGebaeudeForm", method = RequestMethod.POST)
-	public String hinzufuegenGebaeudeForm(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/hinzufuegenStockwerkForm", method = RequestMethod.POST)
+	public String hinzufuegenStockwerkForms(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		String view = "";
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");

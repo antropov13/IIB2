@@ -5,12 +5,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Gebaeudemenegement - Dezernatmitarbeiter</title>
-	<link rel="stylesheet" href="styles/gmCSS.css">	
-	
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Stockwerk ändern</title>
+<link rel="stylesheet" href="styles/gmCSS.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script>
 function openFunktion(evt, funktion, flag) {
   var i, x, tablinks;
@@ -107,27 +108,40 @@ function start(){
 
   <div id="Gebaeude" class="w3-container city" style="display:block;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="margin-top:10px; height:30px; padding: 5px;" class="w3-block w3-green w3-left-align w3-round">Gebäude ${gebToEdit.getId()}</div>
+			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Gebäude ${gebToEdit.getId()}</div>
 			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit.getId()}">
-		
-			<table class="w3-table w3-bordered">
-					<tr>
-						<th>Strasse</th>
-						<th>Hausnr.</th>
-						<th>Ort</th>
-						<th>PLZ</th> 
-					</tr> 
-						<tr>
-							<td><input type="text" name="strasse" value="${gebToEdit.getStrasse()}"></td>
-	  						<td><input type="text" name="nr" value="${gebToEdit.getHausnummer()}"></td>
-	  						<td><input type="text" name="ort" value="${gebToEdit.getOrt()}"></td>
-	  						<td><input type="number" name="plz" value="${gebToEdit.getPlz()}"></td> 
-	  						<td> <button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">
-	  						  &#10003; 
-							</button>
-	  						</tr> 
-					</table>
-						</form>
+					<div class="form-group">
+					<label for="str">Straße: </label>
+					<input required id="str" type="text" name="strasse" value="${gebToEdit.getStrasse()}" class="form-control"> 
+					</div>
+					<div class="form-group">
+					<label for="nr"> Nummer: </label>
+					<input required id="nr" type="text" name="nr" value="${gebToEdit.getHausnummer()}" class="form-control">
+					</div>
+					<div class="form-group">
+					<label for="ort"> Ort: </label>
+					<input required id="ort" type="text" name="ort" value="${gebToEdit.getOrt()}" class="form-control">
+					</div>
+					<div class="form-group">
+					<label for="pz"> PLZ: </label>
+					<input required id="pz" type="number" name="plz" value="${gebToEdit.getPlz()}" class="form-control"> 
+					</div>
+					<div class="form-group">
+					<button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">&#10003;</button> 		 
+	  				</div>
+	  		</form>
+			
+			<c:forEach items="${stwListGeb}" var="stw">
+			<div class="w3-button w3-block w3-grey">${stw.getBezeichnung()}</div>
+			</c:forEach>
+			<br>
+			<form action="${pageContext.request.contextPath}/hinzufuegenStockwerk?gebID=${gebToEdit.getId()}" method="POST">
+			<div >
+				<div><input placeholder="Bezeichnung" style="text-align: center;" class="w3-block w3-wheit" required id="bezeichnungStw" name="bezeichnungStw" type="text" value=""></div>
+				<div><button class="w3-button w3-block w3-green">Stockwerk hinzufügen</button></div>
+			</div>
+			</form>
+	</div>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
 		<h5 class="w3-bar-item"><p></p></h5>

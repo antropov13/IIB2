@@ -84,30 +84,27 @@ function start(){
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
   			<div style="text-align:center; margin-top:10px; margin-bottom:10px;"> Neues Geb‰ude </div>
 			<form method="POST" id="changes" action="${pageContext.request.contextPath}/hinzufuegenGebaeudeForm">
-				<div class="form-group">
-				<label for="str">Straﬂe: </label>
-				<input id="str" type="text" name="strasse" value="" class="form-control"> 
-				</div>
-				<div class="form-group">
-				<label for="nr"> Nummer: </label>
-				<input id="nr" type="text" name="nr" value="" class="form-control">
-				</div>
-				<div class="form-group">
-				<label for="ort"> Ort: </label>
-				<input id="ort" type="text" name="ort" value="" class="form-control">
-				</div>
-				<div class="form-group">
-				<label for="pz"> PLZ: </label>
-				<input id="pz" type="number" name="plz" value="" class="form-control"> 
-				</div>
-				<div class="form-group">
-				<button id="id2" class="w3-button w3-yellow" title="ƒnderung speichern" type="submit">
-	  						  Best‰tigen
-							</button> 
-	  					 
-	  			</div>
-						</form>
-	  
+					<div class="form-group">
+					<label for="str">Straﬂe: </label>
+					<input required id="str" type="text" name="strasse" value="" class="form-control"> 
+					</div>
+					<div class="form-group">
+					<label for="nr"> Nummer: </label>
+					<input required id="nr" type="text" name="nr" value="" class="form-control">
+					</div>
+					<div class="form-group">
+					<label for="ort"> Ort: </label>
+					<input required id="ort" type="text" name="ort" value="" class="form-control">
+					</div>
+					<div class="form-group">
+					<label for="pz"> PLZ: </label>
+					<input required id="pz" type="number" name="plz" value="" class="form-control"> 
+					</div>
+					<div class="form-group">
+					<button id="id2" class="w3-button w3-yellow" title="ƒnderung speichern" type="submit">Best‰tigen</button> 		 
+	  				</div>
+			</form>
+	  </div>
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
 		<h5 class="w3-bar-item"><p></p></h5>
 	  	</div>

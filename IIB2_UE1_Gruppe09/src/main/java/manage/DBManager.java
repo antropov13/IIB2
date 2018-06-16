@@ -605,6 +605,31 @@ public class DBManager {
 		}
 		return gebList;
 	}
+	
+	public List<Stockwerk> getStw(String sql) throws ClassNotFoundException, SQLException {
+		List<Stockwerk> stwList = null;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Stockwerk stw = null;
+		boolean val = r.next();
+		if (val == false) {
+			return stwList;
+		} else {
+			stwList = new ArrayList<Stockwerk>();
+			while (val) {
+				stw = new Stockwerk();
+				stw.setId(r.getInt(1));
+				stw.setBezeichnung(r.getString(2));
+				stw.setGuid(r.getString(3));
+				stw.setGeb_id(r.getInt(4));
+				stwList.add(stw);
+				val = r.next();
+			}
+			con.close(); // Very important!
+		}
+		return stwList;
+	}
 
 	public List<LnDokumentiert> getBerichte(String sql) throws ClassNotFoundException, SQLException {
 		List<LnDokumentiert> berichte = null;

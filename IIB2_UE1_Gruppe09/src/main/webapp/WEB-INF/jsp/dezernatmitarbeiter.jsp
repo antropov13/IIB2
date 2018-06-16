@@ -194,12 +194,9 @@
 								<td>${geb.getDma_id()}</td>
 								<td><c:if
 										test="${geb.getDma_id() == sessionScope.user.getId() }">
-										<form method="POST">
-											<button type="submit"
-												formaction="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">
+												<a href="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">
 												<i class="fa fa-edit"></i>
-											</button>
-										</form>
+												</a>
 									</c:if></td>
 								<td><c:if
 										test="${geb.getDma_id() == sessionScope.user.getId() }">

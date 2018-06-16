@@ -1,5 +1,7 @@
 package beansDB;
 
+import java.util.List;
+
 public class Gebaeude {
 	
 	private int id;	
@@ -9,7 +11,16 @@ public class Gebaeude {
 	private String ort;
 	private int plz;
 	private int dma_id; 
+	private List<Stockwerk> stwList;
 	
+	
+	public List<Stockwerk> getStwList() {
+		return stwList;
+	}
+
+	public void setStwList(List<Stockwerk> stwList) {
+		this.stwList = stwList;
+	}
 
 	public void setId(int id) {
 		this.id = id;
