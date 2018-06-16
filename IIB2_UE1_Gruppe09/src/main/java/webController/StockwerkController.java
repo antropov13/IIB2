@@ -21,6 +21,7 @@ import manage.DBManager;
 public class StockwerkController {
 
 	public int GebaeudeID = 0;
+	public int StockwerkID = 0;
 	private String aenderungGebaeude;
 
 	@RequestMapping(value = { "/", "stockwerk" })
@@ -106,25 +107,27 @@ public class StockwerkController {
 
 	}
 
-	@RequestMapping(value = "/loeschenStockwerk", method = RequestMethod.POST)
+	@RequestMapping(value = "/loeschenStockwerk", method = RequestMethod.GET)
 	public String loeschenStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		String view = "";
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
+		this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user"); 
-		List<Gebaeude> gebaeude = new ArrayList<Gebaeude>();
+		//List<Gebaeude> gebaeude = new ArrayList<Gebaeude>();
 
 		String sql = "";
 		DBManager dbm = new DBManager();
 
-		sql = "DELETE FROM gebaeude WHERE geb_id = " + GebaeudeID + ";";
+		sql = "DELETE FROM stockwerk WHERE stw_id = " + StockwerkID + ";";
 		dbm.update(sql);
 
-		sql = "SELECT * from gebaeude;";
-		gebaeude = dbm.getGeb(sql);
+		//sql = "SELECT * from gebaeude;";
+		//gebaeude = dbm.getGeb(sql);
 
-		model.addAttribute("gebaeude", gebaeude); 
-		return "dezernatmitarbeiter";
+		//model.addAttribute("gebaeude", gebaeude); 
+		//return "dezernatmitarbeiter";
+		return "redirect:/aenderungGebaeude?gebID="+GebaeudeID;
 	}
 
 	@RequestMapping(value = "/hinzufuegenStockwerk", method = RequestMethod.POST)

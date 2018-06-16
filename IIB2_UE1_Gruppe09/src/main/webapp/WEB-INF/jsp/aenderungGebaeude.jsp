@@ -1,13 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" isELIgnored = "false"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Stockwerk ‰ndern</title>
+<title>Stockwerk √§ndern</title>
 <link rel="stylesheet" href="styles/gmCSS.css">
+<link rel="stylesheet" href="styles/style.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -91,7 +106,7 @@ function start(){
 </div>
 
 <c:if test="${not empty submitDone}">
-  <script>alert("Alle Geb‰ude wurden hinzugef¸gt");
+  <script>alert("Alle Geb√§ude wurden hinzugef√ºgt");
 </script></c:if>
 
 
@@ -99,19 +114,19 @@ function start(){
 <div class="w3-light-grey" style="margin:0 auto; width:1000px; min-height:100%; position:absolute!important; margin-left: auto;margin-right: auto; left: 0; right: 0;">
   <div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
   <h5 class="w3-bar-item">Menu</h5>
-  <a href="<%=request.getContextPath() %>/gebaeude" class="w3-bar-item w3-button tablink w3-red">Geb‰ude</a>
+  <a href="<%=request.getContextPath() %>/gebaeude" class="w3-bar-item w3-button tablink w3-red">Geb√§ude</a>
   <!-- <button class="w3-bar-item w3-button tablink" type="submit">Speichern</button>  -->
-  <button class="w3-bar-item w3-button tablink" onclick="history.back()">Zur¸ck</button>
+  <button class="w3-bar-item w3-button tablink" onclick="history.back()">Zur√ºck</button>
   <a href="<%=request.getContextPath() %>/logout" class="w3-bar-item w3-button tablink">Logout</a>
   </div>
 
 
   <div id="Gebaeude" class="w3-container city" style="display:block;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Geb‰ude ${gebToEdit.getId()}</div>
+			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Geb√§ude ${gebToEdit.getId()}</div>
 			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit.getId()}">
 					<div class="form-group">
-					<label for="str">Straﬂe: </label>
+					<label for="str">Stra√üe: </label>
 					<input required id="str" type="text" name="strasse" value="${gebToEdit.getStrasse()}" class="form-control"> 
 					</div>
 					<div class="form-group">
@@ -127,18 +142,38 @@ function start(){
 					<input required id="pz" type="number" name="plz" value="${gebToEdit.getPlz()}" class="form-control"> 
 					</div>
 					<div class="form-group">
-					<button id="${geb.getId()}" class="w3-button w3-yellow" title="ƒnderung speichern" type="submit">&#10003;</button> 		 
+					<button id="${geb.getId()}" class="w3-button w3-yellow" title="√Ñnderung speichern" type="submit">&#10003;</button> 		 
 	  				</div>
 	  		</form>
-			
+			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Stockwerke</div>
 			<c:forEach items="${stwListGeb}" var="stw">
-			<div class="w3-button w3-block w3-grey">${stw.getBezeichnung()}</div>
+			
+			<div>
+			<table class="w3-table w3-bordered" style="width:100%;">
+			<tr>
+			<td style="width:90%;">
+			<div class="w3-button w3-block w3-grey w3-border-bottom">${stw.getBezeichnung()}</div>
+			</td>
+			<td style="width:5%;">
+			<a href="${pageContext.request.contextPath}/aenderungStw?gebID=${gebToEdit.getId()}&stwID=${stw.getId()}"><i class="fa fa-edit"></i></a>
+			</td>
+			<td style="width:5%;">
+			<a href="${pageContext.request.contextPath}/loeschenStockwerk?gebID=${gebToEdit.getId()}&stwID=${stw.getId()}"><i class="fa fa-trash"></i></a>
+			</td>
+			</tr>
+			</table>
+			</div>
+			
+			<!-- 
+			<div class="w3-button w3-block w3-grey w3-border-bottom">${stw.getBezeichnung()}</div>
+			<div><a href="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">&#9998;</a></div>
+ 			-->
 			</c:forEach>
 			<br>
 			<form action="${pageContext.request.contextPath}/hinzufuegenStockwerk?gebID=${gebToEdit.getId()}" method="POST">
 			<div >
 				<div><input placeholder="Bezeichnung" style="text-align: center;" class="w3-block w3-wheit" required id="bezeichnungStw" name="bezeichnungStw" type="text" value=""></div>
-				<div><button class="w3-button w3-block w3-green">Stockwerk hinzuf¸gen</button></div>
+				<div><button class="w3-button w3-block w3-green">Stockwerk hinzuf√ºgen</button></div>
 			</div>
 			</form>
 	</div>

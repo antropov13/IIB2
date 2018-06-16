@@ -192,8 +192,7 @@
 								<td>${geb.getOrt()}</td>
 								<td>${geb.getPlz()}</td>
 								<td>${geb.getDma_id()}</td>
-								<td><c:if
-										test="${geb.getDma_id() == sessionScope.user.getId() }">
+								<td><c:if test="${geb.getDma_id() == sessionScope.user.getId() }">
 												<a href="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">
 												<i class="fa fa-edit"></i>
 												</a>
