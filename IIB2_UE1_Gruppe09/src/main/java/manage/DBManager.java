@@ -651,6 +651,32 @@ public class DBManager {
 		}
 		return stwList;
 	}
+	
+	public List<Raum> getRaumList(String sql) throws ClassNotFoundException, SQLException {
+		List<Raum> raumList = null;
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet r = stmt.executeQuery(sql);
+		Raum raum = null;
+		boolean val = r.next();
+		if (val == false) {
+			return raumList;
+		} else {
+			raumList = new ArrayList<Raum>();
+			while (val) {
+				raum = new Raum();
+				raum.setId(r.getInt(1));
+				raum.setNr(r.getString(2));
+				raum.setBezeichnung(r.getString(3));
+				raum.setGuid(r.getString(4));
+				raum.setStw_id(r.getInt(5));
+				raumList.add(raum);
+				val = r.next();
+			}
+			con.close(); // Very important!
+		}
+		return raumList;
+	}
 
 	public List<LnDokumentiert> getBerichte(String sql) throws ClassNotFoundException, SQLException {
 		List<LnDokumentiert> berichte = null;

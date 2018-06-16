@@ -20,14 +20,15 @@ import beansDB.Stockwerk;
 import manage.DBManager;
 
 @Controller
-public class StockwerkController {
+public class RaumController {
 
 	public int GebaeudeID = 0;
 	public int StockwerkID = 0;
+	public int RaumID = 0;
 	private String aenderungGebaeude;
 
-	@RequestMapping(value = "/aenderungStockwerk", method = RequestMethod.GET)
-	public String aenderungStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/aenderungRaum", method = RequestMethod.GET)
+	public String aenderungRaum(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
@@ -44,11 +45,11 @@ public class StockwerkController {
 		List<Raum> raumList = new ArrayList<Raum>();
 		sql = "SELECT * FROM raum where rau_stw_id = " + StockwerkID + ";";
 		raumList = dbm.getRaumList(sql);
-		if (raumList!=null) {
+		
 		for(Raum r : raumList) {
 			System.out.println(r.getBezeichnung());
 		}
-		}
+		
 		model.addAttribute("raeume", raumList);
 		req.setAttribute("raeume", raumList);
 		
@@ -59,8 +60,8 @@ public class StockwerkController {
 
 	}
 	
-	@RequestMapping(value = "/aenderungStockwerkForm", method = RequestMethod.POST)
-	public String aenderungStockwerkForm(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/aenderungRaumForm", method = RequestMethod.POST)
+	public String aenderungRaumForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
@@ -76,37 +77,42 @@ public class StockwerkController {
 	}
 
 
-	@RequestMapping(value = "/loeschenStockwerk", method = RequestMethod.GET)
-	public String loeschenStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/loeschenRaum", method = RequestMethod.GET)
+	public String loeschenRaum(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
 		String view = "";
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
 		this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
+		this.RaumID = Integer.parseInt(req.getParameter("raumID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user"); 
 
 		String sql = "";
 		DBManager dbm = new DBManager();
 
-		sql = "DELETE FROM stockwerk WHERE stw_id = " + StockwerkID + ";";
+		sql = "DELETE FROM raum WHERE rau_id = " + RaumID + ";";
 		dbm.update(sql);
 
-		return "redirect:/aenderungGebaeude?gebID="+GebaeudeID;
+		return "redirect:/aenderungStockwerk?stwID="+StockwerkID+"&gebID="+GebaeudeID;
 	}
 	
 
-	@RequestMapping(value = "/hinzufuegenStockwerk", method = RequestMethod.POST)
-	public String hinzufuegenStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
+	@RequestMapping(value = "/hinzufuegenRaum", method = RequestMethod.POST)
+	public String hinzufuegenRaum(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
+		
+		System.out.println("1234");
 
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		DBManager dbm = new DBManager();
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
-		String newStockwerk = req.getParameter("bezeichnungStw");
+		this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
+		String nummerRaum = req.getParameter("nummerRaum");
+		String bezeichnungRaum = req.getParameter("bezeichnungRaum");
 		
-		String sql = "INSERT INTO stockwerk (stw_bezeichnung, stw_geb_id) VALUES (\"" + newStockwerk + "\", " + GebaeudeID +")";
+		String sql = "INSERT INTO raum (rau_nummer, rau_bezeichnung, rau_stw_id) VALUES (\"" + nummerRaum + "\", \"" + bezeichnungRaum  +"\", " + StockwerkID +")";
 		dbm.update(sql);
  
-		return "redirect:/aenderungGebaeude?gebID="+GebaeudeID;
+		return "redirect:/aenderungStockwerk?stwID="+StockwerkID+"&gebID="+GebaeudeID;
 		
 	}
 

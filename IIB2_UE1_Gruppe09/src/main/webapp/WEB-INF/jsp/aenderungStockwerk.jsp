@@ -133,37 +133,40 @@ function start(){
 					<button id="${stockwerk.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">&#10003;</button> 		 
 	  				</div>
 	  		</form>
+	  		
 			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Räume</div>
-			<!-- 
-			<c:forEach items="${stwListGeb}" var="stw">
+			<c:forEach items="${raeume}" var="raum">
 			
 			<div>
 			<table class="w3-table w3-bordered" style="width:100%;">
 			<tr>
 			<td style="width:90%;">
-			<div class="w3-button w3-block w3-grey w3-border-bottom">${stw.getBezeichnung()}</div>
+			<div class="w3-button w3-block w3-grey w3-border-bottom">Raum #${raum.getNr()} - ${raum.getBezeichnung()}</div>
 			</td>
 			<td style="width:5%;">
-			<a href="${pageContext.request.contextPath}/aenderungStockwerk?gebID=${gebToEdit.getId()}&stwID=${stw.getId()}"><i class="fa fa-edit"></i></a>
+			<a href="${pageContext.request.contextPath}/aenderungStockwerk?gebID=${gebToEdit.getId()}&stwID=${raum.getId()}"><i class="fa fa-edit"></i></a>
 			</td>
 			<td style="width:5%;">
-			<a href="${pageContext.request.contextPath}/loeschenStockwerk?gebID=${gebToEdit.getId()}&stwID=${stw.getId()}"><i class="fa fa-trash"></i></a>
+			<a href="${pageContext.request.contextPath}/loeschenRaum?gebID=${gebId}&stwID=${stockwerk.getId()}&raumID=${raum.getId()}"><i class="fa fa-trash"></i></a>
 			</td>
 			</tr>
 			</table>
 			</div>
 			
 			</c:forEach>
-			 -->
-			<!--  
+			
+			 
 			<br>
-			<form action="${pageContext.request.contextPath}/hinzufuegenStockwerk?gebID=${gebToEdit.getId()}" method="POST">
+			<form action="${pageContext.request.contextPath}/hinzufuegenRaum?gebID=${gebId}&stwID=${stockwerk.getId()}" method="POST">
 			<div >
-				<div><input placeholder="Bezeichnung" style="text-align: center;" class="w3-block w3-wheit" required id="bezeichnungStw" name="bezeichnungStw" type="text" value=""></div>
-				<div><button class="w3-button w3-block w3-green">Stockwerk hinzufügen</button></div>
+				<div>
+				<input placeholder="Nummer" style="text-align: center;" class="w3-block w3-wheit" required id="nummerRaum" name="nummerRaum" type="text" value="">
+				<input placeholder="Bezeichnung" style="text-align: center;" class="w3-block w3-wheit" required id="bezeichnungRaum" name="bezeichnungRaum" type="text" value="">
+				</div>
+				<div><button class="w3-button w3-block w3-green">Raum hinzufügen</button></div>
 			</div>
 			</form>
-			 -->
+			
 	</div>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
