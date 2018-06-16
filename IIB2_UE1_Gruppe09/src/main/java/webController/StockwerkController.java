@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import beansDB.Dezernatmitarbeiter; 
-import beansDB.Gebaeude; 
+import beansDB.Gebaeude;
+import beansDB.Stockwerk;
 import manage.DBManager;
 
 @Controller
@@ -24,88 +25,48 @@ public class StockwerkController {
 	public int StockwerkID = 0;
 	private String aenderungGebaeude;
 
-	@RequestMapping(value = { "/", "stockwerk" })
-	public String home(HttpServletRequest req, HttpServletResponse res, Model model)
-			throws ClassNotFoundException, SQLException {
-		Dezernatmitarbeiter dma = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-
-		List<Gebaeude> gebAll = new ArrayList<Gebaeude>(); 
-		DBManager dbm = new DBManager();
-
-		String sql = "SELECT * from gebaeude;";
-		//
-		gebAll = dbm.getGeb(sql);
- 
-
-		req.getSession().setAttribute("gebaeude", gebAll); // set session attribute
-		model.addAttribute("gebaeude", gebAll); 
-		req.getSession().setAttribute("user", dma); // set session attribute
-		model.addAttribute("user", dma);
-		System.out.println("GebL " + gebAll.size());
-
-		return "dezernatmitarbeiter";
-	}
-
-	@RequestMapping(value = "/aenderungStockwerk", method = RequestMethod.POST)
+	@RequestMapping(value = "/aenderungStockwerk", method = RequestMethod.GET)
 	public String aenderungStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
+		
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
-		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
+		this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
+		//Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		String view;
-		List<Gebaeude> gebAll = new ArrayList<Gebaeude>(); 
+		//List<Gebaeude> gebAll = new ArrayList<Gebaeude>(); 
 		DBManager dbm = new DBManager();
-
-		String sql = "SELECT * from gebaeude;";
-		//
-		gebAll = dbm.getGeb(sql);
- 
-		Gebaeude gebToEdit = null;
-		for(Gebaeude g: gebAll) {  
-			if(g.getId() == GebaeudeID) {
-				gebToEdit= g;
-				break;
-			}
-		}
-		model.addAttribute("gebaeude", gebAll); 
-		model.addAttribute("gebToEdit", gebToEdit);
-		view = "/aenderungGebaeude";
+		Stockwerk stw = new Stockwerk();
+		String sql = "SELECT * from stockwerk where stw_id = " + StockwerkID +";";
+		stw = dbm.getStockwerk_(sql);
+		System.out.println(GebaeudeID + " " + StockwerkID);
+		model.addAttribute("stockwerk", stw); 
+		model.addAttribute("gebId", GebaeudeID);
+		view = "/aenderungStockwerk";
 		return view;
 
 	}
-
+	
 	@RequestMapping(value = "/aenderungStockwerkForm", method = RequestMethod.POST)
 	public String aenderungStockwerkForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-
+		
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
-
+		//this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-		List<Gebaeude> gebaeude = (List<Gebaeude>) req.getSession().getAttribute("gebaeude"); 
+		String bezeichnung = req.getParameter("Bezeichnung");
+		System.out.println(GebaeudeID + " " + StockwerkID + " " + bezeichnung);
+		//List<Gebaeude> gebAll = new ArrayList<Gebaeude>(); 
 		DBManager dbm = new DBManager();
-		String str = req.getParameter("strasse");
-		String nr = req.getParameter("nr");
-		String ort = req.getParameter("ort");
-		int plz = Integer.parseInt(req.getParameter("plz"));
-
-		for (Gebaeude g : gebaeude) {
-			if (g.getId() == GebaeudeID) {
-				g.setStrasse(str);
-				g.setHausnummer(nr);
-				g.setOrt(ort);
-				g.setPlz(plz);
-			}
-		}
-
-		String sql = "UPDATE gebaeude SET geb_strasse = \" " + str + "\" , geb_hausnr = \"" + nr + "\" , geb_ort = \""
-				+ ort + "\" , geb_plz = " + plz + " where geb_id = " + GebaeudeID + ";";
+		String sql = "UPDATE stockwerk SET stw_bezeichnung = \"" + bezeichnung + "\" WHERE stw_id = " + StockwerkID + ";";
 		dbm.update(sql);
+		
+		//model.addAttribute("stockwerk", stw); 
+		//model.addAttribute("gebToEdit", gebToEdit);
 
-		sql = "SELECT * from gebaeude;";
-		gebaeude = dbm.getGeb(sql); 
-
-		return "redirect:/dezernatmitarbeiter.jsp";
+		return "redirect:/aenderungGebaeude?gebID="+GebaeudeID;
 
 	}
+
 
 	@RequestMapping(value = "/loeschenStockwerk", method = RequestMethod.GET)
 	public String loeschenStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
@@ -114,7 +75,6 @@ public class StockwerkController {
 		this.GebaeudeID = Integer.parseInt(req.getParameter("gebID"));
 		this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user"); 
-		//List<Gebaeude> gebaeude = new ArrayList<Gebaeude>();
 
 		String sql = "";
 		DBManager dbm = new DBManager();
@@ -122,13 +82,9 @@ public class StockwerkController {
 		sql = "DELETE FROM stockwerk WHERE stw_id = " + StockwerkID + ";";
 		dbm.update(sql);
 
-		//sql = "SELECT * from gebaeude;";
-		//gebaeude = dbm.getGeb(sql);
-
-		//model.addAttribute("gebaeude", gebaeude); 
-		//return "dezernatmitarbeiter";
 		return "redirect:/aenderungGebaeude?gebID="+GebaeudeID;
 	}
+	
 
 	@RequestMapping(value = "/hinzufuegenStockwerk", method = RequestMethod.POST)
 	public String hinzufuegenStockwerk(HttpServletRequest req, HttpServletResponse res, Model model)
@@ -146,35 +102,4 @@ public class StockwerkController {
 		
 	}
 
-	@RequestMapping(value = "/hinzufuegenStockwerkForm", method = RequestMethod.POST)
-	public String hinzufuegenStockwerkForms(HttpServletRequest req, HttpServletResponse res, Model model)
-			throws ClassNotFoundException, SQLException {
-		String view = "";
-		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
-		DBManager dbm = new DBManager();
-		String str = req.getParameter("strasse");
-		String nr = req.getParameter("nr");
-		String ort = req.getParameter("ort");
-		int plz = Integer.parseInt(req.getParameter("plz"));
-
-		String sql = "INSERT INTO gebaeude (geb_strasse, geb_hausnr, geb_ort, geb_plz, geb_dma_id)  VALUES (\"" + str
-				+ "\", \"" + nr + "\", \"" + ort + "\", " + plz + ", " + user.getId() + ");";
-		dbm.update(sql);
-		Gebaeude geb = new Gebaeude();
-		geb.setStrasse(str);
-		geb.setHausnummer(nr);
-		geb.setOrt(ort);
-		geb.setPlz(plz);
-		geb.setDma_id(user.getId());
-
-		sql = "SELECT * from gebaeude;";
-		List<Gebaeude> gebaeude = dbm.getGeb(sql);
-
-		System.out.println("GebL " + gebaeude.size());
- 
-		model.addAttribute("gebaeude", gebaeude);
-		req.setAttribute("gebaeude", gebaeude);
-		 
-		return "dezernatmitarbeiter";
-	}
 }

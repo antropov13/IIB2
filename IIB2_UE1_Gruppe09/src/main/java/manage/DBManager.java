@@ -483,6 +483,27 @@ public class DBManager {
 		}
 		return stwL;
 	}
+	
+	public Stockwerk getStockwerk_(String sql) throws ClassNotFoundException, SQLException {
+		Connection con = getDBConnection(datenbankname);
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		Stockwerk stw = null;
+		boolean val = rs.next();
+		if (val == false) {
+			return null;
+		} else {
+			while (val) {
+				stw = new Stockwerk();
+				stw.setId(rs.getInt(1));
+				stw.setBezeichnung(rs.getString(2));
+				stw.setGuid(rs.getString(3));
+				stw.setGeb_id(rs.getInt(4));
+				val = rs.next();
+			}
+		}
+		return stw;
+	}
 
 	public List<Raum> getRaum(String sql) throws ClassNotFoundException, SQLException {
 		Connection con = getDBConnection(datenbankname);

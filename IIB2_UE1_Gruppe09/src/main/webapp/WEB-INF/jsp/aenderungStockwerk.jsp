@@ -123,29 +123,18 @@ function start(){
 
   <div id="Gebaeude" class="w3-container city" style="display:block;">
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
-			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Gebäude ${gebToEdit.getId()}</div>
-			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungGebaeudeForm?gebID=${gebToEdit.getId()}">
+			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Stockwerk ${stockwerk.getBezeichnung()}</div>
+			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungStockwerkForm?gebID=${gebId}">
 					<div class="form-group">
-					<label for="str">Straße: </label>
-					<input required id="str" type="text" name="strasse" value="${gebToEdit.getStrasse()}" class="form-control"> 
+					<label for="str">Bezeichnung: </label>
+					<input required id="Bezeichnung" type="text" name="Bezeichnung" value="${stockwerk.getBezeichnung()}" class="form-control"> 
 					</div>
 					<div class="form-group">
-					<label for="nr"> Nummer: </label>
-					<input required id="nr" type="text" name="nr" value="${gebToEdit.getHausnummer()}" class="form-control">
-					</div>
-					<div class="form-group">
-					<label for="ort"> Ort: </label>
-					<input required id="ort" type="text" name="ort" value="${gebToEdit.getOrt()}" class="form-control">
-					</div>
-					<div class="form-group">
-					<label for="pz"> PLZ: </label>
-					<input required id="pz" type="number" name="plz" value="${gebToEdit.getPlz()}" class="form-control"> 
-					</div>
-					<div class="form-group">
-					<button id="${geb.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">&#10003;</button> 		 
+					<button id="${stockwerk.getId()}" class="w3-button w3-yellow" title="Änderung speichern" type="submit">&#10003;</button> 		 
 	  				</div>
 	  		</form>
-			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Stockwerke</div>
+			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Räume</div>
+			<!-- 
 			<c:forEach items="${stwListGeb}" var="stw">
 			
 			<div>
@@ -164,11 +153,9 @@ function start(){
 			</table>
 			</div>
 			
-			<!-- 
-			<div class="w3-button w3-block w3-grey w3-border-bottom">${stw.getBezeichnung()}</div>
-			<div><a href="${pageContext.request.contextPath}/aenderungGebaeude?gebID=${geb.getId()}">&#9998;</a></div>
- 			-->
 			</c:forEach>
+			 -->
+			<!--  
 			<br>
 			<form action="${pageContext.request.contextPath}/hinzufuegenStockwerk?gebID=${gebToEdit.getId()}" method="POST">
 			<div >
@@ -176,6 +163,7 @@ function start(){
 				<div><button class="w3-button w3-block w3-green">Stockwerk hinzufügen</button></div>
 			</div>
 			</form>
+			 -->
 	</div>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">
