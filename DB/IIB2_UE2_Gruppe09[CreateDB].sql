@@ -200,7 +200,12 @@ DROP TABLE IF EXISTS `wand`;
 CREATE TABLE IF NOT EXISTS `wand` (
     `wan_id` INT(11) NOT NULL AUTO_INCREMENT,
     `wan_guid` VARCHAR(50) DEFAULT NULL,
-    PRIMARY KEY (`wan_id`)
+    `wan_rau_id` INT(11) DEFAULT NULL,
+    PRIMARY KEY (`wan_id`),
+	KEY `w_rau_id` (`wan_rau_id`),
+    CONSTRAINT `w_rau_id` FOREIGN KEY (`wan_rau_id`)
+        REFERENCES `raum` (`rau_id`)
+        ON DELETE CASCADE ON UPDATE CASCADE
 )  ENGINE=INNODB AUTO_INCREMENT=21 DEFAULT CHARSET=UTF8;
 
 
