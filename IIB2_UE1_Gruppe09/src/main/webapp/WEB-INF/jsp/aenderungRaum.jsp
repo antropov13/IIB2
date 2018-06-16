@@ -125,7 +125,7 @@ function start(){
   	<div style="width:710px; float: left; height: 100%; margin-left:148px">
   	
 			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Raum ${raum.getBezeichnung()}</div>
-			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungRaumForm?raumID=${raum.getId()}">
+			<form method="POST" id="changes" action="${pageContext.request.contextPath}/aenderungRaumForm?stwID=${raum.getStw_id()}&raumID=${raum.getId()}">
 					<div class="form-group">
 					<label for="str">Nummer: </label>
 					<input required id="Nummer" type="text" name="Nummer" value="${raum.getNr()}" class="form-control"> 
@@ -141,39 +141,32 @@ function start(){
 	  		 
 			<div style="text-align:center; margin-top:10px; margin-bottom:10px;">Wände</div>
 			
-			<!-- 
-			<c:forEach items="${raeume}" var="raum">
+			<c:forEach items="${waende}" var="wand">
 			
 			<div>
 			<table class="w3-table w3-bordered" style="width:100%;">
 			<tr>
 			<td style="width:90%;">
-			<div class="w3-button w3-block w3-grey w3-border-bottom">Raum #${raum.getNr()} - ${raum.getBezeichnung()}</div>
+			<div class="w3-button w3-block w3-grey w3-border-bottom">Wand ${wand.getGuid()}</div>
 			</td>
 			<td style="width:5%;">
-			<a href="${pageContext.request.contextPath}/aenderungRaum?gebID=${gebId}&stwID=${stockwerk.getId()}&raumID=${raum.getId()}"><i class="fa fa-edit"></i></a>
-			</td>
-			<td style="width:5%;">
-			<a href="${pageContext.request.contextPath}/loeschenRaum?gebID=${gebId}&stwID=${stockwerk.getId()}&raumID=${raum.getId()}"><i class="fa fa-trash"></i></a>
+			<a href="${pageContext.request.contextPath}/loeschenWand?wandID=${wand.getId()}&raumID=${raum.getId()}"><i class="fa fa-trash"></i></a>
 			</td>
 			</tr>
 			</table>
 			</div>
 			
 			</c:forEach>
-			 -->
-			 <!-- 
+			
 			<br>
-			<form action="${pageContext.request.contextPath}/hinzufuegenRaum?gebID=${gebId}&stwID=${stockwerk.getId()}" method="POST">
+			<form action="${pageContext.request.contextPath}/hinzufuegenWand?raumID=${raum.getId()}" method="POST">
 			<div >
 				<div>
-				<input placeholder="Nummer" style="text-align: center;" class="w3-block w3-wheit" required id="nummerRaum" name="nummerRaum" type="text" value="">
-				<input placeholder="Bezeichnung" style="text-align: center;" class="w3-block w3-wheit" required id="bezeichnungRaum" name="bezeichnungRaum" type="text" value="">
+				<input placeholder="GuID" style="text-align: center;" class="w3-block w3-wheit" required id="guidWand" name="guidWand" type="text" value="">
 				</div>
-				<div><button class="w3-button w3-block w3-green">Raum hinzufügen</button></div>
+				<div><button class="w3-button w3-block w3-green">Wand hinzufügen</button></div>
 			</div>
 			</form>
-			 -->
 	</div>
 	  
 	  	<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px; float: right; margin-left: 870px;">

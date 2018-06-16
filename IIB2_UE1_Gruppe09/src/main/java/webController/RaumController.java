@@ -17,6 +17,7 @@ import beansDB.Dezernatmitarbeiter;
 import beansDB.Gebaeude;
 import beansDB.Raum;
 import beansDB.Stockwerk;
+import beansDB.Wand;
 import manage.DBManager;
 
 @Controller
@@ -43,9 +44,9 @@ public class RaumController {
 		raum = dbm.getRaum_(sql);
 		System.out.println(GebaeudeID + " " + StockwerkID + " " + raum.getBezeichnung());
 		
-		//List<Raum> raumList = new ArrayList<Raum>();
-		//sql = "SELECT * FROM raum where rau_stw_id = " + StockwerkID + ";";
-		//raumList = dbm.getRaumList(sql);
+		List<Wand> wandList = new ArrayList<Wand>();
+		sql = "SELECT * FROM wand where wan_rau_id = " + RaumID + ";";
+		wandList = dbm.getWand(sql);
 		
 		//for(Raum r : raumList) {
 		//	System.out.println(r.getBezeichnung());
@@ -53,9 +54,8 @@ public class RaumController {
 		
 		model.addAttribute("raum", raum);
 		req.setAttribute("raum", raum);
-		
-		//req.setAttribute("stock", StockwerkID); 
-		//req.setAttribute("geb", GebaeudeID);
+		model.addAttribute("waende", wandList);
+		req.setAttribute("waende", wandList);
 		
 		view = "/aenderungRaum";
 		return view;
@@ -65,13 +65,13 @@ public class RaumController {
 	@RequestMapping(value = "/aenderungRaumForm", method = RequestMethod.POST)
 	public String aenderungRaumForm(HttpServletRequest req, HttpServletResponse res, Model model)
 			throws ClassNotFoundException, SQLException {
-		
+		this.StockwerkID = Integer.parseInt(req.getParameter("stwID"));
 		this.RaumID = Integer.parseInt(req.getParameter("raumID"));
 		Dezernatmitarbeiter user = (Dezernatmitarbeiter) req.getSession().getAttribute("user");
 		String bezeichnung = req.getParameter("Bezeichnung");
 		String nummer = req.getParameter("Nummer");
 		DBManager dbm = new DBManager();
-		String sql = "UPDATE raum SET rau_nummer = \" " + nummer + "\", rau_bezeichnung = \"" + bezeichnung + "\" WHERE rau_id = " + RaumID + ";";
+		String sql = "UPDATE raum SET rau_nummer = \"" + nummer + "\", rau_bezeichnung = \"" + bezeichnung + "\" WHERE rau_id = " + RaumID + ";";
 		dbm.update(sql);
 		
 		return "redirect:/aenderungStockwerk?gebID="+GebaeudeID+"&stwID="+StockwerkID;
